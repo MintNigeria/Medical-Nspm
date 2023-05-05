@@ -1,0 +1,122 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Leaves;
+use App\Models\Record;
+use App\Models\User as ModelsUser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+// use Illuminate\Foundation\Auth\User;
+
+class UserController extends Controller
+{
+    public function home(Request $request)
+    {
+        // if (auth()->user()->role !== 'medical_admin') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        return view(
+            'home',
+            with([
+                'leaves' => Leaves::latest()->get(),
+                'records' => Record::latest()->get(),
+            ])
+        );
+    }
+
+    public function index()
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        return view(
+            'users.index',
+            with([
+                'users' => ModelsUser::latest()
+                    ->filter(request(['search']))
+                    ->paginate(100),
+            ])
+        );
+    }
+
+    public function create()
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+        return view('users.register');
+    }
+
+    public function store(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => ['required'],
+            'staff_id' => ['required', Rule::unique('users', 'staff_id')],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'role' => 'required',
+            'locality' => 'required',
+        ]);
+
+        $formFields['password'] = bcrypt('password');
+
+        //Create User
+        ModelsUser::create($formFields);
+
+        return redirect('/users')->with(
+            'message',
+            'New User created successfully!'
+        );
+    }
+
+    public function login()
+    {
+        return view('users.login');
+    }
+
+    public function auth(Request $request)
+    {
+        $formFields = $request->validate([
+            'staff_id' => ['required'],
+            'password' => 'required',
+        ]);
+
+        if (auth()->attempt($formFields)) {
+            $request->session()->regenerate();
+
+            if (auth()->user()->role == 'nurse') {
+                return redirect('/records')->with(
+                    'message',
+                    'You are Logged In'
+                );
+            } elseif (auth()->user()->role == 'pharmacy') {
+                return redirect('/records/pharmacy')->with(
+                    'message',
+                    'You are Logged In'
+                );
+            } elseif (auth()->user()->role == 'him') {
+                return redirect('/patient')->with(
+                    'message',
+                    'You are Logged In'
+                );
+            }
+
+            return redirect('/home')->with('message', 'You are now logged in!');
+        }
+
+        return back()->with('message', 'Invalid Credentials');
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('message', 'You have been logged out!');
+    }
+}
