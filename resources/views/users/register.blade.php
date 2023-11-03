@@ -3,12 +3,12 @@
 @section('content')
 <body>
     <div class="dashboard">
-        {{-- @include('partials._sidebar') --}}
+        @include('partials._sidebar')
         <div class="content p-4">
             <div class="container-record">
                 <div class="centered-div">
                   <div class="card">
-                    <div class="card-header header_inverse">
+                    <div class="card-header bg-color text-white">
                       RECORD USERS
                     </div>
                     <div class="card-body">
@@ -21,7 +21,7 @@
                           type="text"
                           class="form-control text-uppercase"
                           name="name"
-                          placeholder="EXample: James Smith" value="{{old('name')}}"
+                          placeholder="Example: James Smith" value="{{old('name')}}"
                           id=""
                         />
                         @error('name')
@@ -85,7 +85,7 @@
                       </div>
 
 
-                        <button type="submit"  class="mt-5 btn btn-gold header">
+                        <button type="submit"  class="mt-5 btn btn-success">
                           RECORD NEW USers
                         </button>
 

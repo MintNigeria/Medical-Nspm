@@ -13,18 +13,18 @@
           justify-content: space-between;
         "
       >
-        <h4>pharmaceutical [s] Data</h4>
-        @include('partials._searchusers')
+        <h4 class="header-title">pharmaceutical(s)</h4>
+        @include('partials._searchpharmacy')
         <div>
-         <a href="/pharmacy/create" class="btn btn-gold header">Create</a>
+         <a href="/pharmacy/create" class="btn btn-color">Create</a>
          <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
         </div>
 
       </div>
-
+      @include('partials._message')
       <div>
         <table  class="table table-striped table-bordered mt-4" id="myTable">
-            <thead class="header_inverse">
+            <thead class="table-color">
                 <th>NAME</th>
                 <th>NO-OF-UNITS(CURRENTLY)</th>
                 <th>TYPE</th>
@@ -43,12 +43,14 @@
                         <td> {{ $pharmacy->packaging }}</td>
                         <td> {{ $pharmacy->location }}</td>
                         <td style="display: flex; align-items:center;justify-content:space-evenly">
-
-
+                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#pharmacyModal{{ $pharmacy->id }}">
+                                <i class="fa-solid fa-edit text-success"></i>
+                            </a>
+                            @include('partials._modalpharmacy')
                            <form method="POST" action="/pharmacy/{{$pharmacy->id}}">
                                @csrf
                                @method('DELETE')
-                               <button class="btn btn-gold header"><i class="fa-solid fa-trash"></i> Delete</button>
+                               <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Product?')"><i class="fa-solid fa-trash"></i></button>
                              </form>
                         </td>
                     </tr>
@@ -57,13 +59,13 @@
             @else
             <tbody>
             <tr colspan="4">
-                <td>No pharmaceutical Recorded</td>
+                <td>No Pharmaceutical Recorded</td>
             </tr>
             </tbody>
 
             @endunless
         </table>
-        {{-- {{ $pharmacy->links() } --}}
+        {{ $pharmacies->links() }}
       </div>
     </div>
 </div>

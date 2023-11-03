@@ -85,7 +85,7 @@ body {
   padding: 10%;
 }
 
-..services__section > .container-section > h4 {
+.services__section > .container-section > h4 {
   color: teal;
 }
 
@@ -228,8 +228,8 @@ span {
 }
 .sidebar {
   flex: 1;
-  background-color: #4a148c;
-  border-right: 2px solid #4a148c;
+  background-color: #1a237e;
+  border-right: 1px solid #4a148c;
   min-height: 100vh;
   position: relative;
   display: flex;
@@ -239,7 +239,8 @@ span {
 
 .top {
   position: absolute;
-  top: 5px;
+  top: 15px;
+  font-size: 30px;
 }
 
 .bottom {
@@ -257,6 +258,7 @@ span {
 .sidebar_central {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .sidebar_central ul {
@@ -275,7 +277,7 @@ span {
 }
 
 .sidebar_central ul li a {
-  color: whitesmoke;
+  color: #fff;
 }
 
 .sidebar_central ul li a:hover {
@@ -299,8 +301,8 @@ span {
   text-transform: uppercase;
 }
 
-.sidebar_central {
-}
+/* .sidebar_central {
+} */
 
 @media screen {
   #printSection {
@@ -379,3 +381,48 @@ span {
 .card p:hover {
   color: red;
 }
+
+
+
+
+
+/*  */
+
+.bg-color{
+    background-color: #1C2833;
+    color: #37474f;
+}
+
+
+.header-title{
+    color: #1C2833;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.table-color{
+    background-color: #1C2833;
+    color: #fff;
+    font-weight: 900;
+    text-transform: capitalize;
+}
+
+.table-color-body{
+    background-color: #fff;
+    font-weight: 700;
+}
+
+tbody > tr >td{
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
+.btn-color{
+    background-color: #1C2833;
+    color: #808B96;
+}
+
+.color{
+    color: #1a237e;
+}
+

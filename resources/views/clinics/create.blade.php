@@ -5,10 +5,10 @@
     @include('partials._sidebar')
     <div class="content p-4">
 
-        <div class="container">
+        <div class="">
             <div class="centered-div">
               <div class="card">
-                <div class="card-header header_inverse">
+                <div class="card-header bg-color">
                   ADD New Clinic
                 </div>
                 <div class="card-body">
@@ -40,7 +40,7 @@
                     @enderror
                   </div>
 
-                    <button  class="mt-5 btn btn-gold header">
+                    <button  class="mt-5 btn btn-success">
                       SAVE CLINIC
                     </button>
                   </div>

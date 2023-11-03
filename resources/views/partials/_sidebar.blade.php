@@ -1,99 +1,99 @@
 
 
-<div class="sidebar">
+<div class="sidebar bg-color">
     <div class="top">
-        <i class="fas fa-dna sidebar_header"></i>
+        <i class="fas fa-dna bg-color"></i>
     </div>
 
     <div class="sidebar_central">
         <ul class="">
-            @if (auth()->user()->role == 'nurse')
+            {{-- @if (auth()->user()->role == 'nurse') --}}
+            {{-- <li> --}}
+                {{-- <a href="/records">Records</a> --}}
+                    {{-- <i class="fas fa-hospital"></i></a> --}}
+            {{-- </li> --}}
+
             <li>
-                <a href="/records" class="text-white">
-                    <i class="fas fa-hospital"></i></a>
+                {{-- <i class="fas fa-crutch"></i> --}}
+                <a href="/injuries">Injury Records</a>
             </li>
 
             <li>
-                <i class="fas fa-crutch"></i>
-                <a href="/injuries/create" class="text-white">Injury Records</a>
-            </li>
-
-            <li>
-                <i class="fas fa-hospital"></i>
-                <a href="/records/nurse_mgmt" class="text-white">Nurse Mgmt</a>
+                {{-- <i class="fas fa-hospital"></i> --}}
+                <a href="/records/nurse_mgmt">Nurse Mgmt</a>
             </li>
 
 
 
 
-         @elseif (auth()->user()->role == 'pharmacy')
+         {{-- @elseif (auth()->user()->role == 'pharmacy') --}}
          <li>
-            <i class="fas fa-kit-medical"></i>
-            <a href="/inventory" class="text-white">Inventories</a>
+            {{-- <i class="fas fa-kit-medical"></i> --}}
+            <a href="/inventory">Inventories</a>
         </li>
 
             <li>
-                <i class="fas fa-kit-medical"></i>
-                <a href="/pharmacy" class="text-white">Pharmacy</a>
+                {{-- <i class="fas fa-kit-medical"></i> --}}
+                <a href="/pharmacy">Pharmacy</a>
         </li>
 
         <li >
-            <i class="fas fa-kit-medical"></i>
-            <a href="/records/pharmacy" class="text-white">Requests</a>
+            {{-- <i class="fas fa-kit-medical"></i> --}}
+            <a href="/records/pharmacy">Requests</a>
         </li>
 
-        @elseif (auth()->user()->role == 'doctor')
+        {{-- @elseif (auth()->user()->role == 'doctor') --}}
 
         <li>
-            <i class="fas fa-heart-pulse mr-3"></i>
+            {{-- <i class="fas fa-heart-pulse mr-3"></i> --}}
             <a href="/records/manage">View Records</a>
         </li>
 
         <li>
-            <i class="fas fa-heart-pulse"></i>
+            {{-- <i class="fas fa-heart-pulse"></i> --}}
             <a href="/leaves">Sick Leave</a>
         </li>
 
 
-        @elseif (auth()->user()->role == 'him')
+        {{-- @elseif (auth()->user()->role == 'him') --}}
 
             <li>
 
-                <a href="/patient" class="text-white">
-                    <i class="fas fa-thermometer"></i></a>
+                <a href="/patient">Patients</a>
+                    {{-- <i class="fas fa-thermometer"></i></a> --}}
             </li>
 
             <li>
-                <i class="fas fa-pump-medical"></i>
-                <a href="/records/receipt" class="text-white">Receipts</a>
+                {{-- <i class="fas fa-pump-medical"></i> --}}
+                <a href="/records/receipt">Receipts</a>
             </li>
 
             <li>
-                <i class="fas fa-users"></i>
-                <a href="/users" class="text-white">Users</a>
-            </li>
-
-
-
-
-            <li>
-                <i class="fas fa-users"></i>
-                <a href="/clinics" class="text-white">Clinics</a>
+                {{-- <i class="fas fa-users"></i> --}}
+                <a href="/users">Users</a>
             </li>
 
 
 
-        @endif
+
+            <li>
+                {{-- <i class="fas fa-users"></i> --}}
+                <a href="/clinics">Clinics</a>
+            </li>
+
+
+
+        {{-- @endif --}}
 
 
                 <li>
-                    <i class="fas fa-history"></i>
-                    <a href="/admin" class="text-white">Medical Admin</a>
+                    {{-- <i class="fas fa-history"></i> --}}
+                    <a href="/admin">Medical Admin</a>
                 </li>
 
         <li>
-                    <i class="fas fa-history"></i>
-                    <a href="/leaves" class="text-white">History Logs</a>
+                    {{-- <i class="fas fa-history"></i> --}}
+                    <a href="/leaves">History Logs</a>
                 </li>
         </ul>
 

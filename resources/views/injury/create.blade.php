@@ -5,11 +5,14 @@
 <body>
     <div class="dashboard">
         @include('partials._sidebar')
+        {{-- <div style="float:right;">
+            <a class="btn header m-2" href="/injuries">View All Injuries</a>
+          </div> --}}
         <div class="content p-4">
-            <div class="container-record">
-                <div class="centered-div">
+            <div class="">
+                <div class="">
                   <div class="card">
-                    <div class="card-header header_inverse ">
+                    <div class="card-header bg-color ">
                       RECORD INJURY CASES
                     </div>
                     <div class="card-body">
@@ -87,7 +90,7 @@
                         @enderror
                       </div>
 
-                        <button  class="mt-5 btn btn-gold header">
+                        <button  class="mt-5 btn btn-success">
                           CREATE INJURY RECORD
                         </button>
 
@@ -103,9 +106,7 @@
 
                 </div>
 
-                <div  style="position: absolute;right:0;">
-                <a class="btn header m-2" href="/injuries">View All Injuries</a>
-              </div>
+
 
               </div>
 

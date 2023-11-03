@@ -11,7 +11,7 @@
                 <div class="col-6">
 
                        <div class="card">
-                            <div class="card-header header">
+                            <div class="card-header table-color">
                               CREATE NEW RECORD
                             </div>
                             <div class="card-body">
@@ -79,11 +79,11 @@
                                 @enderror
                               </div>
 
-                              @if (auth()->user()->roles === 'nurse')
-                            <button  class="mt-5 btn btn-gold header">
-                                                            CREATE NEW RECORD 4 DEPENDENT
-                                                            </button>
-                              @endif
+                              {{-- @if (auth()->user()->roles === 'nurse') --}}
+                            <button  class="mt-5 btn btn-success">
+                                    CREATE NEW RECORD 4 DEPENDENT
+                            </button>
+                              {{-- @endif --}}
 
 
 
@@ -94,30 +94,31 @@
                 </div>
 
                 <div class="col-6 p-2">
-                    <h5 class="mx-2">Dependent's Records</h5>
+                    <h5 class="mx-2 header-title">Dependent's Records</h5>
                     @unless (count($dependents) === 0)
                     @foreach ($dependents as $dependent)
-                    <div class="card my-1 {{ $dependent->status !== 'closed' ? 'bg-primary' : 'bg-success' }}">
+                    <div class="{{ $dependent->status !== 'closed' ? 'alert-primary' : 'alert-success' }}">
                       <div class="my-1 p-2" style="display: flex;align-items:center; justify-content:space-between;">
-                        <div class="text-white font-weight-bold">{{ $dependent->name }}</div>
-                        @if (auth()->user()->roles === 'doctor')
+                        <div class="text-black font-weight-bold">{{ $dependent->name }}</div>
+                        {{-- @if (auth()->user()->roles === 'doctor') --}}
                              <div>
-                            <a href="/dependents/{{ $dependent->id }}/edit" class="btn btn-outline-" >
+                            <a href="/dependents/{{ $dependent->id }}/edit" class="btn btn-outline-primary" >
                             <i class="fas fa-eye"></i>
                         </a>
                         </div>
-                        @endif
-
-
+                        {{-- @endif --}}
                     </div>
                     </div>
-
                     @endforeach
                     @else
                     <div class="alert-danger my-1 p-2">
                         No Records Found
                     </div>
                     @endunless
+
+                    <div>
+                        {{$dependents->links()}}
+                    </div>
 
                 </div>
             </div>

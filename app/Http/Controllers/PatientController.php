@@ -13,9 +13,9 @@ class PatientController extends Controller
     //Index
     public function index()
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('patients.index', [
             'patients' => Patient::latest()
@@ -35,18 +35,18 @@ class PatientController extends Controller
     // Show Create Form
     public function create()
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
         return view('patients.create');
     }
 
     // Store Listing Data
     public function store(Request $request)
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $formFields = $request->validate([
             'name' => 'required',
@@ -62,16 +62,16 @@ class PatientController extends Controller
 
         return redirect('/patient')->with(
             'message',
-            'Patient created successfully!'
+            'Patient Created successfully!'
         );
     }
 
     // Show Edit Form
     public function edit(Patient $patient)
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('patients.edit', ['patient' => $patient]);
     }
@@ -79,14 +79,15 @@ class PatientController extends Controller
     // Update Listing Data
     public function update(Request $request, Patient $patient)
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $formFields = $request->validate([
-            'name' => 'required',
-            'staff_id' => ['required'],
+            'name' =>  ['required', Rule::unique('patients')->ignore($patient)],
+            'staff_id' =>  ['required', Rule::unique('patients')->ignore($patient)],
             'address' => 'required',
+            'dependencies' => 'nullable',
             'contact' => 'required',
             'birth_date' => 'required',
         ]);
@@ -101,9 +102,9 @@ class PatientController extends Controller
     // Delete Listing
     public function destroy(Patient $patient)
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
         $patient->delete();
         return redirect('/patient')->with(
             'message',
@@ -113,9 +114,9 @@ class PatientController extends Controller
 
     public function export()
     {
-        if (auth()->user()->role !== 'him') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
         return Excel::download(new PatientExport(), 'patients.xlsx');
     }
 }

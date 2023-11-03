@@ -13,21 +13,27 @@
             justify-content: space-between;
           "
         >
-          <h4>Sick Leave [s] Data</h4>
+          <h4 class="header-title">Leave[s]</h4>
+          @include('partials._searchleaves')
+
           <div>
-            <a href="/leaves/create" class="btn btn-gold header">Create New LEAVE</a>
+            <a href="/leaves/create" class="btn bg-color">Create New LEAVE</a>
             <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
           </div>
 
         </div>
-        <div class="card p-2 mt-4">
+        @include('partials._message')
+
+        <div class="">
           <table class="table table-striped table-bordered mt-4" id="myTable">
-            <thead class="header_inverse">
+            <thead class="table-color">
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Staff ID </th>
                 <th scope="col">Comment</th>
                 <th scope="col">No Of Days</th>
+                <th scope="col">Published Date</th>
+                <th scope="col">Updated Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -36,16 +42,25 @@
                 @foreach ($leaves as  $leave)
                     <tr>
                         <td>{{ $leave->patient->name }}</td>
-                        <td>{{ $leave->patient->name }}</td>
-                        <td>{{ $leave->comment }}</td>
+                        <td>{{ $leave->patient->staff_id }}</td>
+                        <td>{{ Str::limit($leave->comment, $limit = 30, $end="...") }}</td>
                         <td>{{ $leave->no_of_days }}</td>
-                        <td>
+                        <td class="text-capitalize">{{ $leave->created_at->format('F j, Y  h:i') }} </td>
+                        <td class="text-capitalize">{{ $leave->updated_at->format('F j, Y  h:i') }} </td>
+                        <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
-                           <form method="POST" action="/leaves/{{$leave->id}}">
-                               @csrf
-                               @method('DELETE')
-                               <button class="btn btn-gold header"><i class="fa-solid fa-trash"></i> Delete</button>
-                             </form>
+                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#leaveModal{{ $leave->id }}">
+                                <i class="fa-solid fa-edit text-success"></i>
+                            </a>
+                            @include('partials._modalleave')
+
+                            <form method="POST" action="/leaves/{{$leave->id}}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -60,6 +75,7 @@
             @endunless
 
           </table>
+          {{ $leaves->links() }}
         </div>
     </div>
 </div>

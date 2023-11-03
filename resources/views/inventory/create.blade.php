@@ -6,11 +6,11 @@
     <div class="dashboard">
         @include('partials._sidebar')
 
-        <div class="content p-4">
-            <div class="container">
+        <div class="content">
+            <div class="p-5">
                 <div class="centered-div">
                   <div class="card">
-                    <div class="card-header header">
+                    <div class="card-header bg-color">
                       ADD New Inventory
                     </div>
                     <div class="card-body">
@@ -61,7 +61,7 @@
                       <div class="form-group">
                         <label class="mt-3">No of Units</label>
                         <input
-                          type="no_of_units"
+                          type="number"
                           class="form-control text-uppercase"
                           name="no_of_units"
                           placeholder="Example: 9" value="{{old('no_of_units')}}"
@@ -75,7 +75,7 @@
                       <div class="form-group">
                         <label class="mt-3">Unit Deficit</label>
                         <input
-                          type="unit_deficit"
+                          type="number"
                           class="form-control text-uppercase"
                           name="unit_deficit"
                           placeholder="Example: 2" value="{{old('unit_deficit')}}"
@@ -101,7 +101,7 @@
                       </div>
 
 
-                        <button  class="mt-5 btn btn-gold header">
+                        <button  class="mt-5 btn btn-success">
                           CREATE Inventory
                         </button>
                       </div>

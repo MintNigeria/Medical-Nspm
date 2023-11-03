@@ -8,7 +8,7 @@
             @include('partials._message')
             <div class="centered-div p-5">
               <div class="card">
-                <div class="card-header header_inverse">
+                <div class="card-header bg-color text-white">
                   ADD New Patient
                 </div>
                 <div class="card-body">
@@ -111,7 +111,7 @@
 
 
 
-                    <button  class="mt-5 btn btn-gold header">
+                    <button  class="mt-5 btn btn-success">
                       CREATE patient
                     </button>
                   </div>

@@ -4,9 +4,7 @@
 <body>
     <div class="dashboard">
         @include('partials._sidebar')
-        <div class="content px-2 py-5">
-    @include('partials._message')
-
+        <div class="content p-4">
             <div
               class="font-weight-bold"
               style="
@@ -15,16 +13,19 @@
                 justify-content: space-between;
               "
             >
-              <h4>Clinics [s] Data</h4>
+              <h4 class="header-title">Clinic(s)</h4>
+            @include('partials._searchclinic')
               <div>
-                <a href="/clinics/create" class="btn btn-gold header">Create New Clinic</a>
+                <a href="/clinics/create" class="btn bg-color">Create New Clinic</a>
               <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
               </div>
 
             </div>
+          @include('partials._message')
+
             <div class="p-2 mt-2">
               <table class="table table-striped table-bordered mt-4" id="myTable">
-                <thead class="header_inverse">
+                <thead class="table-color">
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Type </th>
@@ -38,10 +39,14 @@
                             <td>{{ $clinic->name }}</td>
                             <td>{{ $clinic->type }}</td>
                             <td style="display:flex; align-items:center; justify-content:space-evenly">
-                                <form method="POST" action="/clinic/{{$clinic->id}}">
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#clinicModal{{ $clinic->id }}">
+                                    <i class="fa-solid fa-edit text-success"></i>
+                                </a>
+                                @include('partials._modalclinic')
+                                <form method="POST" action="/clinics/{{$clinic->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-gold header"><i class="fa-solid fa-trash"></i> Delete</button>
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Clinic?')"><i class="fa-solid fa-trash"></i> </button>
                                   </form>
 
                             </td>

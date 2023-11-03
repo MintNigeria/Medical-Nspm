@@ -8,7 +8,7 @@
         <div class="p-5">
             <div class="centered-div">
               <div class="card">
-                <div class="card-header header_inverse">
+                <div class="card-header  bg-color text-white">
                   ADD New pharmaceutical
                 </div>
                 <div class="card-body">
@@ -48,6 +48,7 @@
                         <option value="CARTONS">CARTONS</option>
                         <option value="NIL">NIL</option>
                     </select>
+                  </div>
 
                     <div class="form-group">
                         <label class="mt-4"> NO OF UNITS</label>
@@ -68,7 +69,7 @@
                     @enderror
                   </div>
 
-                    <button  class="mt-5 btn btn-gold header">
+                    <button  class="mt-5 btn btn-success">
                       SAVE pharmaceutical
                     </button>
                   </div>

@@ -14,54 +14,57 @@
               justify-content: space-between;
             "
           >
-            <h4>User [s] Data</h4>
+            <h4 class="header-title">User(s)</h4>
             @include('partials._searchusers')
             <div>
-               <a href="/users/register" class="btn btn-gold header">Create New User</a>
+               <a href="/users/register" class="btn btn-color">Create New User</a>
                <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
             </div>
-
+          @include('partials._message')
           </div>
 
           <div>
-            <table  class="table table-striped table-bordered mt-4" id="myTable">
-                <thead class="header_inverse">
+            <table  class="table table-striped table-bordered tabel mt-4" id="myTable">
+                <thead class="table-color">
                     <th>Staff ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    {{-- <th></th> --}}
+                    <th>Locality</th>
                     <th>Actions</th>
                 </thead>
                 @unless (count($users) === 0)
                 <tbody>
                     @foreach ($users as  $user)
+
                         <tr>
                             <td>{{ $user->staff_id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td> {{ $user->role }}</td>
-                            <td style="display: flex; align-items:center;justify-content:space-evenly">
+                            <td> {{ $user->locality }}</td>
+                            <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
-                                <button type="button"  class="btn header" data-mdb-toggle="modal" data-mdb-target="#exampleModal{{ $user->id }}">
-                                    View Users
-                                  </button>
-                                 {{-- @include('partials._viewmodal') --}}
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#userModal{{ $user->id }}">
+                                    <i class="fa-solid fa-edit text-success"></i>
+                                </a>
+                                @include('partials._modalusers')
 
-
-                               <form method="POST" action="/users/{{$user->id}}">
-                                   @csrf
-                                   @method('DELETE')
-                                   <button class="btn btn-gold header"><i class="fa-solid fa-trash"></i> Delete</button>
-                                 </form>
+                                <form method="POST" action="/users/{{$user->id}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this User?')">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
                 @else
                 <tbody>
-                <tr colspan="4">
-                    <td>No SICK Leaves Recorded</td>
+                <tr colspan="6">
+                    <td class="text-center text-capitalize">No Users Recorded</td>
                 </tr>
                 </tbody>
 

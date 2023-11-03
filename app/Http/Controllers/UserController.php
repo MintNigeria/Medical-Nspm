@@ -37,8 +37,9 @@ class UserController extends Controller
             'users.index',
             with([
                 'users' => ModelsUser::latest()
+                    ->where('id', '!=', auth()->user()->id)
                     ->filter(request(['search']))
-                    ->paginate(100),
+                    ->paginate(45),
             ])
         );
     }
@@ -69,6 +70,31 @@ class UserController extends Controller
         return redirect('/users')->with(
             'message',
             'New User created successfully!'
+        );
+    }
+
+
+    public function update(Request $request, ModelsUser $user){
+        $formFields = $request->validate([
+            'name' => ['required'],
+            'staff_id' => ['required', Rule::unique('users')->ignore($user)],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user),
+            ],
+            'role' => 'required',
+            'locality' => 'required',
+        ]);
+
+        $formFields['password'] = bcrypt('password');
+
+        //Create User
+        $user->update($formFields);
+
+        return redirect('/users')->with(
+            'message',
+            'User Updated successfully!'
         );
     }
 
@@ -108,6 +134,12 @@ class UserController extends Controller
         }
 
         return back()->with('message', 'Invalid Credentials');
+    }
+
+    public function destroy(ModelsUser $user)
+    {
+        $user->delete();
+        return back()->with('message', 'User deleted successfully');
     }
 
     public function logout(Request $request)

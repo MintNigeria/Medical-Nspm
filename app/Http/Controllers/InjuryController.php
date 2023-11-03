@@ -10,9 +10,9 @@ class InjuryController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role !== 'nurse') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view(
             'injury.index',
@@ -20,16 +20,16 @@ class InjuryController extends Controller
                 'patients' => Patient::latest()->get(),
                 'injuries' => Injury::latest()
                     ->filter(request(['search']))
-                    ->paginate(100),
+                    ->paginate(45),
             ])
         );
     }
 
     public function create()
     {
-        if (auth()->user()->role !== 'nurse') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view(
             'injury.create',
@@ -41,9 +41,9 @@ class InjuryController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()->role !== 'nurse') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $formFields = $request->validate([
             'injury' => 'nullable',
@@ -59,5 +59,32 @@ class InjuryController extends Controller
             'message',
             'New Injury Recorded successfully!'
         );
+    }
+
+    public function update(Request $request, Injury $injury)
+    {
+        $formFields = $request->validate([
+            'injury' => 'nullable',
+            'treatment' => 'nullable',
+            'medications' => 'nullable',
+            'cost_total' => 'nullable',
+            // 'patient_id' => 'required',
+        ]);
+
+
+        $formFields['patient_id'] = $injury->patient_id;
+
+        $injury->update($formFields);
+
+        return redirect('/injuries')->with(
+            'message',
+            'New Injury Updated successfully!'
+        );
+    }
+
+    public function destroy(Injury $injury)
+    {
+        $injury->delete();
+        return back()->with('message', 'Injury deleted');
     }
 }

@@ -14,13 +14,17 @@
                 justify-content: space-between;
               "
             >
-              <h4>Injur [ies] Data</h4>
+              <h4 class="header-title">Injuries Record</h4>
               @include('partials._searchinjury')
-              <a href="/patient/create" class="btn btn-gold header">Record New Injury</a>
+              <a href="/injuries/create" class="btn bg-color">Record New Injury</a>
+              <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
+
             </div>
-            <div class="card p-2 mt-4">
+          @include('partials._message')
+
+            <div class="p-2">
               <table class="table table-striped table-bordered mt-4">
-                <thead class="header_inverse">
+                <thead class="table-color">
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Staff ID </th>
@@ -39,29 +43,24 @@
                             <td>{{ $injury->patient->staff_id }}</td>
                             <td>{{ $injury->injury }}</td>
                             <td>{{ $injury->treatment }}</td>
-                            <td>{{ $injury->cost_total }}</td>
-                            <td style="display:flex; align-items:center; justify-content:space-evenly">
-                                {{-- <a href="/injury/{{ $injury->id }}/edit" class="btn btn-success">
-                                     <i class="fas fa-pencil" style="cursor: pointer;color:whitesmoke"></i>
-                                     View
-                                </a> --}}
-                                <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#injury{{ $injury->id }}Modal">
-                                    View
-                                </button>
+                            <td class="text-uppercase">N {{ number_format($injury->cost_total, 0, '.', ',') }}</td>
+                            <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#injuryModal{{ $injury->id }}">
+                                    <i class="fa-solid fa-edit text-success"></i>
+                                </a>
+                                @include('partials._modalinjury')
 
-
-
-                                <form method="POST" action="/injury/{{$injury->id}}">
+                                <form method="POST" action="/injuries/{{$injury->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-gold header"><i class="fa-solid fa-trash"></i> Delete</button>
-                                  </form>
-
-
+                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                </form>
                             </td>
 
-                              @include('partials._injurymodal')
+                              {{-- @include('partials._injurymodal') --}}
 
                         </tr>
                     @endforeach

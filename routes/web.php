@@ -169,6 +169,11 @@ Route::get('/leaves/create', [LeaveController::class, 'create'])->middleware(
 );
 Route::post('/leaves', [LeaveController::class, 'store'])->middleware('auth');
 
+Route::put('/leaves/{leave}', [
+    LeaveController::class,
+    'update',
+])->middleware('auth');
+
 //Delete Medical Leave
 Route::delete('/leaves/{leave}', [
     LeaveController::class,
@@ -202,6 +207,7 @@ Route::put('/dependents/{dependent}/flag_success', [
     DependentController::class,
     'flag_success',
 ])->middleware('auth');
+
 Route::put('/dependents/{dependent}/flag_success', [
     DependentController::class,
     'flag_nt_stock',
@@ -220,12 +226,23 @@ Route::post('/pharmacy', [PharmacyController::class, 'store'])->middleware(
     'auth'
 );
 
+Route::put('/pharmacy/{pharmacy}', [PharmacyController::class, 'update'])->middleware(
+    'auth'
+);
+
+Route::delete('/pharmacy/{pharmacy}', [PharmacyController::class, 'destroy'])->middleware(
+    'auth'
+);
+
 /** Clinics  */
 Route::get('/clinics', [ClinicController::class, 'index'])->middleware('auth');
 Route::get('/clinics/create', [ClinicController::class, 'create'])->middleware(
     'auth'
 );
 Route::post('/clinics', [ClinicController::class, 'store'])->middleware('auth');
+Route::put('/clinics/{clinic}', [ClinicController::class, 'update'])->middleware(
+    'auth'
+);
 Route::delete('/clinics/{clinic}', [
     ClinicController::class,
     'destroy',
@@ -268,6 +285,13 @@ Route::get('/users/register', [UserController::class, 'create'])->middleware(
 Route::post('/users/create', [UserController::class, 'store'])->middleware(
     'auth'
 );
+Route::put('/users/{user}', [UserController::class, 'update'])->middleware(
+    'auth'
+);
+
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware(
+    'auth'
+);
 
 // Log User Out
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
@@ -285,5 +309,11 @@ Route::get('/injuries/create', [InjuryController::class, 'create'])->middleware(
 
 Route::get('/injuries', [InjuryController::class, 'index'])->middleware('auth');
 Route::post('/injuries', [InjuryController::class, 'store'])->middleware(
+    'auth'
+);
+Route::put('/injuries/{injury}', [InjuryController::class, 'update'])->middleware(
+    'auth'
+);
+Route::delete('/injuries/{injury}', [InjuryController::class, 'destroy'])->middleware(
     'auth'
 );

@@ -5,7 +5,7 @@
 <body>
     <div class="dashboard">
         @include('partials._sidebar')
-        <div class="content px-5 py-5">
+        <div class="content p-4">
             <div
               class="font-weight-bold"
               style="
@@ -14,16 +14,17 @@
                 justify-content: space-between;
               "
             >
-              <h4>Inventory  Data</h4>
+              <h4 class="header-title">Inventory  Data</h4>
+              @include('partials._searchinventory')
               <div>
-                 <a href="/inventory/create" class="btn btn-gold header">Create Inventory</a>
+                 <a href="/inventory/create" class="btn btn-color">Create Inventory</a>
               <button onclick="exportToCsv()" class="btn btn-outline-success">Export XLS</button>
               </div>
-
             </div>
-            <div class="card p-2 mt-4">
+            @include('partials._message')
+            <div>
               <table class="table table-striped table-bordered mt-4" id="myTable">
-                <thead class="header_inverse">
+                <thead class="table-color">
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Product Type </th>
@@ -43,27 +44,31 @@
                             <td class="{{ $inventory->no_of_units > $inventory->unit_deficit   ? 'text-success':  'text-danger'}}" >{{ $inventory->no_of_units }}</td>
                             <td>{{ $inventory->location }}</td>
                             <td style="display:flex; align-items:center; justify-content:space-evenly">
-                                <a href="/inventory/{{ $inventory->id }}/edit" class="btn btn-success">
-                                     <i class="fas fa-pencil" style="cursor: pointer;color:whitesmoke"></i>
-                                     Edit
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#inventoryModal{{ $inventory->id }}">
+                                    <i class="fa-solid fa-edit text-success"></i>
                                 </a>
+
+                                @include('partials._modalinventory')
+
                                 <form method="POST" action="/inventory/{{$inventory->id}}/increment">
                                     @csrf
                                     @method('PUT')
-                                    <button class="btn btn-outline-secondary"><i class="fa-solid fa-plus font-weight-bold"></i></button>
+                                    <button class="btn" onclick="return confirm('Are you sure you want to increase count for this Item?')"><i class="fa-solid fa-plus"></i></button>
                                   </form>
 
                                 <form method="POST" action="/inventory/{{$inventory->id}}/reduce">
                                     @csrf
                                     @method('PUT')
-                                    <button class="btn btn-outline-secondary"><i class="fa-solid fa-minus font-weight-bold"></i></button>
+                                    <button class="btn" onclick="return confirm('Are you sure you want to reduce count for this Item?')"><i class="fa-solid fa-minus"></i></button>
                                   </form>
 
-                                <form method="POST" action="/inventory/{{$inventory->id}}">
+                                  <form method="POST" action="/inventory/{{$inventory->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-gold header"><i class="fa-solid fa-trash"></i> Delete</button>
-                                  </form>
+                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                </form>
 
 
                             </td>

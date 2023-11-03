@@ -6,10 +6,10 @@
     <div class="dashboard">
         @include('partials._sidebar')
         <div class="content p-4">
-            <div class="container-record">
+            <div class="">
                 <div class="centered-div">
                   <div class="card">
-                    <div class="card-header header_inverse">
+                    <div class="card-header bg-color text-white">
                       RECORD MEDICAL LEAVE
                     </div>
                     <div class="card-body">
@@ -61,7 +61,7 @@
                       </div>
 
 
-                        <button  class="mt-5 btn btn-gold header">
+                        <button  class="mt-5 btn btn-success">
                           RECORD MEDICAL LEAVE
                         </button>
 

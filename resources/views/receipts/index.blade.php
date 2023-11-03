@@ -13,17 +13,18 @@
                 justify-content: space-between;
               "
             >
-              <h4>Receipt[s] Data</h4>
+              <h4 class="header-title">Receipt[s]</h4>
 
               <div>
+                <a href="/records/receipt" class="btn btn-color">Create New Receipt</a>
                  <button onclick="exportToCsv()" class="btn btn-outline-success">Export</button>
               </div>
 
               {{-- @include('partials._search') --}}
             </div>
-            <div class="card p-2 mt-4">
+            <div class="p-2">
               <table class="table table-striped table-bordered mt-4" id="myTable">
-                <thead class="header_inverse">
+                <thead class="table-color">
                   <tr>
                     <th scope="col">Staff_ID</th>
                     <th scope="col">Is Dependent</th>
@@ -67,6 +68,7 @@
                 @endunless
 
               </table>
+              {{-- {{ $receipts->links() }} --}}
             </div>
         </div>
     </div>

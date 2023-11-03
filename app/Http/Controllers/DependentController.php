@@ -11,7 +11,7 @@ class DependentController extends Controller
     public function index(Patient $patient)
     {
         return view('dependents.dependent', [
-            'dependents' => Dependent::latest()->get(),
+            'dependents' => Dependent::latest()->filter(request(['search']))->paginate(1),
             'patient' => $patient,
         ]);
     }
