@@ -13,17 +13,17 @@
           justify-content: space-between;
         "
       >
-        <h4 class="header-title">pharmaceutical(s)</h4>
+        <h4 class="header-title">Archives</h4>
         @include('partials._searchpharmacy')
-        <div>
+        {{-- <div>
          <a href="/pharmacy/create" class="btn btn-color">Create</a>
          <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
-        </div>
+        </div> --}}
 
       </div>
       @include('partials._message')
       <div>
-        <a class="archive" href="/pharmacy/archive">View Archived Posts</a>
+        <a class="archive" href="/pharmacy/">View Pharmaceticauls</a>
         <table  class="table table-striped table-bordered mt-4" id="myTable">
             <thead class="table-color">
                 <th>NAME</th>
@@ -44,14 +44,19 @@
                         <td> {{ $pharmacy->packaging }}</td>
                         <td> {{ $pharmacy->location }}</td>
                         <td style="display: flex; align-items:center;justify-content:space-evenly">
-                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#pharmacyModal{{ $pharmacy->id }}">
-                                <i class="fa-solid fa-edit text-success"></i>
+                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyepharmacyModal{{ $pharmacy->id }}">
+                                <i class="fa-solid fa-eye text-success"></i>
                             </a>
+                            <form method="POST" action="/pharmacy/{{$pharmacy->id}}/restore">
+                                @csrf
+                                <button class="btn btn-success text-white" onclick="return confirm('Are you sure you want to restore this item?')">Restore</button>
+                              </form>
+
                             @include('partials._modalpharmacy')
                            <form method="POST" action="/pharmacy/{{$pharmacy->id}}">
                                @csrf
                                @method('DELETE')
-                               <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Product?')"><i class="fa-solid fa-trash"></i></button>
+                               <button class="btn btn-danger text-white" onclick="return confirm('Are you sure you want to delete this Product?')"><i class="fa-solid fa-trash"></i></button>
                              </form>
                         </td>
                     </tr>

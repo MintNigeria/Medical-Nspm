@@ -36,7 +36,26 @@ class UserController extends Controller
         return view(
             'users.index',
             with([
+                'archives' =>ModelsUser::onlyTrashed(),
                 'users' => ModelsUser::latest()
+                    ->where('id', '!=', auth()->user()->id)
+                    ->filter(request(['search']))
+                    ->paginate(45),
+            ])
+        );
+    }
+
+    public function archive()
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        return view(
+            'users.archive',
+            with([
+                // 'archives' =>ModelsUser::withTrashed(),
+                'users' => ModelsUser::onlyTrashed()
                     ->where('id', '!=', auth()->user()->id)
                     ->filter(request(['search']))
                     ->paginate(45),
@@ -136,8 +155,21 @@ class UserController extends Controller
         return back()->with('message', 'Invalid Credentials');
     }
 
+    public function restore(ModelsUser $user)
+    {
+
+        $user->restore();
+        return back()->with('message', 'User restored successfully');
+    }
+
+
     public function destroy(ModelsUser $user)
     {
+        if($user->trashed()){
+            $user->forceDelete();
+          return back()->with('message', 'User deleted permanently');
+
+        }
         $user->delete();
         return back()->with('message', 'User deleted successfully');
     }

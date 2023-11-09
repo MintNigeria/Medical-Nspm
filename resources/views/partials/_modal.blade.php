@@ -7,34 +7,34 @@
           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="alert-primary p-2">
+            <div class="alert-success p-2">
                 <p >
                     {{ $record->patient->name }}
                 </p>
             </div>
-            <div class="alert-primary p-2 mt-1">
+            <div class="alert-success p-2 mt-1">
                 <p >
                     {{ $record->patient->staff_id }}
                 </p>
             </div>
-            <div class="alert-primary p-2 mt-1">
+            <div class="alert-success p-2 mt-1">
                 <p >
                     {{ $record->patient->address }}
                 </p>
             </div>
-            <div class="alert-primary p-2 mt-1">
+            <div class="alert-success p-2 mt-1">
                 <p >
                     {{ $record->patient->address }}
                 </p>
             </div>
 
-            <div class="alert-primary p-2 mt-1">
+            <div class="alert-success p-2 mt-1">
                 <p >
                     {{ $record->patient->contact }}
                 </p>
             </div>
 
-            <div class="alert-primary p-2 mt-1">
+            <div class="alert-success p-2 mt-1">
                 <p >
                    No of Records " {{ $record->count() }} "
                 </p>

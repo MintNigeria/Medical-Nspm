@@ -13,7 +13,20 @@ class ClinicController extends Controller
         //     abort(403, 'Unauthorized Action');
         // }
         return view('clinics.index', [
+            'archives' =>Clinic::onlyTrashed(),
             'clinics' => Clinic::latest()
+                ->filter(request(['search']))
+                ->paginate(100),
+        ]);
+    }
+
+    public function archive()
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+        return view('clinics.archive', [
+            'clinics' => Clinic::onlyTrashed()
                 ->filter(request(['search']))
                 ->paginate(100),
         ]);
@@ -63,7 +76,27 @@ class ClinicController extends Controller
         // if (auth()->user()->role !== 'him') {
         //     abort(403, 'Unauthorized Action');
         // }
+        if($clinic->trashed()){
+            $clinic->forceDelete();
+            return redirect('/clinics')->with(
+                'message',
+                'Clinic deleted Permanently'
+            );
+        }
         $clinic->delete();
+        return redirect('/clinics')->with(
+            'message',
+            'Clinic deleted successfully'
+        );
+    }
+
+    public function restore(Clinic $clinic)
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        $clinic->restore();
         return redirect('/clinics')->with(
             'message',
             'Clinic deleted successfully'

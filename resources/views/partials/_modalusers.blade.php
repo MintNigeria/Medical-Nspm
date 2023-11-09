@@ -84,3 +84,54 @@
     </div>
   </div>
 
+<!-- Modal -->
+<div class="modal fade text-uppercase" id="eyeuserModal{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-bluedark">
+                <h5 class="modal-title" id="exampleModalLabel">User Profile</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/users/{{ $user->id }}" method="POST">
+                @csrf
+                @method('PUT')
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <h4>{{ $user->name }}</h4>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label>Staff ID</label>
+                    <h4>{{ $user->staff_id }}</h4>
+
+                </div>
+
+                <div class="form-group mt-3">
+                    <label>Email Address</label>
+                    <h4>{{ $user->email }}</h4>
+
+                </div>
+
+                <div class="form-group mt-1">
+                    <label class="mt-4">Role</label>
+                    <h4>{{ $user->role }}</h4>
+
+                  </div>
+
+
+                  <div class="form-group mt-1">
+                    <label class="mt-4">Define Locality</label>
+                    <h4>{{ $user->locality }}</h4>
+
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>
+                </div>
+        </form>
+            </div>
+    </div>
+  </div>

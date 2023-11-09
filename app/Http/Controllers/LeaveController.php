@@ -13,8 +13,24 @@ class LeaveController extends Controller
         return view(
              'leaves.index',
         with([
+            'archives' =>Leaves::onlyTrashed(),
             'patients' => Patient::latest()->get(),
             'leaves' => Leaves::latest()
+                // ->where('id', '!=', auth()->user()->id)
+                ->filter(request(['search']))
+                ->paginate(45),
+        ])
+    );
+
+    }
+
+    public function archive()
+    {
+        return view(
+             'leaves.archive',
+        with([
+            'patients' => Patient::latest()->get(),
+            'leaves' => Leaves::onlyTrashed()
                 // ->where('id', '!=', auth()->user()->id)
                 ->filter(request(['search']))
                 ->paginate(45),
@@ -73,10 +89,26 @@ class LeaveController extends Controller
     //Delete LEave
     public function destroy(Leaves $leave)
     {
+        if($leave->trashed()){
+            $leave->forceDelete();
+            return redirect('/leaves')->with(
+                'message',
+                'Medical Leave deleted permanently'
+            );
+        }
         $leave->delete();
         return redirect('/leaves')->with(
             'message',
             'Medical Leave deleted successfully'
+        );
+    }
+
+    public function restore(Leaves $leave)
+    {
+        $leave->restore();
+        return redirect('/leaves')->with(
+            'message',
+            'Medical Leave restored successfully'
         );
     }
 }

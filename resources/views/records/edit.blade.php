@@ -18,7 +18,7 @@
         @endif
 
         <div class="card" style="overflow-y: auto">
-            <div class="card-header header_inverse">
+            <div class="card-header text-success bg-color">
                 <div style="display:flex;align-items:center;justify-content:space-between">
                     <p>RECORD [ {{ $record->patient->name }} / {{ $record->patient->staff_id }} ]</p>
                     {{-- <a class="btn btn-gold" href="/records/{{ $record->patient->id }}/view">
@@ -52,14 +52,14 @@
                             {{ $record->nurse_notes }}</b></p>
                 <hr>
 
-                <div class="alert-primary p-4 text-danger" style="border-radius:25px;font-weight:bold; ">
-                    <a href="/records/{{ $record->patient->id }}/view" class="text-danger">
+                <div class="alert-success p-4 text-success" style="border-radius:10px;font-weight:bold;">
+                    <a href="/records/{{ $record->patient->id }}/view" class="text-success">
                         VIEW PAST RECORDS
                     </a>
                 </div>
 
                 <hr>
-                <b class="text-primary">
+                <b class="text-success">
                     DOCTOR'S ACTIONS
                 </b>
 

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'role:admin,editor'])->group(function () {
 /** Patients  CRUD */
 // All Listings
 Route::get('patient/', [PatientController::class, 'index'])->middleware('auth');
+Route::get('patient/archive', [PatientController::class, 'archive'])->middleware('auth');
 
 // Show Create Form
 Route::get('/patient/create', [PatientController::class, 'create'])->middleware(
@@ -65,7 +66,12 @@ Route::get('/patient/export/', [PatientController::class, 'export']);
 Route::delete('/patient/{patient}', [
     PatientController::class,
     'destroy',
-])->middleware('auth');
+])->middleware('auth')->withTrashed();
+
+Route::post('/patient/{patient}/restore', [
+    PatientController::class,
+    'restore',
+])->middleware('auth')->withTrashed();
 
 // // Single Listing
 // Route::get('/patient/{patient}', [PatientController::class, 'show']);
@@ -123,6 +129,9 @@ Route::get('/record/{record}', [RecordController::class, 'show'])->middleware(
 Route::get('/inventory', [InventoryController::class, 'index'])->middleware(
     'auth'
 );
+Route::get('/inventory/archive', [InventoryController::class, 'archive'])->middleware(
+    'auth'
+);
 
 //Create New Inventory
 Route::get('/inventory/create', [
@@ -138,6 +147,8 @@ Route::get('/inventory/{inventory}/edit', [
     InventoryController::class,
     'edit',
 ])->middleware('auth');
+
+
 Route::put('/inventory/{inventory}', [
     InventoryController::class,
     'update',
@@ -158,10 +169,15 @@ Route::put('/inventory/{id}/reduce', [
 Route::delete('/inventory/{inventory}', [
     InventoryController::class,
     'destroy',
-])->middleware('auth');
+])->middleware('auth')->withTrashed();
+
+Route::post('/inventory/{inventory}/restore', [InventoryController::class, 'restore'])->middleware(
+    'auth'
+)->withTrashed();
 
 // View All Leaves
 Route::get('/leaves', [LeaveController::class, 'index'])->middleware('auth');
+Route::get('/leaves/archive', [LeaveController::class, 'archive'])->middleware('auth');
 
 //Create Leave
 Route::get('/leaves/create', [LeaveController::class, 'create'])->middleware(
@@ -178,7 +194,12 @@ Route::put('/leaves/{leave}', [
 Route::delete('/leaves/{leave}', [
     LeaveController::class,
     'destroy',
-])->middleware('auth');
+])->middleware('auth')->withTrashed();
+
+Route::post('/leaves/{leave}/restore', [
+    LeaveController::class,
+    'restore',
+])->middleware('auth')->withTrashed();
 
 //Treat Dependents
 Route::get('/dependents/{patient}/dependent', [
@@ -217,6 +238,10 @@ Route::put('/dependents/{dependent}/flag_success', [
 Route::get('/pharmacy', [PharmacyController::class, 'index'])->middleware(
     'auth'
 );
+
+Route::get('/pharmacy/archive', [PharmacyController::class, 'archive'])->middleware(
+    'auth'
+);
 Route::get('/pharmacy/create', [
     PharmacyController::class,
     'create',
@@ -232,10 +257,15 @@ Route::put('/pharmacy/{pharmacy}', [PharmacyController::class, 'update'])->middl
 
 Route::delete('/pharmacy/{pharmacy}', [PharmacyController::class, 'destroy'])->middleware(
     'auth'
-);
+)->withTrashed();
+
+Route::post('/pharmacy/{pharmacy}/restore', [PharmacyController::class, 'restore'])->middleware(
+    'auth'
+)->withTrashed();
 
 /** Clinics  */
 Route::get('/clinics', [ClinicController::class, 'index'])->middleware('auth');
+Route::get('/clinics/archive', [ClinicController::class, 'archive'])->middleware('auth');
 Route::get('/clinics/create', [ClinicController::class, 'create'])->middleware(
     'auth'
 );
@@ -246,7 +276,12 @@ Route::put('/clinics/{clinic}', [ClinicController::class, 'update'])->middleware
 Route::delete('/clinics/{clinic}', [
     ClinicController::class,
     'destroy',
-])->middleware('auth');
+])->middleware('auth')->withTrashed();
+
+Route::post('/clinics/{clinic}/restore', [
+    ClinicController::class,
+    'restore',
+])->middleware('auth')->withTrashed();
 
 /** Receipts */
 Route::get('/receipts', [ReceiptController::class, 'index'])->middleware(
@@ -279,6 +314,10 @@ Route::post('/receipts/{record}/', [
 
 /** Users */
 Route::get('/users', [UserController::class, 'index'])->middleware('auth');
+Route::get('/users/archive', [UserController::class, 'archive'])->middleware(
+    'auth'
+);
+
 Route::get('/users/register', [UserController::class, 'create'])->middleware(
     'auth'
 );
@@ -291,7 +330,12 @@ Route::put('/users/{user}', [UserController::class, 'update'])->middleware(
 
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware(
     'auth'
-);
+)->withTrashed();
+
+Route::post('/users/{user}/restore', [UserController::class, 'restore'])->middleware(
+    'auth'
+)->withTrashed();
+
 
 // Log User Out
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
@@ -307,6 +351,11 @@ Route::get('/injuries/create', [InjuryController::class, 'create'])->middleware(
     'auth'
 );
 
+Route::get('/injuries/archive', [InjuryController::class, 'archive'])->middleware(
+    'auth'
+);
+
+
 Route::get('/injuries', [InjuryController::class, 'index'])->middleware('auth');
 Route::post('/injuries', [InjuryController::class, 'store'])->middleware(
     'auth'
@@ -316,4 +365,9 @@ Route::put('/injuries/{injury}', [InjuryController::class, 'update'])->middlewar
 );
 Route::delete('/injuries/{injury}', [InjuryController::class, 'destroy'])->middleware(
     'auth'
-);
+)->withTrashed();
+
+Route::post('/injuries/{injury}/restore', [InjuryController::class, 'restore'])->middleware(
+    'auth'
+)->withTrashed();
+

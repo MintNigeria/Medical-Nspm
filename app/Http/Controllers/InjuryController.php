@@ -17,8 +17,26 @@ class InjuryController extends Controller
         return view(
             'injury.index',
             with([
+                'archives' => Injury::onlyTrashed(),
                 'patients' => Patient::latest()->get(),
                 'injuries' => Injury::latest()
+                    ->filter(request(['search']))
+                    ->paginate(45),
+            ])
+        );
+    }
+
+    public function archive()
+    {
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        return view(
+            'injury.archive',
+            with([
+                'patients' => Patient::latest()->get(),
+                'injuries' => Injury::onlyTrashed()
                     ->filter(request(['search']))
                     ->paginate(45),
             ])
@@ -84,7 +102,16 @@ class InjuryController extends Controller
 
     public function destroy(Injury $injury)
     {
+        if($injury->trashed()){
+             $injury->forceDelete();
+        }
         $injury->delete();
         return back()->with('message', 'Injury deleted');
+    }
+
+    public function restore(Injury $injury)
+    {
+        $injury->restore();
+        return back()->with('message', 'Injury Restored');
     }
 }

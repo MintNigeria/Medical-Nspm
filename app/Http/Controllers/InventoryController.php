@@ -17,7 +17,20 @@ class InventoryController extends Controller
         return view(
             'inventory.index',
             with([
+                'archives' => Inventory::onlyTrashed(),
                 'inventories' => Inventory::latest()
+                    ->filter(request(['search']))
+                    ->paginate(45),
+            ])
+        );
+    }
+
+    public function archive()
+    {
+        return view(
+            'inventory.archive',
+            with([
+                'inventories' => Inventory::onlyTrashed()
                     ->filter(request(['search']))
                     ->paginate(45),
             ])
@@ -93,12 +106,25 @@ class InventoryController extends Controller
         // if (auth()->user()->role !== 'pharmacy') {
         //     abort(403, 'Unauthorized Action');
         // }
-
+        if($inventory->trashed()){
+            $inventory->forceDelete();
+            return redirect('/inventory')->with(
+                'message',
+                'Inventory Permanently deleted successfully'
+            );
+        }
         $inventory->delete();
         return redirect('/inventory')->with(
             'message',
             'Inventory deleted successfully'
         );
+    }
+
+    public function restore(Inventory $inventory, Request $request)
+    {
+        $inventory->restore();
+        return back()->with('message', 'Item Restored');
+
     }
 
     public function increment($id)

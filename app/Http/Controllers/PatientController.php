@@ -18,7 +18,21 @@ class PatientController extends Controller
         // }
 
         return view('patients.index', [
+            'archives' => Patient::onlyTrashed(),
             'patients' => Patient::latest()
+                ->filter(request(['search']))
+                ->paginate(100),
+        ]);
+    }
+
+    public function archive()
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        return view('patients.archive', [
+            'patients' => Patient::onlyTrashed()
                 ->filter(request(['search']))
                 ->paginate(100),
         ]);
@@ -105,12 +119,32 @@ class PatientController extends Controller
         // if (auth()->user()->role !== 'him') {
         //     abort(403, 'Unauthorized Action');
         // }
+        if($patient->trashed()){
+            $patient->forceDelete();
+            return redirect('/patient')->with(
+                'message',
+                'Patient deleted permanently'
+            );
+        }
         $patient->delete();
         return redirect('/patient')->with(
             'message',
             'Patient deleted successfully'
         );
     }
+
+    public function restore(Patient $patient)
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+        $patient->restore();
+        return redirect('/patient')->with(
+            'message',
+            'Patient Restored successfully'
+        );
+    }
+
 
     public function export()
     {

@@ -116,7 +116,12 @@
             <label> CLINIC OUTSOURCE: </label>
             <select name="clinic_location" id="" class='form-control'>
                 <option value="">Choose ...</option>
-                <option value="nobel_eye">NOBEL EYE CLINIC</option>
+                {{-- @unless (count($clinics) === 0) --}}
+                @foreach ($clinics as $clinic)
+                    <option value="{{ $clinic->id }}">{{ $clinic->name}}</option>
+                @endforeach
+            {{-- @endunless --}}
+
             </select>
             @error('clinic_location')
             <p class="text-danger text-xs mt-1">{{$message}}</p>
@@ -169,8 +174,8 @@
 @enderror
 
 <div class="form-group my-5">
-    <button class="btn header">
-        <i class="fas fa-share-square-o"></i> SEND
+    <button class="btn btn-success">
+        <i class="fas fa-share"></i> SEND
     </button>
 </div>
 </div>

@@ -13,11 +13,10 @@
             justify-content: space-between;
           "
         >
-          <h4 class="header-title">Leave[s]</h4>
+          <h4 class="header-title">Archive</h4>
           @include('partials._searchleaves')
 
           <div>
-            <a href="/leaves/create" class="btn bg-color">Create New LEAVE</a>
             <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
           </div>
 
@@ -25,7 +24,7 @@
         @include('partials._message')
 
         <div class="">
-        <a class="archive" href="/leaves/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <a class="archive" href="/leaves/">View Posts</a>
 
           <table class="table table-striped table-bordered mt-4" id="myTable">
             <thead class="table-color">
@@ -36,6 +35,7 @@
                 <th scope="col">No Of Days</th>
                 <th scope="col">Published Date</th>
                 <th scope="col">Updated Date</th>
+                <th scope="col">Deleted Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -49,18 +49,26 @@
                         <td>{{ $leave->no_of_days }}</td>
                         <td class="text-capitalize">{{ $leave->created_at->format('F j, Y  h:i') }} </td>
                         <td class="text-capitalize">{{ $leave->updated_at->format('F j, Y  h:i') }} </td>
+                        <td class="text-capitalize">{{ $leave->deleted_at->format('F j, Y  h:i') }} </td>
                         <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
-                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#leaveModal{{ $leave->id }}">
-                                <i class="fa-solid fa-edit text-success"></i>
+                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeleaveModal{{ $leave->id }}">
+                                <i class="fa-solid fa-eye text-success"></i>
                             </a>
                             @include('partials._modalleave')
+
+                            <form method="POST" action="/leaves/{{$leave->id}}/restore">
+                                @csrf
+                                <button class="btn btn-success" onclick="return confirm('Are you sure you want to restore this Item?')">
+                                    <i class="fas fa-trash-restore text-white"></i>
+                                </button>
+                            </form>
 
                             <form method="POST" action="/leaves/{{$leave->id}}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
-                                    <i class="fas fa-trash text-danger"></i>
+                                <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Item Permanently?')">
+                                    <i class="fas fa-trash text-white"></i>
                                 </button>
                             </form>
                         </td>

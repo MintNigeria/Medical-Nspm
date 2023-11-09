@@ -24,6 +24,22 @@ class PharmacyController extends Controller
         );
     }
 
+    public function archive()
+    {
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+        return view(
+            'pharmacy.archive',
+            with([
+                'pharmacies' => Pharmacy::onlyTrashed()
+                    // ->where('id', '!=', auth()->user()->id)
+                    ->filter(request(['search']))
+                    ->paginate(45),
+            ])
+        );
+    }
+
     public function create()
     {
         // if (auth()->user()->role !== 'pharmacy') {
@@ -76,7 +92,18 @@ class PharmacyController extends Controller
 
     public function destroy(Pharmacy $pharmacy)
     {
+        if($pharmacy->trashed()){
+            $pharmacy->forceDelete();
+            return back()->with('message', 'Item Permanently Deleted');
+        }
         $pharmacy->delete();
         return back()->with('message', 'Product deleted');
+    }
+
+    public function restore(Pharmacy $pharmacy, Request $request)
+    {
+        $pharmacy->restore();
+        return back()->with('message', 'Item Restored');
+
     }
 }

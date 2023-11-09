@@ -16,7 +16,6 @@
               <h4 class="header-title">Clinic(s)</h4>
             @include('partials._searchclinic')
               <div>
-                <a href="/clinics/create" class="btn bg-color">Create New Clinic</a>
               <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
               </div>
 
@@ -24,7 +23,7 @@
           @include('partials._message')
 
             <div class="p-2 mt-2">
-            <a class="archive" href="/clinics/archive">View Archived Posts</a> ({{ $archives->count() }})
+            <a class="archive" href="/clinics/">View Posts</a>
 
               <table class="table table-striped table-bordered mt-4" id="myTable">
                 <thead class="table-color">
@@ -41,14 +40,19 @@
                             <td>{{ $clinic->name }}</td>
                             <td>{{ $clinic->type }}</td>
                             <td style="display:flex; align-items:center; justify-content:space-evenly">
-                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#clinicModal{{ $clinic->id }}">
-                                    <i class="fa-solid fa-edit text-success"></i>
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeclinicModal{{ $clinic->id }}">
+                                    <i class="fa-solid fa-eye text-success"></i>
                                 </a>
                                 @include('partials._modalclinic')
+                                <form method="POST" action="/clinics/{{$clinic->id}}/restore">
+                                    @csrf
+                                    <button class="btn btn-success" onclick="return confirm('Are you sure you want to restore this Clinic?')"><i class="fa-solid fa-trash-restore"></i> </button>
+                                  </form>
+
                                 <form method="POST" action="/clinics/{{$clinic->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Clinic?')"><i class="text-danger fa-solid fa-trash"></i> </button>
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Clinic?')"><i class="fa-solid fa-trash"></i> </button>
                                   </form>
 
                             </td>

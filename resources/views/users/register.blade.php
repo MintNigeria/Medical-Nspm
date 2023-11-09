@@ -5,8 +5,8 @@
     <div class="dashboard">
         @include('partials._sidebar')
         <div class="content p-4">
-            <div class="container-record">
-                <div class="centered-div">
+            <div class="">
+                <div class="">
                   <div class="card">
                     <div class="card-header bg-color text-white">
                       RECORD USERS

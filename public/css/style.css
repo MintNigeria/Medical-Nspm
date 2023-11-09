@@ -220,7 +220,11 @@ label {
   color: #616161;
 }
 span {
-  color: #c62828;
+  color: #37474f;
+}
+
+b{
+    color: teal;
 }
 
 .dashboard {
@@ -230,11 +234,12 @@ span {
   flex: 1;
   background-color: #1a237e;
   border-right: 1px solid #4a148c;
-  min-height: 100vh;
+   min-height:100vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: scroll;
 }
 
 .top {
@@ -426,3 +431,23 @@ tbody > tr >td{
     color: #1a237e;
 }
 
+.info-pop{
+    font-size:5px;
+    padding:10px;
+    border-radius:5px;
+    position: absolute;
+    right:0;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.archive{
+    font-size: 17px;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.archive:hover{
+    color: teal;
+}

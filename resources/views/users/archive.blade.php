@@ -17,14 +17,13 @@
             <h4 class="header-title">User(s)</h4>
             @include('partials._searchusers')
             <div>
-               <a href="/users/register" class="btn btn-color">Create New User</a>
                <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
             </div>
 
           </div>
           @include('partials._message')
           <div>
-        <a class="archive" href="/users/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <a class="archive" href="/users/">View Posts</a>
 
             <table  class="table table-striped table-bordered tabel mt-4" id="myTable">
                 <thead class="table-color">
@@ -47,16 +46,22 @@
                             <td> {{ $user->locality }}</td>
                             <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
-                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#userModal{{ $user->id }}">
-                                    <i class="fa-solid fa-edit text-success"></i>
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeuserModal{{ $user->id }}">
+                                    <i class="fa-solid fa-eye text-success"></i>
                                 </a>
                                 @include('partials._modalusers')
+                                <form method="POST" action="/users/{{$user->id}}/restore">
+                                    @csrf
+                                    <button class="btn btn-success" onclick="return confirm('Are you sure you want to restore this User?')">
+                                        <i class="fas fa-trash-restore text-white"></i>
+                                    </button>
+                                </form>
 
                                 <form method="POST" action="/users/{{$user->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this User?')">
-                                        <i class="fas fa-trash text-danger"></i>
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this User?')">
+                                        <i class="fas fa-trash text-white"></i>
                                     </button>
                                 </form>
                             </td>

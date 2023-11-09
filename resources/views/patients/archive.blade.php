@@ -15,7 +15,7 @@
             justify-content: space-between;
           "
         >
-          <h4 class="header-title">Patient(s)</h4>
+          <h4 class="header-title">Archives</h4>
           @include('partials._search')
           <a href="/patient/create" class="btn bg-color">Create Patient </a>
           <a onclick="exportToCsv()" class="btn btn-outline-success">Export XLS</a>
@@ -23,7 +23,7 @@
         @include('partials._message')
 
         <div class=" p-2 mt-4">
-        <a class="archive" href="/patient/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <a class="archive" href="/patient/">View Posts</a>
 
           <table class="table table-striped table-bordered mt-4" id="myTable">
             <thead class="table-color">
@@ -48,17 +48,21 @@
 
                         <td style="display:flex; align-items:center; justify-content:space-evenly">
                             {{-- @if (auth()->user()->roles === 'him') --}}
-                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#patientModal{{ $patient->id }}">
-                                <i class="fa-solid fa-edit text-success"></i>
+                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyepatientModal{{ $patient->id }}">
+                                <i class="fa-solid fa-eye text-success"></i>
                             </a>
                             @include('partials._modalpatient')
 
+                            <form method="POST" action="/patient/{{$patient->id}}/restore">
+                                @csrf
+                                <button class="btn btn-success" onclick="return confirm('Are you sure you want to restore this Patient Data?')"><i class="fa-solid fa-trash-restore"></i></button>
+                            </form>
 
 
                             <form method="POST" action="/patient/{{$patient->id}}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Patient Data?')"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Patient Data permanently?')"><i class="fa-solid fa-trash"></i></button>
                             </form>
                             {{-- @endif --}}
 

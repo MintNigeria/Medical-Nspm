@@ -6,27 +6,24 @@
 <div class="dashboard">
     @include('partials._sidebar')
     <div class="content px-5 py-5">
-        <div class="container-record">
-            <div class="centered-div">
+        @include('partials._message')
+        <div class="">
+            <div class="">
               <div class="card">
-                <div class="card-header header_inverse">
+                <div class="card-header bg-color text-white">
                   CREATE NEW RECORD
                 </div>
                 <div class="card-body">
             <form method="POST" action="/record">
                 @csrf
             <div>
-
                   <div class="form-group">
-                    <label>Staff ID</label> <br />
+                    <label>Staff ID</label><br />
                     <select  class=" js-example-basic-single text-uppercase form-control" searchable="Search here.." name="patient_id">
                         <option value="">Choose ...</option>
-
                         @unless (count($patients) === 0)
-                        {{-- <input type="search" name="" id=""> --}}
-
                             @foreach ($patients as $patient)
-                                <option value="{{ $patient->id }}">{{ $patient->staff_id }}</option>
+                                <option value="{{ $patient->id }}" class="text-success">{{ $patient->staff_id }}</option>
                             @endforeach
                         @endunless
                     </select>
@@ -108,7 +105,7 @@
                   </div>
 
 
-                    <button  class="mt-5 btn btn-gold header">
+                    <button  class="mt-5 btn btn-success">
                       CREATE NEW RECORD
                     </button>
 

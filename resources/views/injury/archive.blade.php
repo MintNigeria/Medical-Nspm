@@ -14,7 +14,7 @@
                 justify-content: space-between;
               "
             >
-              <h4 class="header-title">Injuries Record</h4>
+              <h4 class="header-title">Archives</h4>
               @include('partials._searchinjury')
               <a href="/injuries/create" class="btn bg-color">Record New Injury</a>
               <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
@@ -23,7 +23,7 @@
           @include('partials._message')
 
             <div class="p-2">
-        <a class="archive" href="/injuries/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <a class="archive" href="/injuries/">View Archived Posts</a>
 
               <table class="table table-striped table-bordered mt-4">
                 <thead class="table-color">
@@ -48,16 +48,24 @@
                             <td class="text-uppercase">N {{ number_format($injury->cost_total, 0, '.', ',') }}</td>
                             <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
-                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#injuryModal{{ $injury->id }}">
-                                    <i class="fa-solid fa-edit text-success"></i>
+
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeinjuryModal{{ $injury->id }}">
+                                    <i class="fa-solid fa-eye text-success"></i>
                                 </a>
                                 @include('partials._modalinjury')
+
+                                <form method="POST" action="/injuries/{{$injury->id}}/restore">
+                                    @csrf
+                                    <button class="btn btn-success" onclick="return confirm('Are you sure you want to restore this Item?')">
+                                        <i class="fas fa-trash-restore text-white"></i>
+                                    </button>
+                                </form>
 
                                 <form method="POST" action="/injuries/{{$injury->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
-                                        <i class="fas fa-trash text-danger"></i>
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
+                                        <i class="fas fa-trash text-white"></i>
                                     </button>
                                 </form>
                             </td>

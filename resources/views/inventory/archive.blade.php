@@ -14,7 +14,7 @@
                 justify-content: space-between;
               "
             >
-              <h4 class="header-title">Inventory  Data</h4>
+              <h4 class="header-title">Archives ({{ $inventories->count() }})</h4>
               @include('partials._searchinventory')
               <div>
                  <a href="/inventory/create" class="btn btn-color">Create Inventory</a>
@@ -23,7 +23,7 @@
             </div>
             @include('partials._message')
             <div>
-        <a class="archive" href="/inventory/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <a class="archive" href="/inventory/">View  Posts</a>
 
               <table class="table table-striped table-bordered mt-4" id="myTable">
                 <thead class="table-color">
@@ -33,6 +33,7 @@
                     <th scope="col">Packaging</th>
                     <th scope="col">No Of Units Available</th>
                     <th scope="col">Location</th>
+                    <th scope="col">Archive</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -45,30 +46,27 @@
                             <td>{{ $inventory->packaging }}</td>
                             <td class="{{ $inventory->no_of_units > $inventory->unit_deficit   ? 'text-success':  'text-danger'}}" >{{ $inventory->no_of_units }}</td>
                             <td>{{ $inventory->location }}</td>
+                            <td>{{ $inventory->deleted_at->format('F j, Y  h:i')}}</td>
                             <td style="display:flex; align-items:center; justify-content:space-evenly">
-                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#inventoryModal{{ $inventory->id }}">
-                                    <i class="fa-solid fa-edit text-success"></i>
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeinventoryModal{{ $inventory->id }}">
+                                    <i class="fa-solid fa-eye text-success"></i>
                                 </a>
 
                                 @include('partials._modalinventory')
 
-                                <form method="POST" action="/inventory/{{$inventory->id}}/increment">
+                                <form method="POST" action="/inventory/{{$inventory->id}}/restore">
                                     @csrf
-                                    @method('PUT')
-                                    <button class="btn" onclick="return confirm('Are you sure you want to increase count for this Item?')"><i class="fa-solid fa-plus"></i></button>
-                                  </form>
 
-                                <form method="POST" action="/inventory/{{$inventory->id}}/reduce">
-                                    @csrf
-                                    @method('PUT')
-                                    <button class="btn" onclick="return confirm('Are you sure you want to reduce count for this Item?')"><i class="fa-solid fa-minus"></i></button>
-                                  </form>
+                                    <button class="btn btn-success" onclick="return confirm('Are you sure you want to Restore this Item?')">
+                                        <i class="fas fa-trash-restore text-white"></i>
+                                    </button>
+                                </form>
 
                                   <form method="POST" action="/inventory/{{$inventory->id}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
-                                        <i class="fas fa-trash text-danger"></i>
+                                    <button class="btn btn-danger" onclick="return confirm('Are you sure you want to permanetly delete this Item?')">
+                                        <i class="fas fa-trash text-white"></i>
                                     </button>
                                 </form>
 

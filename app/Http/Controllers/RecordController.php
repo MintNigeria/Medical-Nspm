@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use App\Models\Patient;
 use App\Models\Pharmacy;
+use App\Models\Clinic;
 use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -14,9 +15,9 @@ class RecordController extends Controller
     //Index
     public function index()
     {
-        if (auth()->user()->role !== 'nurse') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('records.index', [
             'record' => Record::latest()->get(),
@@ -41,9 +42,9 @@ class RecordController extends Controller
     // Store Listing Data
     public function store(Request $request)
     {
-        if (auth()->user()->role !== 'nurse') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $formFields = $request->validate([
             'blood_pressure' => 'required',
@@ -51,7 +52,7 @@ class RecordController extends Controller
             'pulse_rate' => 'required',
             'assessment' => 'nullable',
             'prescription' => 'nullable',
-            'nurse_note' => 'nullable',
+            'nurse_note' => 'required',
             'weight' => 'nullable',
             'patient_id' => 'required',
         ]);
@@ -75,7 +76,8 @@ class RecordController extends Controller
     {
         return view('records.edit', [
             'record' => $record,
-            'pharmacies' => Pharmacy::paginate(1),
+            'clinics' => Clinic::latest()->get(),
+            'pharmacies' => Pharmacy::paginate(20),
         ]);
     }
 
@@ -128,9 +130,9 @@ class RecordController extends Controller
     //View Pharmacy Records
     public function pharmacy()
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('records.pharmacy', [
             'records' => Record::where('designate', 'pharmacy')
@@ -142,9 +144,9 @@ class RecordController extends Controller
 
     public function nurse_mgmt()
     {
-        if (auth()->user()->role !== 'nurse') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'nurse') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('records.nurse_mgmt', [
             'records' => Record::where('designate', 'nurse')
@@ -204,6 +206,7 @@ class RecordController extends Controller
     public function receipts()
     {
         return view('records.receipt', [
+            'patients' => Patient::latest()->get(),
             'records' => Record::where('designate', 'outsource')
                 ->latest()
                 ->get(),
