@@ -55,7 +55,7 @@
                         <option value="cartons" @if($inventory->packaging === "cartons")
                             selected
                         @endif>Cartons</option>
-                        <option value="capsules" @if($inventory->packaging === "cappsules")
+                        <option value="capsules" @if($inventory->packaging === "capsules")
                             selected
                         @endif>Capsules</option>
                         <option value="drops" @if($inventory->packaging === "drops")

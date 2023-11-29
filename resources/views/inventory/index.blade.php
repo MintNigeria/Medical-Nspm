@@ -6,6 +6,7 @@
     <div class="dashboard">
         @include('partials._sidebar')
         <div class="content p-4">
+            <div id="content__overflow">
             <div
               class="font-weight-bold"
               style="
@@ -14,7 +15,14 @@
                 justify-content: space-between;
               "
             >
-              <h4 class="header-title">Inventory  Data</h4>
+              <h4 class="header-title">Inventory  Data
+                <a type="button" data-mdb-toggle="modal" data-mdb-target="#modalNotify">
+                    <span class="bell" >{{ $notifications->count() }}</span>
+                    @include('partials._modalnotify')
+                </a>
+                </h4>
+
+
               @include('partials._searchinventory')
               <div>
                  <a href="/inventory/create" class="btn btn-color">Create Inventory</a>
@@ -23,7 +31,7 @@
             </div>
             @include('partials._message')
             <div>
-        <a class="archive" href="/inventory/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <a class="archive" href="/inventory/archive">View Archived Posts</a> ({{ $archives->count() }}) ()
 
               <table class="table table-striped table-bordered mt-4" id="myTable">
                 <thead class="table-color">
@@ -88,6 +96,7 @@
 
               </table>
             </div>
+        </div>
         </div>
     </div>
 </body>

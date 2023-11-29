@@ -8,7 +8,7 @@
             <div class="content p-3">
             <div style="display: flex; align-items:center; justify-content:space-between;">
             <h4>RECORDS [Receipts Needed]</h4>
-            <a href="/receipts" class="header btn">
+            <a href="/receipts" class="btn btn-success">
 
             View Receipts
 

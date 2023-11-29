@@ -6,6 +6,9 @@
     <div class="dashboard">
         @include('partials._sidebar')
         <div class="content p-4">
+            <div id="content__overflow">
+
+
             <div
             class="font-weight-bold"
             style="
@@ -79,6 +82,7 @@
             </table>
             {{ $users->links() }}
           </div>
+        </div>
         </div>
     </div>
 

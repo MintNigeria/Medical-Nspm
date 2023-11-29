@@ -6,7 +6,7 @@
     @include('partials._sidebar')
     <div class="content p-1">
             @include('partials._message')
-            <div class="centered-div p-5">
+            <div class="centered-div p-5" id="content__overflow">
               <div class="card">
                 <div class="card-header bg-color text-white">
                   ADD New Patient
@@ -34,7 +34,8 @@
                       type="text"
                       class="form-control text-uppercase"
                       name="staff_id"
-                      placeholder="Example: OB/1010" value="{{old('staff_id')}}"
+                      placeholder="Example: 1010" value="{{old('staff_id')}}"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)"
                       id=""
                     />
                     @error('staff_id')

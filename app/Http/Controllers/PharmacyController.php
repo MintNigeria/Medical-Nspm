@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pharmacy;
+use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+
+
 
 class PharmacyController extends Controller
 {
@@ -13,6 +17,7 @@ class PharmacyController extends Controller
         // if (auth()->user()->role !== 'pharmacy') {
         //     abort(403, 'Unauthorized Action');
         // }
+        $notifcations = auth()->user()->unreadNotifications();
         return view(
             'pharmacy.index',
             with([
@@ -23,6 +28,7 @@ class PharmacyController extends Controller
             ])
         );
     }
+
 
     public function archive()
     {
@@ -45,7 +51,9 @@ class PharmacyController extends Controller
         // if (auth()->user()->role !== 'pharmacy') {
         //     abort(403, 'Unauthorized Action');
         // }
-        return view('pharmacy.create');
+        return view('pharmacy.create',  with([
+            'groups' => Group::latest()->get()
+        ]));
     }
 
     public function store(Request $request)
@@ -64,6 +72,8 @@ class PharmacyController extends Controller
         $formFields['location'] = auth()->user()->locality;
 
         Pharmacy::create($formFields);
+
+
 
         return redirect('/pharmacy')->with(
             'message',

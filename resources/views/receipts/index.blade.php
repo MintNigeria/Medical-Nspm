@@ -5,6 +5,7 @@
     <div class="dashboard">
         @include('partials._sidebar')
         <div class="content px-5 py-5">
+            <div id="content__overflow">
             <div
               class="font-weight-bold"
               style="
@@ -71,6 +72,7 @@
               {{-- {{ $receipts->links() }} --}}
             </div>
         </div>
+    </div>
     </div>
 
 

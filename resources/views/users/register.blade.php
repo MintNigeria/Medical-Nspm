@@ -36,6 +36,7 @@
                           class="form-control text-uppercase"
                           name="staff_id"
                           placeholder="Example: 6068" value="{{old('staff_id')}}"
+                          oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)"
                           id=""
                         />
                         @error('staff_id')
@@ -65,6 +66,8 @@
                             <option value="nurse">Nurse</option>
                             <option value="doctor">Doctor</option>
                             <option value="pharmacy">Pharmacy</option>
+                            <option value="pharmacy-admin">Pharmacy-Admin</option>
+                            <option value="medic-admin">Medical Administrator</option>
                             <option value="him">HIM Officer</option>
                         </select>
                         @error('role')

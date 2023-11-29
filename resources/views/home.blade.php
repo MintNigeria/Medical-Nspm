@@ -6,63 +6,25 @@
 <body>
     <div class="dashboard reports">
         @include('partials._sidebar')
-        <div class="content p-3">
+        <div class="content p-4">
             <!--  Introduction -->
-            <div>
+            <div id="content__overflow">
               <div class="flex-div">
-                <h6 class="font-weight-light">Hi, You Have 2 Notifications</h6>
-                <button class="btn btn-outline-secondary">
+                {{-- <h6 class="font-weight-light">Hi, You Have 2 Notifications</h6> --}}
+                {{-- <button class="btn btn-outline-secondary">
                   View All Records {{ auth()->user()->role }}
-                </button>
+                </button> --}}
               </div>
 
               <div class="mt-3">
-                <h2>
+                <h2 class="font-weight-bold text-black-50">
                     Dashboard
                 </h2>
               </div>
 
-              <div class="flex-div mt-5">
-                <div class="card card_style">
-                  <div>
-                    <i class="fa fa-users header_inverse"></i>
-                  </div>
 
-                  <p>
-                    Users
-                  </p>
-                </div>
-                <div class="card card_style">
-                  <div>
-                    <i class="fa fa-notes-medical header_inverse"></i>
-                  </div>
 
-                  <p>
-                    Records
-                  </p>
-                </div>
-                <div class="card card_style">
-                  <div>
-                    <i class="fas fa-crutch header_inverse"></i>
-                  </div>
-
-                  <p>
-                    Injury Cases
-                  </p>
-                </div>
-                <div class="card card_style">
-                  <div>
-                    <i class="fas fa-kit-medical header_inverse"></i>
-                  </div>
-
-                  <p>
-                    Inventory
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card mt-3" style="min-height: 400px;">
+            <div class="card mt-3" >
               <!-- Tabs navs -->
               <ul
                 class="nav nav-tabs mb-3"
@@ -85,7 +47,7 @@
                     aria-controls="ex1-tabs-1"
                     aria-selected="true"
                   >
-                    Medical Reports
+                    Open Records
                   </a>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -98,7 +60,7 @@
                     aria-controls="ex1-tabs-2"
                     aria-selected="false"
                   >
-                    Sick Leaves
+                   Closed Records
                   </a>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -111,7 +73,7 @@
                     aria-controls="ex1-tabs-3"
                     aria-selected="false"
                   >
-                    Audit Log
+                    Users
                   </a>
                 </li>
               </ul>
@@ -125,14 +87,48 @@
                   role="tabpanel"
                   aria-labelledby="ex1-tab-1"
                 >
-                  <div class="flex-div">
-                    <div style="flex: 2; padding: 10px;" class="card">
-                      <canvas id="myChart" height="500"></canvas>
-                    </div>
+                <div class="flex-div">
+                    <table  class="table table-striped table-bordered tabel m-5 pb-16" id="myTable">
+                        <thead class="table-color">
+                            <th>Staff ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Locality</th>
+                            <th>Actions</th>
+                        </thead>
+                        @unless (count($records) === 0)
+                        <tbody>
+                            @foreach ($records as  $record)
 
-                    {{-- <div class="card"></div> --}}
+                                <tr>
+                                    <td>{{ $use }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td> {{ $user->role }}</td>
+                                    <td> {{ $user->locality }}</td>
+                                    <td style="display: flex; align-items:center;justify-content:space-evenly;">
+
+                                        <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeuserModal{{ $user->id }}">
+                                            <i class="fa-solid fa-eye text-success"></i>
+                                        </a>
+                                        @include('partials._modalusers')
 
 
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        @else
+                        <tbody>
+                        <tr colspan="6">
+                            <td class="text-center text-capitalize">No Users Recorded</td>
+                        </tr>
+                        </tbody>
+
+                        @endunless
+                    </table>
+                    {{ $users->links() }}
                   </div>
                 </div>
                 <div
@@ -141,34 +137,48 @@
                   role="tabpanel"
                   aria-labelledby="ex1-tab-2"
                 >
-                  <div class="flex-div">
-                    <table
-                      class="table table-responsive align-middle"
-                      style="flex: 1;"
-                    >
-                      <thead class="header">
-                        <th>Name</th>
-                        <th>Name</th>
-                        <th>Name</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
+                <div class="flex-div">
+                    <table  class="table table-striped table-bordered tabel m-5 pb-16" id="myTable">
+                        <thead class="table-color">
+                            <th>Staff ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Locality</th>
+                            <th>Actions</th>
+                        </thead>
+                        @unless (count($users) === 0)
+                        <tbody>
+                            @foreach ($users as  $user)
+
+                                <tr>
+                                    <td>{{ $user->staff_id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td> {{ $user->role }}</td>
+                                    <td> {{ $user->locality }}</td>
+                                    <td style="display: flex; align-items:center;justify-content:space-evenly;">
+
+                                        <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeuserModal{{ $user->id }}">
+                                            <i class="fa-solid fa-eye text-success"></i>
+                                        </a>
+                                        @include('partials._modalusers')
+
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        @else
+                        <tbody>
+                        <tr colspan="6">
+                            <td class="text-center text-capitalize">No Users Recorded</td>
                         </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                        </tr>
-                      </tbody>
+                        </tbody>
+
+                        @endunless
                     </table>
+                    {{ $users->links() }}
                   </div>
                 </div>
                 <div
@@ -178,33 +188,47 @@
                   aria-labelledby="ex1-tab-3"
                 >
                   <div class="flex-div">
-                    <table
-                      class="table table-responsive align-middle"
-                      style="flex: 1;"
-                    >
-                      <thead class="header">
-                        <th>Name</th>
-                        <th>Name</th>
-                        <th>Name</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
+                    <table  class="table table-striped table-bordered tabel m-5 pb-16" id="myTable">
+                        <thead class="table-color">
+                            <th>Staff ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Locality</th>
+                            <th>Actions</th>
+                        </thead>
+                        @unless (count($users) === 0)
+                        <tbody>
+                            @foreach ($users as  $user)
+
+                                <tr>
+                                    <td>{{ $user->staff_id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td> {{ $user->role }}</td>
+                                    <td> {{ $user->locality }}</td>
+                                    <td style="display: flex; align-items:center;justify-content:space-evenly;">
+
+                                        <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeuserModal{{ $user->id }}">
+                                            <i class="fa-solid fa-eye text-success"></i>
+                                        </a>
+                                        @include('partials._modalusers')
+
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        @else
+                        <tbody>
+                        <tr colspan="6">
+                            <td class="text-center text-capitalize">No Users Recorded</td>
                         </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                        </tr>
-                      </tbody>
+                        </tbody>
+
+                        @endunless
                     </table>
+                    {{ $users->links() }}
                   </div>
                 </div>
               </div>

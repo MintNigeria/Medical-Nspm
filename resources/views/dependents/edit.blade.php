@@ -19,10 +19,10 @@
         @endif
 
             <div class="card">
-                <div class="card-header header">
+                <div class="card bg-color p-2">
                     <div style="display:flex;align-items:center;justify-content:space-between">
                         <p>RECORD [ {{ $dependent->name }} ]</p>
-                        <a class="btn btn-gold" href="/dependent/{{ $dependent->patient->id }}/view">
+                        <a class="btn btn-success" href="/dependent/{{ $dependent->patient->id }}/view">
                             VIEW PAST RECORDS
                         </a>
                     </div>

@@ -21,8 +21,23 @@ class UserController extends Controller
         return view(
             'home',
             with([
+                'users' =>ModelsUser::latest()
+                ->where('id', '!=', auth()->user()->id)
+                ->filter(request(['search']))
+                ->paginate(45),
+                'records' => Record::where('designate', 'nurse')
+                ->where('locality', auth()->user()->role)
+                ->where('status', "open")
+                    ->whereNull('flag')
+                    ->latest()
+                    ->get(),
+                    'records_close' => Record::where('designate', 'nurse')
+                    ->where('locality', auth()->user()->role)
+                    ->where('status', "closed")
+                        ->whereNull('flag')
+                        ->latest()
+                        ->get(),
                 'leaves' => Leaves::latest()->get(),
-                'records' => Record::latest()->get(),
             ])
         );
     }

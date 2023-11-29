@@ -6,6 +6,7 @@
     <div class="dashboard">
         @include('partials._sidebar')
         <div class="content p-4">
+            <div id="content__overflow">
             <div
             class="font-weight-bold"
             style="
@@ -26,7 +27,7 @@
           <div>
         <a class="archive" href="/users/archive">View Archived Posts</a> ({{ $archives->count() }})
 
-            <table  class="table table-striped table-bordered tabel mt-4" id="myTable">
+            <table  class="table table-striped table-bordered tabel my-5 pb-16" id="myTable">
                 <thead class="table-color">
                     <th>Staff ID</th>
                     <th>Name</th>
@@ -74,6 +75,7 @@
             </table>
             {{ $users->links() }}
           </div>
+        </div>
         </div>
     </div>
 

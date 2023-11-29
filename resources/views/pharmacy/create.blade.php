@@ -50,6 +50,16 @@
                     </select>
                   </div>
 
+                  <div class="form-group">
+                    <label class="mt-4">ADD Grouping (If Any)</label>
+                    <select class="form-select text-uppercase" name="grouping">
+                        <option value="">Choose ...</option>
+                        @foreach ($groups as $group)
+                           <option value="{{ $group->name }}">{{ $group->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+
                     <div class="form-group">
                         <label class="mt-4"> NO OF UNITS</label>
                         <input type="number" name="no_of_units" class="form-control text-uppercase" />

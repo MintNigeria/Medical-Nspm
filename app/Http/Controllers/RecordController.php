@@ -6,18 +6,24 @@ use App\Models\Inventory;
 use App\Models\Patient;
 use App\Models\Pharmacy;
 use App\Models\Clinic;
+use App\Models\User;
 use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
+use App\Notifications\AbujaNurseDesignateNotification;
+use App\Notifications\LagosNurseDesignateNotification;
+
 
 class RecordController extends Controller
 {
     //Index
     public function index()
     {
-        // if (auth()->user()->role !== 'nurse') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'nurse') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('records.index', [
             'record' => Record::latest()->get(),
@@ -47,6 +53,7 @@ class RecordController extends Controller
         // }
 
         $formFields = $request->validate([
+            'slug' => "nullable",
             'blood_pressure' => 'required',
             'temp' => 'required',
             'pulse_rate' => 'required',
@@ -56,6 +63,16 @@ class RecordController extends Controller
             'weight' => 'nullable',
             'patient_id' => 'required',
         ]);
+
+        $uniqueIdentifier = Str::uuid();
+
+        $encryptedSlug = Crypt::encrypt($uniqueIdentifier);
+        $limitedEncryptedSlug = substr($encryptedSlug, 0, 11);
+        $formFields['slug'] = $limitedEncryptedSlug;
+
+        // $formFields["slug"] =
+
+        $formFields['locality'] = auth()->user()->locality;
 
         if ($formFields['weight']) {
             $patient = Patient::find($formFields['patient_id']);
@@ -72,8 +89,9 @@ class RecordController extends Controller
     }
 
     // Show Edit Form
-    public function edit(Record $record)
+    public function edit($slug)
     {
+        $slug = $record = Record::where('slug', $slug)->first();
         return view('records.edit', [
             'record' => $record,
             'clinics' => Clinic::latest()->get(),
@@ -104,21 +122,36 @@ class RecordController extends Controller
         }
 
         $record->update($formFields);
+        // if($record->designate === "nurse" && auth()->user()->locality === "abj"){
+        //     $mailUsers = User::where("role", "pharmacy")->get();
+        //     foreach ($mailUsers as $user) {
+        //         $user->notify(new AbujaNurseDesignateNotification(['locality' => 'abj'],$record->processing_by));
+        //     }
+        // }
+
+        // if($record->designate === "nurse" && auth()->user()->locality === "lag"){
+        //     $mailUsers = User::where("role", "pharmacy")->get();
+        //     foreach ($mailUsers as $user) {
+        //         $user->notify(new LagosNurseDesignateNotification(['locality' => 'lag'] ,$record->processing_by));
+        //     }
+        // }
         return redirect('/records/manage')->with(
             'message',
             'Record updated successfully!'
         );
     }
 
-    public function updateStatusAndRedirect($id)
+    public function updateStatusAndRedirect($slug)
     {
-        $record = Record::find($id);
 
+  // $id  = Crypt::decrypt($id);
+        // $record = Record::find($id);
+        $record = Record::where('slug', $slug)->first();
         $record->update([
             'processing' => true,
             'processing_by' => auth()->user()->name,
         ]);
-        return redirect()->route('records.edit', ['record' => $record]);
+        return redirect()->route('records.edit', ['slug' => $record->slug]);
     }
 
     public function view_patient($patientId)
@@ -136,6 +169,7 @@ class RecordController extends Controller
 
         return view('records.pharmacy', [
             'records' => Record::where('designate', 'pharmacy')
+                 ->where('locality', auth()->user()->role)
                 ->whereNull('flag')
                 ->latest()
                 ->get(),
@@ -147,9 +181,17 @@ class RecordController extends Controller
         // if (auth()->user()->role !== 'nurse') {
         //     abort(403, 'Unauthorized Action');
         // }
+        // $notificationsabj = auth()->user()->unreadNotifications()->where('data->locality', 'abj') // Adjust based on how 'locality' is stored
+        // ->get();
+
+        // $notificationslag = auth()->user()->unreadNotifications()->where('data->locality', 'lag') // Adjust based on how 'locality' is stored
+        // ->get();
 
         return view('records.nurse_mgmt', [
+            // 'notificationsabj' => $notificationsabj,
+            // "notificationslag" => $notificationslag,
             'records' => Record::where('designate', 'nurse')
+                    ->where('locality', auth()->user()->locality)
                 ->whereNull('flag')
                 ->latest()
                 ->get(),
@@ -191,6 +233,7 @@ class RecordController extends Controller
     {
         return view('records.manage', [
             'record' => Record::where('status', 'open')
+                ->where("locality", auth()->user()->locality)
                 ->filter(request(['search']))
                 ->get(),
 

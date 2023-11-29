@@ -13,9 +13,10 @@ return new class extends Migration {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('no_of_units');
+            $table->integer('no_of_units');
             $table->string('location');
-            $table->string('unit_deficit');
+            $table->string('grouping')->nullable();
+            $table->integer('unit_deficit');
             $table->string('type');
             $table->string('packaging');
             $table->timestamps();

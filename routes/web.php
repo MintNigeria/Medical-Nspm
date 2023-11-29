@@ -10,6 +10,7 @@ use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GroupController;
 use App\Models\Dependent;
 use App\Models\Pharmacy;
 use App\Models\Record;
@@ -29,6 +30,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get("/test", function() {
+//     return view("log-viewer::index");
+// });
 
 Route::middleware(['auth', 'role:admin,editor'])->group(function () {
     Route::get('/home', [UserController::class, 'home']);
@@ -54,6 +59,7 @@ Route::get('/patient/{patient}/edit', [
     PatientController::class,
     'edit',
 ])->middleware('auth');
+
 // // Update Listing
 Route::put('/patient/{patient}', [
     PatientController::class,
@@ -98,7 +104,7 @@ Route::get('/records/pharmacy', [
 Route::post('/record', [RecordController::class, 'store'])->middleware('auth');
 
 // Show Edit Form
-Route::get('/records/{record}/edit', [RecordController::class, 'edit'])
+Route::get('/records/{slug}/edit', [RecordController::class, 'edit'])
     ->name('records.edit')
     ->middleware('auth');
 // Update Listing
@@ -130,6 +136,10 @@ Route::get('/inventory', [InventoryController::class, 'index'])->middleware(
     'auth'
 );
 Route::get('/inventory/archive', [InventoryController::class, 'archive'])->middleware(
+    'auth'
+);
+
+Route::get('inventory/stock_low', [InventoryController::class, 'stock_low'])->middleware(
     'auth'
 );
 
@@ -239,6 +249,8 @@ Route::get('/pharmacy', [PharmacyController::class, 'index'])->middleware(
     'auth'
 );
 
+
+
 Route::get('/pharmacy/archive', [PharmacyController::class, 'archive'])->middleware(
     'auth'
 );
@@ -297,7 +309,7 @@ Route::get('/records/nurse_mgmt', [
     'nurse_mgmt',
 ])->middleware('auth');
 
-Route::post('/records/process/{id}/', [
+Route::post('/records/process/{slug}/', [
     RecordController::class,
     'updateStatusAndRedirect',
 ])
@@ -311,6 +323,13 @@ Route::post('/receipts/{record}/', [
     ReceiptController::class,
     'store',
 ])->middleware('auth');
+
+/** Groups */
+Route::get('/grouping', [GroupController::class, 'index'])->middleware("auth");
+Route::get('/grouping/create', [GroupController::class, 'create'])->middleware("auth");
+Route::post('/grouping', [GroupController::class, 'store'])->middleware("auth");
+Route::put("/grouping/{grouping}", [GroupController::class, 'update'])->middleware("auth");
+Route::delete('/grouping/{grouping}',[GroupController::class, 'destroy'])->middleware("auth")->withTrashed();
 
 /** Users */
 Route::get('/users', [UserController::class, 'index'])->middleware('auth');

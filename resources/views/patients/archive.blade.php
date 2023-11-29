@@ -7,6 +7,7 @@
     <div class="dashboard">
          @include('partials._sidebar')
     <div class="content p-3">
+        <div id="content__overflow">
         <div
           class="font-weight-bold"
           style="
@@ -94,6 +95,7 @@
 
 
         </div>
+    </div>
     </div>
     </div>
 

@@ -5,6 +5,7 @@
 <div class="dashboard">
     @include('partials._sidebar')
     <div class="content p-2 mt-2" >
+     <div id="content__overflow">
         @if ($record->flag === 'success')
             <div class="alert-primary my-1 p-3">
             FLAGGED AS : SERVICE RENDERED ADVISED TO CLOSE STATUS
@@ -30,7 +31,7 @@
                 </div>
 
             </div>
-            <div class="card-body">
+            <div class="card-body z-10">
                 <div>
                     <div class="form-group">
                         <p><b> <span>Staff Name </span> : {{ $record->patient->name }}</b></p>
@@ -73,6 +74,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 @include('partials._show')

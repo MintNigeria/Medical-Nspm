@@ -5,7 +5,7 @@
 
 <div class="dashboard">
     @include('partials._sidebar')
-    <div class="content px-5 py-5">
+    <div class="content px-5 py-2">
         @include('partials._message')
         <div class="">
             <div class="">
@@ -36,10 +36,11 @@
                   <div class="form-group">
                     <label class="mt-3">Blood Temperature</label>
                     <input
-                      type="temp"
+                      type="text"
                       class="form-control text-uppercase"
                       name="temp"
                       placeholder="Measured in (Celcius)" value="{{old('temp')}}"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
                       id=""
                     />
                     @error('temp')
@@ -54,6 +55,8 @@
                       class="form-control text-uppercase"
                       name="blood_pressure"
                       placeholder="Measured in (mmHg)" value="{{old('blood_pressure')}}"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
+                      max="370"
                       id=""
                     />
                     @error('blood_pressure')
@@ -69,6 +72,7 @@
                       class="form-control text-uppercase"
                       name="pulse_rate"
                       placeholder="Measured in (BPM)" value="{{old('pulse_rate')}}"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
                       id=""
                     />
                     @error('pulse_rate')
@@ -83,6 +87,7 @@
                       class="form-control text-uppercase"
                       name="weight"
                       placeholder="Measured in (Kg)" value="{{old('weight')}}"
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
                       id=""
                     />
                     @error('weight')
@@ -97,7 +102,7 @@
                       class="form-control text-uppercase"
                       name="nurse_note"
                       id=""
-                      placeholder="Please Fill in Patient's Observations(if Any)"
+                      placeholder="Please Fill in Nurse's Observations"
                     ></textarea>
                     @error('nurse_note')
                     <p class="text-danger text-xs mt-1">{{$message}}</p>

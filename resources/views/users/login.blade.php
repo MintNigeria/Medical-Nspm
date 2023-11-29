@@ -7,8 +7,7 @@
       <p>Welcome To</p>
       <h3>NSPM MEDICAL</h3>
       <p class="mt-2">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam,
-        laboriosam!
+        @include('partials._message')
       </p>
 
       <form method="POST" action="/users" style="width:100%;" >
@@ -31,7 +30,7 @@
               id=""
             />
             <button type="submit"  class="btn btn-lg mt-5 text-white"
-            style="background-color: blueviolet; width: 100%;">
+            style="background-color: #d81b60; width: 100%;">
               LOGIN
             </button>
           </div>
@@ -42,9 +41,9 @@
       <h1 class="text-white text-uppercase font-weight-bold">
         Welcome TO NSPM Medical
       </h1>
-      <p class="text-white">
+      {{-- <p class="text-white">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, iusto.
-      </p>
+      </p> --}}
     </div>
   </body>
 

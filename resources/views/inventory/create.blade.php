@@ -7,7 +7,7 @@
         @include('partials._sidebar')
 
         <div class="content">
-            <div class="p-5">
+            <div class="p-5" id="content__overflow">
                 <div class="centered-div">
                   <div class="card">
                     <div class="card-header bg-color">
@@ -58,6 +58,17 @@
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                       </div>
+
+                      <div class="form-group">
+                        <label class="mt-4">ADD Grouping (If Any)</label>
+                        <select class="form-select text-uppercase" name="grouping">
+                            <option value="">Choose ...</option>
+                            @foreach ($groups as $group)
+                               <option value="{{ $group->name }}">{{ $group->name }}</option>
+                            @endforeach
+                        </select>
+                      </div>
+
                       <div class="form-group">
                         <label class="mt-3">No of Units</label>
                         <input
@@ -72,6 +83,8 @@
                         @enderror
                       </div>
 
+
+
                       <div class="form-group">
                         <label class="mt-3">Unit Deficit</label>
                         <input
@@ -85,7 +98,7 @@
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <label class="mt-4">Location </label>
                         <select name="location" id="" class="form-control text-uppercase">
                             <option value=""> Choose ...</option>
@@ -98,7 +111,7 @@
                         @error('location')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
-                      </div>
+                      </div> --}}
 
 
                         <button  class="mt-5 btn btn-success">

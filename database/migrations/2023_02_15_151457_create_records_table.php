@@ -16,6 +16,7 @@ return new class extends Migration {
                 ->foreignId('patient_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->string('slug')->nullable();
             $table->integer('blood_pressure');
             $table->integer('pulse_rate');
             $table->longText('assessment')->nullable();
@@ -32,6 +33,7 @@ return new class extends Migration {
             $table->string('flag')->nullable();
             $table->string('designate')->nullable();
             $table->string('clinic_location')->nullable();
+            $table->string('locality')->nullable();
             $table->timestamps();
         });
     }

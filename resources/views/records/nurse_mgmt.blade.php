@@ -5,7 +5,14 @@
     @include('partials._sidebar')
     <div class="content p-3">
         <div style="display: flex; align-items:center;justify-content:space-between">
-            <h4>Management</h4>
+            <h4>Management
+                {{-- @if(auth()->user()->locality === "abj") --}}
+                 {{-- {{ $notifications->count() }}
+                @elseif(auth()->user()->locality === "lag")
+                 {{ $notificationslag->count() }}
+
+                @endif --}}
+                </h4>
         @include('partials._searchoprecord')
         </div>
 
@@ -25,7 +32,7 @@
                   <form method="POST" action="/record/{{$record->id}}/flag_success">
                     @csrf
                     @method('PUT')
-                    <button class="btn btn-gold header mt-1">Intiate Process Close</button>
+                    <button class="btn btn-success mt-1">Intiate Process Close</button>
                  </form>
 
 

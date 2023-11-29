@@ -38,7 +38,7 @@ rel="stylesheet"
 </head>
 
 
-    @yield('content')
+@yield('content')
 
 
 
