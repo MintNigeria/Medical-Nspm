@@ -5,7 +5,7 @@
     <div class="dashboard">
         @include('partials._sidebar')
 
-        <div class="content p-5">
+        <div class="content p-5" id="content__overflow">
             @if ($dependent->flag === 'success')
             <div class="alert-success my-1 p-3">
             FLAGGED AS : SERVICE RENDERED ADVISED TO CLOSE STATUS

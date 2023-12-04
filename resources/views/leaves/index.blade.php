@@ -51,9 +51,14 @@
                         <td class="text-capitalize">{{ $leave->updated_at->format('F j, Y  h:i') }} </td>
                         <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
+                            <a href="leaves/{{ $leave->id }}/receipt">
+                                <i class="fa-solid fa-receipt text-secondary"></i>
+                            </a>
+
                             <a type="button" data-mdb-toggle="modal" data-mdb-target="#leaveModal{{ $leave->id }}">
                                 <i class="fa-solid fa-edit text-success"></i>
                             </a>
+
                             @include('partials._modalleave')
 
                             <form method="POST" action="/leaves/{{$leave->id}}">

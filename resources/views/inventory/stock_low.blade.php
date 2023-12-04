@@ -26,7 +26,7 @@
             <div>
         {{-- <a class="archive" href="/inventory/archive">View Archived Posts</a> ({{ $archives->count() }}) --}}
 
-              <table class="table table-striped table-bordered mt-4" id="myTable">
+              <table class="table table-striped table-bordered mt-4 my-5" id="myTable">
                 <thead class="table-color">
                   <tr>
                     <th scope="col">Name</th>

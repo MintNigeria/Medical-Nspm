@@ -193,6 +193,12 @@ Route::get('/leaves/archive', [LeaveController::class, 'archive'])->middleware('
 Route::get('/leaves/create', [LeaveController::class, 'create'])->middleware(
     'auth'
 );
+
+Route::get('/leaves/{leave}/receipt', [
+    LeaveController::class,
+    'receipt',
+])->middleware('auth');
+
 Route::post('/leaves', [LeaveController::class, 'store'])->middleware('auth');
 
 Route::put('/leaves/{leave}', [
@@ -212,6 +218,12 @@ Route::post('/leaves/{leave}/restore', [
 ])->middleware('auth')->withTrashed();
 
 //Treat Dependents
+Route::get('/dependents', [
+    DependentController::class,
+    'user_index',
+])->middleware('auth');
+
+
 Route::get('/dependents/{patient}/dependent', [
     DependentController::class,
     'index',

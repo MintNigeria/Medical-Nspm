@@ -46,6 +46,13 @@ class LeaveController extends Controller
         ]);
     }
 
+    public function receipt(Request $request, Leaves  $leave)
+    {
+        return view('leaves.receipt', [
+            'leave' => $leave,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $formFields = $request->validate([

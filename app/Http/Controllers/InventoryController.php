@@ -49,24 +49,13 @@ class InventoryController extends Controller
 
     public function stock_low()
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
-        // dd(Inventory::latest()
-        // ->where('unit_deficit', ">", "unit_deficit") // Compare as strings
-        // ->where('location', "=", auth()->user()->locality) // Compare as strings
-        // ->filter(request(['search']))
-        // ->paginate(45));
-        return view('inventory.stock_low', with([
+        return view('inventory.stock_low')->with([
             'inventories' => Inventory::latest()
-                ->where('no_of_units', ">=", "unit_deficit") // Compare as strings
-                ->where('location', "=", auth()->user()->locality) // Compare as strings
+                ->whereRaw('CAST(no_of_units AS SIGNED) < CAST(unit_deficit AS SIGNED)')
+                ->where('location', '=', auth()->user()->locality) // Compare as strings
                 ->filter(request(['search']))
                 ->paginate(45),
-        ]));
-
-
-
+        ]);
     }
 
     public function create()

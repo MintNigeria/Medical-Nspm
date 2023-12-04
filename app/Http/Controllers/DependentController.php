@@ -16,6 +16,20 @@ class DependentController extends Controller
         ]);
     }
 
+    public function user_index(Patient $patient)
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        return view('dependents.index', [
+            'archives' => Patient::onlyTrashed(),
+            'patients' => Patient::latest()
+                ->filter(request(['search']))
+                ->paginate(100),
+        ]);
+    }
+
     public function store(Request $request, Patient $patient)
     {
         $formFields = $request->validate([

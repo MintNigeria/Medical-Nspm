@@ -93,6 +93,10 @@
             </li>
 
             <li>
+                <a href="/dependents/">Dependents</a>
+            </li>
+
+            <li>
                 <a href="/users">Users</a>
             </li>
 

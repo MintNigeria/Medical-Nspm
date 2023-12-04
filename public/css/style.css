@@ -150,6 +150,11 @@ body {
   color: #d81b60;
 }
 
+.img-receipt{
+    height: 40px;
+    width: 40px;
+}
+
 .log-img {
   background-color: #d81b60;
   box-shadow: 0px 10px 0px 0px;
