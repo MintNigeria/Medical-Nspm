@@ -7,6 +7,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PharmacyController;
+use App\Http\Controllers\AllergyController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\UserController;
@@ -43,6 +44,13 @@ Route::middleware(['auth', 'role:admin,editor'])->group(function () {
 // All Listings
 Route::get('patient/', [PatientController::class, 'index'])->middleware('auth');
 Route::get('patient/archive', [PatientController::class, 'archive'])->middleware('auth');
+
+
+/** ALLERGY CRUD */
+Route::get("allergies/{patientId}/view", [AllergyController::class, 'view'])->middleware("auth");
+Route::get("allergies/{patientId}/create", [AllergyController::class, 'create'])->middleware("auth");
+Route::post("allergies/{patientId}/", [AllergyController::class, 'store'])->middleware("auth");
+
 
 // Show Create Form
 Route::get('/patient/create', [PatientController::class, 'create'])->middleware(

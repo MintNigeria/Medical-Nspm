@@ -8,9 +8,16 @@
         <div style="display:flex; align-items:center;justify-content:space-between; margin-bottom:40px;">
             <p></p>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                Patient's Profile
-            </button>
+            <div>
+                <button type="button" class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                    Patient's Profile
+                </button>
+                <button type="button" class="btn btn-secondary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                    View Allergies
+                </button>
+            </div>
+
+
 
         </div>
         @unless (count($records) === 0)

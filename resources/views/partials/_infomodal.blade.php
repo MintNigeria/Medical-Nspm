@@ -19,7 +19,16 @@
                         </div>
                         <div class="form-group">
                             <label class="mt-3">Current Blood Pressure</label>
-                            <h6>{{ $record->blood_pressure }}</h6>
+                             @if ($record->blood_pressure_systolic > 141 || $record->blood_pressure_diastolic > 100)
+                            <h6 class="text-danger font-weight-bold text-2xl blood_danger">
+                                RECORDED B/P :  {{$record->blood_pressure_systolic  }} / {{ $record->blood_pressure_diastolic }}
+                            </h6>
+
+                            @else
+                            <h6>
+                                RECORDED B/P :  {{$record->blood_pressure_systolic  }} / {{ $record->blood_pressure_diastolic }}
+                            </h6>
+                            @endif
                             </div>
                             <div class="form-group">
                                 <label class="mt-3">Current Pulse Rate</label>
@@ -30,6 +39,11 @@
                                 <label class="mt-3">Height</label>
                                 <h6>Height: {{$record->patient->height}} (m2)</h6>
                                 <h6>Weight: {{$record->weight}} (Kg)</h6>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mt-3">Current BMI</label>
+                                <h6>BMI: {{ round($record->bmi, 6 )}} Kg/m2 </h6>
                             </div>
                     </div>
                     <div class="modal-footer">

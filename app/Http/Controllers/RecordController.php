@@ -6,6 +6,7 @@ use App\Models\Inventory;
 use App\Models\Patient;
 use App\Models\Pharmacy;
 use App\Models\Clinic;
+use App\Models\Allergy;
 use App\Models\User;
 use App\Models\Record;
 use Illuminate\Http\Request;
@@ -54,7 +55,8 @@ class RecordController extends Controller
 
         $formFields = $request->validate([
             'slug' => "nullable",
-            'blood_pressure' => 'required',
+            'blood_pressure_systolic' => 'required',
+            'blood_pressure_diastolic' => 'required',
             'temp' => 'required',
             'pulse_rate' => 'required',
             'assessment' => 'nullable',
@@ -92,11 +94,14 @@ class RecordController extends Controller
     public function edit($slug)
     {
         $slug = $record = Record::where('slug', $slug)->first();
+
         return view('records.edit', [
             'record' => $record,
             'clinics' => Clinic::latest()->get(),
+            'allergies' => Allergy::where("patient_id", $record->patient->id),
             'pharmacies' => Pharmacy::paginate(20),
         ]);
+        // dd($allergies->count());
     }
 
     // Update Listing Data
@@ -156,8 +161,11 @@ class RecordController extends Controller
 
     public function view_patient($patientId)
     {
-        $records = Record::where('patient_id', $patientId)->get();
-        return view('records.view', ['records' => $records]);
+        $records = Record::where('patient_id', $patientId)->first();
+        return view('records.view', [
+            'records' => $records,
+             'allergy'=> Allergy::latest()->get()
+            ]);
     }
 
     //View Pharmacy Records

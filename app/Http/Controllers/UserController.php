@@ -25,18 +25,10 @@ class UserController extends Controller
                 ->where('id', '!=', auth()->user()->id)
                 ->filter(request(['search']))
                 ->paginate(45),
-                'records' => Record::where('designate', 'nurse')
-                ->where('locality', auth()->user()->role)
-                ->where('status', "open")
-                    ->whereNull('flag')
-                    ->latest()
-                    ->get(),
-                    'records_close' => Record::where('designate', 'nurse')
-                    ->where('locality', auth()->user()->role)
-                    ->where('status', "closed")
-                        ->whereNull('flag')
-                        ->latest()
-                        ->get(),
+                'records' => Record::where('locality', auth()->user()->locality)
+                             ->where('status', "open")
+                            ->filter(request(['search']))
+                            ->paginate(45),
                 'leaves' => Leaves::latest()->get(),
             ])
         );
@@ -52,6 +44,10 @@ class UserController extends Controller
             'users.index',
             with([
                 'archives' =>ModelsUser::onlyTrashed(),
+                'records' => Record::latest()->where('locality', auth()->user()->locality)
+                            ->where('status', 'open')
+                            ->filter(request(['search']))
+                            ->paginate(10),
                 'users' => ModelsUser::latest()
                     ->where('id', '!=', auth()->user()->id)
                     ->filter(request(['search']))

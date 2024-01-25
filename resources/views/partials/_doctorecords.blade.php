@@ -5,179 +5,619 @@
     @method('PUT')
 
 
-    <div class="form-group mt-3">
-        <label>Prescription / Management </label>
-      <!-- Default radio -->
-      <div class="form-check mt-3">
-        <input class="form-check-input" type="radio"name="service_type" value="prescription" onclick="radioDiv('prescription', 'management')"  >
-          <label class="form-check-label">Prescription</label>
-      </div>
-      <div class="form-check ">
-        <input type="radio" class="form-check-input" name="service_type" value="management" onclick="radioDiv('management', 'prescription')" >
-
-        <label class="form-check-label">Management</label>
-      </div>
-      @error('service_type')
-      <p class="text-danger font-weight-bold mt-1">{{$message}}</p>
-      @enderror
-
-  </div>
-
-
-    <div class="form-group mt-2">
-        <label>ASSESSMENT</label>
-        <textarea type="text" name="assessment" value="{{ old('assesment') }}"  class="form-control text-uppercase mt-2" id="">
-            {{ $record->assessment }}
+    <div class="form-group mt-4">
+        <label><h4 class="text-secondary text-capitalize">Presenting Complaint</h4></label>
+        <textarea type="text" name="complaint" value="{{ old('complaint') }}"  class="form-control text-uppercase mt-2" id="">
+            {{-- {{ $record->assessment }} --}}
         </textarea>
-        @error('assessment')
+        @error('complaint')
+        <p class="text-danger text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="form-group mt-4">
+        <label><h4 class="text-secondary text-capitalize">Physical Examination</h4></label>
+        <textarea type="text" name="physicalexam" value="{{ old('physicalexam') }}"  class="form-control text-uppercase mt-2" id="">
+            {{-- {{ $record->assessment }} --}}
+        </textarea>
+        @error('physicalexam')
+        <p class="text-danger text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="form-group mt-4">
+        <label><h4 class="text-secondary text-capitalize">Assessment</h4></label>
+        <textarea type="text" name="physicalexam" value="{{ old('physicalexam') }}"  class="form-control text-uppercase mt-2" id="">
+            {{-- {{ $record->assessment }} --}}
+        </textarea>
+        @error('physicalexam')
         <p class="text-danger text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
 
 
-    <div id="prescription" style="display:none;">
-        <hr>
+    <h4 class="text-secondary text-capitalize mt-5">Management <span class="text-lowercase text-black-50">(Select Treatment)</span></h4>
 
-        <div class="form-group mt-2">
-            <label class="mt-1">Prescription</label>
-            <textarea type="text" name="prescription"  value="{{ old('prescription') }}" placeholder="Prescribe as to be Viewed By the pharmacist"  class="form-control text-uppercase" id="">
-                {{ $record->prescription }}
-            </textarea>
-            @error('prescription')
-            <p class="text-danger text-xs mt-1">{{$message}}</p>
-            @enderror
+    <div class="form-group mt-3">
+        <!-- Default checkbox -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="test" id="tests" />
+            <label class="form-check-label" for="flexCheckDefault">Medical Test(s)</label>
         </div>
-        <button type="button" class="mt-1 header btn btn-primary btn-sm" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-            Preview Stocks
-          </button>
+
+        <!-- Checked checkbox -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="prescription" id="prescription"/>
+            <label class="form-check-label" for="flexCheckChecked">Prescription</label>
+        </div>
+
+        <!-- Default checkbox -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="nurse" id="nurse" />
+            <label class="form-check-label" for="flexCheckDefault">Nurse Management</label>
+        </div>
 
 
-          {{-- Modal : Get All Stocks --}}
+    </div>
+   <!-- ... (other form elements) ... -->
 
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Pharamceuticals</h5>
-                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="search" class="form-control" name="" id="" />
+   <div class="treatment-options">
+    <div class="testsDiv" style="display:none;">
+        <div style="display: grid; grid-template-columns:auto auto auto auto;">
+        <div>
+            <span>Hematology</span>
 
-
-                    @unless (count($pharmacies) === 0)
-                        @foreach ($pharmacies as $pharmacy)
-
-                        <div class="alert-primary p-4 mt-3">
-                            <div style="display: flex; align-items:center; justify-content:space-between;">
-                                <b> {{ $pharmacy->name }}</b>
-                                <b> {{ $pharmacy->type }}</b>
-                                <b> {{ $pharmacy->no_of_units }}</b>
-                            </div>
-
-                        </div>
-                    {{ $pharmacies->links() }}
-
-                        @endforeach
-
-                    @endunless
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Blood Grouping</label>
             </div>
-          </div>
 
 
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Hb genotype</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Hb/PCV</label>
+            </div>
 
-        <div class="form-group mt-4">
-            <label>Designate </label>
-            <select name="designate" id="mySelect" class="form-control text-uppercase" onchange="showDiv()">
-                <option value=""> Choose ...</option>
-                <option value="pharmacy" @if ($record->designate === 'pharmacy')
-                    selected
-                @endif>Pharmacy</option>
-                <option value="family_clinic"  @if ($record->designate === 'family_clinic')
-                    selected
-                @endif>Family clinic</option>
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">FBC</label>
+            </div>
 
-                <option value="outsource" onclick="showDiv()"  @if ($record->designate === 'outsource')
-                    selected
-                @endif>OutSourced</option>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">WBC – Total</label>
+            </div>
 
-            </select>
-            @error('designate')
-            <p class="text-danger text-xs mt-1">{{$message}}</p>
-            @enderror
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">WBC – Differentials</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">RBC count</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Platelet count</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Reticulocyte count</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">ESR</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Bleeding time</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Clotting time</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Peripheral blood film</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">RBC indices – each</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Cross-matching</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Unit of screened Rh-positive blood</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Unit of screened rh-negative blood</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Screening of donor blood</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Coombs test (direct & indirect)</label>
+            </div>
+
+            <hr />
+            <span> Thyroid function test </span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">TSH</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">T3</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">T4</label>
+            </div>
+
         </div>
-        <div class="form-group mt-3" id="myDiv" style="display:none;">
-            <label> CLINIC OUTSOURCE: </label>
-            <select name="clinic_location" id="" class='form-control'>
-                <option value="">Choose ...</option>
-                {{-- @unless (count($clinics) === 0) --}}
-                @foreach ($clinics as $clinic)
-                    <option value="{{ $clinic->id }}">{{ $clinic->name}}</option>
-                @endforeach
-            {{-- @endunless --}}
 
-            </select>
-            @error('clinic_location')
-            <p class="text-danger text-xs mt-1">{{$message}}</p>
-            @enderror
+
+
+        <div>
+            <span>Microbiology & serology</span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Malaria parasite test</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Widal test</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Rhesus factor determination</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Microscopy urine</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Microscopy stool</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Microscopy culture & sensitivity (MCS) -Stool</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">MCS -Urine</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">MCS – HVS</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">MCS – urethral swab</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">MCS – sputum</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">MCS – Ear, nose, throat swab</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">MCB – pus/aspirate/wound</label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Gram staining</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">CSF – gram stain & MCS</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Semen analysis</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Seminal fluid MCS</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Blood culture & sensivity</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Sputum AFB X 3</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Mantoux test</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Sputum AFB X 3</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">HBsAg</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">HBeAg</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">HBcAg</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Microfilarial test – skin snip</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Skin scrapings for MCS</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Skin scrapings for fungal studies</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">VDRL</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">ELISA – Retroviral screening</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Viral load – RNA</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Viral load – P24</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">CD4 Count</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">HIV Titre</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">HIV Confirmation</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Rheumatoid factor</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">ASO Titre</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Alpha-feto protein</label>
+            </div>
+
+        </div>
+
+        <div>
+            <span>Blood & urine chemistry</span>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Urinalysis</label>
+            </div>
+
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Serum electrolytes & urea</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Sodium</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Chloride</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Potassium</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Urea</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Creatinine</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">E/U/Cr</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Calcium </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Uric acid</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Blood sugar – fasting</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Blood sugar - random</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Glucose tolerance test</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Glycated Hb</label>
+            </div>
+
+            <hr />
+            <span>Prostate specific antigen (PSA)</span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Total</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Free</label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Hormonal Assay</label>
+            </div>
+        </div>
+
+        <div>
+            <span>Lipid Profile</span>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Cholesterol</label>
+            </div>
+
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Triglycerides</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">HDL</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">LDL</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">HDL</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">LDL</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Liver function test</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">SGOT</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">SGPT</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Bilirubin – total</label>
+            </div>
+
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Bilirubin – direct</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Alkaline phosphatase</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Acid phosphatase</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" />
+                <label class="form-check-label" for="flexCheckChecked">Total protein</label>
+            </div>
+
+            <!-- Default checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Albumin</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Globulin</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Albumin – globulin ratio</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Amylase</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Pregnancy test – urine</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"  />
+                <label class="form-check-label" for="flexCheckDefault">Pregnancy test – serum hCG</label>
+            </div>
+
         </div>
 
     </div>
 
-    <div id="management" style="display:none;">
-        <div class="form-group mt-2">
-            <label class="mt-2">Management (<span class="text-danger text-sm">
-                Seperate Each Process with a Comma(,)
-            </span>) </label>
-            <textarea type="text" name="management" value="{{ old('management') }}"  class="form-control text-uppercase" id="">
-                {{ $record->management }}
-            </textarea>
-            @error('management')
-            <p class="text-danger text-xs mt-1">{{$message}}</p>
-            @enderror
-        </div>
 
+  </div>
+
+    <div class="prescriptionDiv" style="display:none;color:black;">
+        <!-- Your prescription form content goes here -->
+        Prescription
     </div>
 
 
 
+    <div class="nurseDiv" style="display:none;color:black;">
 
-<div class="form-group mt-3">
-  <label>CURRENT STATUS</label>
-<!-- Default radio -->
-<div class="form-check">
-    <input class="form-check-input" type="radio"name="status" value="open"  @if ($record->status === 'open')
-        checked
-    @endif/>
-    <label class="form-check-label" for="flexRadioDefault1"> OPENED</label>
-</div>
-<div class="form-check ">
-    <input class="form-check-input" type="radio"name="status" value="closed" @if ($record->status === 'closed')
-    checked
-@endif />
-    <label class="form-check-label" for="flexRadioDefault1"> CLOSED </label>
-</div>
-<div class="form-check ">
-    <input class="form-check-input" type="radio"name="status" value="cancelled" @if ($record->status === 'cancelled')
-    checked
-@endif/>
-    <label class="form-check-label" for="flexRadioDefault1"> CANCELLED </label>
-</div>
-@error('status')
-<p class="text-danger text-xs mt-1">{{$message}}</p>
-@enderror
-
-<div class="form-group my-5">
-    <button class="btn btn-success">
-        <i class="fas fa-share"></i> SEND
-    </button>
-</div>
+    </div>
 </div>
 
-</form>
+<!-- ... (remaining HTML) ... -->
+
+<!-- ... (other form elements) ... -->
+
+<!-- ... (remaining HTML) ... -->
+
+<div style="display:none;">
+    <hr>
+
+    <div class="form-group mt-3">
+        <label>CURRENT STATUS</label>
+        <!-- Default radio -->
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="status" value="open"  @if ($record->status === 'open')
+                checked
+            @endif/>
+            <label class="form-check-label" for="flexRadioDefault1"> OPENED</label>
+        </div>
+        <div class="form-check ">
+            <input class="form-check-input" type="radio" name="status" value="closed" @if ($record->status === 'closed')
+                checked
+            @endif />
+            <label class="form-check-label" for="flexRadioDefault1"> CLOSED </label>
+        </div>
+        <div class="form-check ">
+            <input class="form-check-input" type="radio" name="status" value="cancelled" @if ($record->status === 'cancelled')
+                checked
+            @endif/>
+            <label class="form-check-label" for="flexRadioDefault1"> CANCELLED </label>
+        </div>
+        @error('status')
+        <p class="text-danger text-xs mt-1">{{$message}}</p>
+        @enderror
+
+        <div class="form-group my-5">
+            <button class="btn btn-success">
+                <i class="fas fa-share"></i> SEND
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ... (remaining HTML) ... -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the checkboxes
+        var medicalTestCheckbox = document.getElementById('tests');
+        var prescriptionCheckbox = document.getElementById('prescription');
+        var nurseCheckbox = document.getElementById('nurse');
+
+        // Get the divs to show/hide
+        var prescriptionDiv = document.querySelector('.prescriptionDiv');
+        var medicalTestDiv = document.querySelector('.testsDiv');
+        var nurseDiv = document.querySelector('.nurseDiv');
+
+        // Add change event listeners to checkboxes
+        medicalTestCheckbox.addEventListener('change', function () {
+            toggleDivVisibility(medicalTestCheckbox, medicalTestDiv);
+        });
+
+        prescriptionCheckbox.addEventListener('change', function () {
+            toggleDivVisibility(prescriptionCheckbox, prescriptionDiv);
+        });
+
+        nurseCheckbox.addEventListener('change', function () {
+            toggleDivVisibility(nurseCheckbox, nurseDiv);
+        });
+
+        // Function to toggle div visibility
+        function toggleDivVisibility(checkbox, div) {
+            if (checkbox.checked) {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        }
+    });
+</script>
+

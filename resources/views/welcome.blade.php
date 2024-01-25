@@ -6,7 +6,7 @@
       <div class="navigation__header">
         <h3>
           <i class="fa fa-crutches"></i>
-          Nspm Medical
+          Nspm CaseNotes
         </h3>
       </div>
       <div class="navigation__links">
@@ -18,7 +18,7 @@
     <div class="hero__section">
       <img src="{{ asset('images/welco.jpg') }}" alt="" />
       <div class="central-text">
-        Welcome to Nspm's Medical Solution
+        Welcome to Nspmc CaseNotes
         <p style="justify-self: center; font-size: 20px;">
             Building a Stronger & Healthier Nspm Together ...
           </p>
@@ -27,7 +27,7 @@
 
     <div class="about__section">
       <div class="about__section__content">
-        <h4>About Nspm's Medical Software</h4>
+        <h4>About Nspmc CaseNotes</h4>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
           veniam sapiente reprehenderit, omnis ex veritatis, explicabo odit,

@@ -22,11 +22,7 @@
                     {{ $record->patient->address }}
                 </p>
             </div>
-            <div class="alert-success p-2 mt-1">
-                <p >
-                    {{ $record->patient->address }}
-                </p>
-            </div>
+
 
             <div class="alert-success p-2 mt-1">
                 <p >
@@ -34,11 +30,7 @@
                 </p>
             </div>
 
-            <div class="alert-success p-2 mt-1">
-                <p >
-                   No of Records " {{ $record->count() }} "
-                </p>
-            </div>
+
         </div>
 
       </div>

@@ -53,19 +53,6 @@
                 <li class="nav-item" role="presentation">
                   <a
                     class="nav-link"
-                    id="ex1-tab-2"
-                    data-mdb-toggle="tab"
-                    href="#ex1-tabs-2"
-                    role="tab"
-                    aria-controls="ex1-tabs-2"
-                    aria-selected="false"
-                  >
-                   Closed Records
-                  </a>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <a
-                    class="nav-link"
                     id="ex1-tab-3"
                     data-mdb-toggle="tab"
                     href="#ex1-tabs-3"
@@ -91,10 +78,10 @@
                     <table  class="table table-striped table-bordered tabel m-5 pb-16" id="myTable">
                         <thead class="table-color">
                             <th>Staff ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Locality</th>
+                            <th>Blood Pressure</th>
+                            <th>Current Temp(Celcius)</th>
+                            <th>Pulse rate</th>
+                            <th>BMI</th>
                             <th>Actions</th>
                         </thead>
                         @unless (count($records) === 0)
@@ -102,19 +89,19 @@
                             @foreach ($records as  $record)
 
                                 <tr>
-                                    <td>{{ $use }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td> {{ $user->role }}</td>
-                                    <td> {{ $user->locality }}</td>
+                                    <td>{{ $record->patient->staff_id }}</td>
+                                    <td @if ($record->blood_pressure_systolic > 140 || $record->blood_pressure_diastolic > 100)
+                                        class="text-danger"
+                                    @endif>{{ $record->blood_pressure_systolic }}/{{ $record->blood_pressure_diastolic }}</td>
+                                    <td>{{ $record->temp }} Cel</td>
+                                    <td> {{ $record->pulse_rate }}</td>
+                                    <td>  {{ round($record->bmi, 4 )}} Kg/m2 </td>
                                     <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
-                                        <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeuserModal{{ $user->id }}">
+                                        <a type="button" data-mdb-toggle="modal" data-mdb-target="#recordModal{{ $record->id }}">
                                             <i class="fa-solid fa-eye text-success"></i>
                                         </a>
-                                        @include('partials._modalusers')
-
-
+                                        @include('partials._infomodal')
                                     </td>
                                 </tr>
                             @endforeach
@@ -122,65 +109,16 @@
                         @else
                         <tbody>
                         <tr colspan="6">
-                            <td class="text-center text-capitalize">No Users Recorded</td>
+                            <td class="text-center text-capitalize">No Records Recorded</td>
                         </tr>
                         </tbody>
 
                         @endunless
                     </table>
-                    {{ $users->links() }}
+                    {{ $records->links() }}
                   </div>
                 </div>
-                <div
-                  class="tab-pane fade"
-                  id="ex1-tabs-2"
-                  role="tabpanel"
-                  aria-labelledby="ex1-tab-2"
-                >
-                <div class="flex-div">
-                    <table  class="table table-striped table-bordered tabel m-5 pb-16" id="myTable">
-                        <thead class="table-color">
-                            <th>Staff ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Locality</th>
-                            <th>Actions</th>
-                        </thead>
-                        @unless (count($users) === 0)
-                        <tbody>
-                            @foreach ($users as  $user)
 
-                                <tr>
-                                    <td>{{ $user->staff_id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td> {{ $user->role }}</td>
-                                    <td> {{ $user->locality }}</td>
-                                    <td style="display: flex; align-items:center;justify-content:space-evenly;">
-
-                                        <a type="button" data-mdb-toggle="modal" data-mdb-target="#eyeuserModal{{ $user->id }}">
-                                            <i class="fa-solid fa-eye text-success"></i>
-                                        </a>
-                                        @include('partials._modalusers')
-
-
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        @else
-                        <tbody>
-                        <tr colspan="6">
-                            <td class="text-center text-capitalize">No Users Recorded</td>
-                        </tr>
-                        </tbody>
-
-                        @endunless
-                    </table>
-                    {{ $users->links() }}
-                  </div>
-                </div>
                 <div
                   class="tab-pane fade"
                   id="ex1-tabs-3"

@@ -27,11 +27,16 @@ class Patient extends Model
         return $this->hasMany(Record::class, 'patient_id');
     }
 
-    // Relationship With Leaves
     public function leave()
     {
         return $this->hasMany(Leaves::class, 'patient_id');
     }
+
+    public function allergies()
+    {
+        return $this->hasMany(Allergy::class, 'patient_id');
+    }
+
 
     public function dependency()
     {

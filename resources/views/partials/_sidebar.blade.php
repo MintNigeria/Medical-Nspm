@@ -89,6 +89,9 @@
 
             @if(auth()->user()->role === "doctor")
             <li>
+                <a href="/home">Home</a>
+            </li>
+            <li>
                 <a href="/records/manage">View Records</a>
             </li>
 

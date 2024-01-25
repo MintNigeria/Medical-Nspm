@@ -150,6 +150,12 @@ body {
   color: #d81b60;
 }
 
+.blood_danger{
+    color: red;
+    font-weight: bold;
+    font-size: large;
+}
+
 .img-receipt{
     height: 40px;
     width: 40px;
@@ -482,5 +488,16 @@ tbody > tr >td{
 }
 
 .archive:hover{
+    color: teal;
+}
+
+.testsDiv{
+    margin-top:10px;
+    display: flex;
+    /* grid-template: auto auto auto; */
+}
+
+.testsDiv > div > div > span{
+    margin: 10px 0px;
     color: teal;
 }

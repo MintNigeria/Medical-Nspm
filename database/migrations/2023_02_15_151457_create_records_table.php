@@ -17,7 +17,8 @@ return new class extends Migration {
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('slug')->nullable();
-            $table->integer('blood_pressure');
+            $table->integer('blood_pressure_systolic');
+            $table->integer('blood_pressure_diastolic');
             $table->integer('pulse_rate');
             $table->longText('assessment')->nullable();
             $table->longText('prescription')->nullable();

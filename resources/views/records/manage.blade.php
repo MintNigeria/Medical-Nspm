@@ -24,8 +24,20 @@
                   @include('partials._infomodal')
 
                   <p> STAFF ID : {{$record->patient->staff_id  }}</p>
-                  <p> RECORDED B/P : {{$record->blood_pressure  }}</p>
+
+                    @if ($record->blood_pressure_systolic > 141 || $record->blood_pressure_diastolic > 100)
+                    <p class="text-danger font-weight-bold text-2xl blood_danger">
+                        RECORDED B/P :  {{$record->blood_pressure_systolic  }} / {{ $record->blood_pressure_diastolic }}
+                    </p>
+
+                    @else
+                    <p>
+                        RECORDED B/P :  {{$record->blood_pressure_systolic  }} / {{ $record->blood_pressure_diastolic }}
+                    </p>
+                    @endif
+
                   <p> RECORDED PULSE RATE : {{$record->pulse_rate }}</p>
+                  <p> RECORDED BMI: {{ round($record->bmi, 6 )}} Kg/m2</p>
                   <p> NURSE NOTE: {{Str::limit($record->nurse_note, 10, '...')  }}</p>
 
 
