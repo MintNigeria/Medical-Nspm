@@ -17,16 +17,22 @@ return new class extends Migration {
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('slug')->nullable();
+            //
             $table->integer('blood_pressure_systolic');
             $table->integer('blood_pressure_diastolic');
             $table->integer('pulse_rate');
+            $table->json('doctor_act')->nullable();
+            $table->json('tests')->nullable();
+            $table->longText('complaint')->nullable();
+            $table->longText('physicalexam')->nullable();
             $table->longText('assessment')->nullable();
             $table->longText('prescription')->nullable();
+            $table->string('flag_prescription')->nullable();
+            $table->string('flag_nurse')->nullable();
             $table->string('weight')->nullable();
             $table->string('temp');
             $table->string('bmi')->nullable();
             $table->longText('nurse_note');
-            $table->string('service_type')->default('prescription');
             $table->string('management')->nullable();
             $table->string('status')->default('open');
             $table->string('processing')->default(false);

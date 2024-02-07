@@ -25,6 +25,7 @@ $age = $today->diff($birthDate)->y;
 @include('partials._sidebar')
 <div class="content p-2 mt-2" >
 <div id="content__overflow">
+
 @if ($record->flag === 'success')
     <div class="alert-primary my-1 p-3">
     FLAGGED AS : SERVICE RENDERED ADVISED TO CLOSE STATUS
@@ -41,9 +42,7 @@ $age = $today->diff($birthDate)->y;
     <div class="card-header text-success bg-color">
         <div style="display:flex;align-items:center;justify-content:space-between">
             <p>RECORD [ {{ $record->patient->name }} / {{ $record->patient->staff_id }} ]</p>
-            {{-- <a class="btn btn-gold" href="/records/{{ $record->patient->id }}/view">
-                VIEW PAST RECORDS
-            </a> --}}
+
             <p>
                 Process Initiated BY : {{$record->processing_by }}
             </p>
@@ -60,7 +59,7 @@ $age = $today->diff($birthDate)->y;
                 <p><b> <span>Staff Name </span> : {{ $record->patient->name }}</b></p>
                 <p><b> <span>Staff ID </span> : {{ $record->patient->staff_id }}</b></p>
                 <p><b> <span>Height </span> : {{ $record->patient->height }} (m <span>^2</span>)</b></p>
-                <p><b> <span>AG </span> : {{ $age }} years old</b></p>
+                <p><b> <span>AGE </span> : {{ $age }} years old</b></p>
                 @if ($record->bmi)
                 <p><b><span>Current Weight</span>: {{ $record->weight}} Kg</b></b></p>
                 <p><b><span>Current BMI</span>: {{ round($record->bmi, 6 )}} Kg/m2</b></b></p>
@@ -95,14 +94,12 @@ $age = $today->diff($birthDate)->y;
             MEDICAL INPUT
         </b>
 
-
+{{-- Import Doctor Analysis --}}
 
     @include('partials._doctorecords')
 
     </div>
-    <div class="card-footer">
 
-    </div>
 </div>
 </div>
 </div>
@@ -110,22 +107,25 @@ $age = $today->diff($birthDate)->y;
 </div>
 
 @include('partials._show')
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">NOTIFICATION</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Allergy listing(s)</h5>
                 <button type="button" class="close" data-dismiss="modal" id="closeModalButton" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                THIS PATIENT HAS <b class="text-danger font-bold text-2xl" style="font-size: 20px;"> ({{ $allergies->count() }})</b> allergies Recorded.
+                        THIS PATIENT HAS <b class="text-danger font-bold text-2xl" style="font-size: 20px;"> ({{ $allergies->count() }})</b> allergies Recorded.
+                <br />
+                @unless (count($allergies) === 0)
+                @foreach ($allergies as $allergy)
+                    <p class="text-black alert-primary my-2">{{ Str::limit($allergy->allergies, 10, '...') }}</p>
+                @endforeach
+            @endunless
             </div>
-            <div class="modal-footer">
-                {{-- <button type="button" class="btn btn-secondary" id="closeModalButton" data-dismiss="modal">Close</button> --}}
-            </div>
+
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-bluedark">
-                <h5 class="modal-title" id="exampleModalLabel">{{$leave->patient->name}}  {{$leave->patient->staff_id}} [Leave]</h5>
+                {{-- <h5 class="modal-title" id="exampleModalLabel">{{$leave->patient->name}}  {{$leave->patient->staff_id}} [Leave]</h5> --}}
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/leaves/{{ $leave->id }}" method="POST">
@@ -13,18 +13,33 @@
 
                 <div>
                     <div class="form-group">
-                      <label class="mt-3">No of Days</label>
-                      <input
-                        type="number"
-                        class="form-control text-uppercase"
-                        name="no_of_days"
-                        placeholder="EXample: 2 " value="{{ $leave->no_of_days}}"
-                        id=""
-                      />
-                      @error('no_of_days')
-                      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                      @enderror
-                    </div>
+                        <div class="form-group">
+                            <label class="mt-3">Start Date</label>
+                            <input
+                              type="date"
+                              class="form-control text-uppercase"
+                              name="start_day"
+                               value="{{$leave->start_day}}"
+                              id=""
+                            />
+                            @error('start_day')
+                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+                          </div>
+
+                          <div class="form-group">
+                            <label class="mt-3">End Date</label>
+                            <input
+                              type="date"
+                              class="form-control text-uppercase"
+                              name="end_day"
+                               value="{{$leave->end_day}}"
+                              id=""
+                            />
+                            @error('end_day')
+                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
+                          </div>
 
                     <div class="form-group">
                       <label class="mt-4">Doctor's Comment</label>
@@ -57,7 +72,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-bluedark">
-                <h5 class="modal-title" id="exampleModalLabel">{{$leave->patient->name}}  {{$leave->patient->staff_id}} [Leave]</h5>
+                {{-- <h5 class="modal-title" id="exampleModalLabel">{{$leave->patient->name}}  {{$leave->patient->staff_id}} [Leave]</h5> --}}
                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <form>

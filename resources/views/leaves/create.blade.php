@@ -33,18 +33,33 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="mt-3">No of Days</label>
+                        <label class="mt-3">Start Date</label>
                         <input
-                          type="number"
+                          type="date"
                           class="form-control text-uppercase"
-                          name="no_of_days"
-                          placeholder="EXample: 2 " value="{{old('no_of_days')}}"
+                          name="start_day"
+                           value="{{old('start_day')}}"
                           id=""
                         />
-                        @error('no_of_days')
+                        @error('start_day')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                       </div>
+
+                      <div class="form-group">
+                        <label class="mt-3">End Date</label>
+                        <input
+                          type="date"
+                          class="form-control text-uppercase"
+                          name="end_day"
+                           value="{{old('end_day')}}"
+                          id=""
+                        />
+                        @error('end_day')
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
+                      </div>
+
 
                       <div class="form-group">
                         <label class="mt-4">Doctor's Comment</label>

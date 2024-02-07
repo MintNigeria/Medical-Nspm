@@ -32,6 +32,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 // Route::get("/test", function() {
 //     return view("log-viewer::index");
 // });
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'role:admin,editor'])->group(function () {
 // All Listings
 Route::get('patient/', [PatientController::class, 'index'])->middleware('auth');
 Route::get('patient/archive', [PatientController::class, 'archive'])->middleware('auth');
+
 
 
 /** ALLERGY CRUD */
@@ -103,6 +105,22 @@ Route::get('/records/manage', [RecordController::class, 'open'])->middleware(
 );
 
 //View Pharmacy Records
+Route::get('/records/preview', [
+    RecordController::class,
+    'preview',
+])->middleware('auth');
+
+Route::get('/records/{record}/preview', [
+    RecordController::class,
+    'preview_report',
+])->middleware('auth');
+
+Route::get('/records/{record}/referraldoc', [
+    RecordController::class,
+    'referral_doc',
+])->middleware('auth');
+
+//View Pharmacy Records
 Route::get('/records/pharmacy', [
     RecordController::class,
     'pharmacy',
@@ -123,6 +141,30 @@ Route::put('/record/{record}/flag_success', [
     RecordController::class,
     'flag_success',
 ])->middleware('auth');
+
+//
+Route::put('/record/{record}/flag_nurse', [
+    RecordController::class,
+    'flag_nurse',
+])->middleware('auth');
+
+Route::put('/record/{record}/flag_nurse_fail', [
+    RecordController::class,
+    'flag_nurse_fail',
+])->middleware('auth');
+
+Route::put('/record/{record}/flag_prescription', [
+    RecordController::class,
+    'flag_prescription',
+])->middleware('auth');
+
+Route::put('/record/{record}/flag_prescription_fail', [
+    RecordController::class,
+    'flag_prescription_fail',
+])->middleware('auth');
+
+//
+
 Route::put('/record/{record}/flag_nt_stock', [
     RecordController::class,
     'flag_nt_stock',
@@ -353,6 +395,10 @@ Route::delete('/grouping/{grouping}',[GroupController::class, 'destroy'])->middl
 
 /** Users */
 Route::get('/users', [UserController::class, 'index'])->middleware('auth');
+Route::get("/users/profile", [UserController::class, 'profile'])->middleware("auth");
+Route::post('/profile', [UserController::class, 'updatePassword'])->middleware(
+    'auth'
+);
 Route::get('/users/archive', [UserController::class, 'archive'])->middleware(
     'auth'
 );

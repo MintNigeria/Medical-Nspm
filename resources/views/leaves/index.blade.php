@@ -1,5 +1,6 @@
 @extends('layout')
 
+
 @section('content')
 <body>
 <div class="dashboard">
@@ -18,7 +19,11 @@
 
           <div>
             <a href="/leaves/create" class="btn bg-color">Create New LEAVE</a>
+
+            @if (auth()->user()->role === "medic-admin")
             <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
+            @endif
+
           </div>
 
         </div>
@@ -41,19 +46,37 @@
             </thead>
             @unless (count($leaves) === 0)
             <tbody>
+
                 @foreach ($leaves as  $leave)
+
                     <tr>
                         <td>{{ $leave->patient->name }}</td>
                         <td>{{ $leave->patient->staff_id }}</td>
                         <td>{{ Str::limit($leave->comment, $limit = 30, $end="...") }}</td>
-                        <td>{{ $leave->no_of_days }}</td>
+                        <td>
+                            {{ \Carbon\Carbon::parse($leave->end_day)->diffInDays(\Carbon\Carbon::parse($leave->start_day)) }}
+                        </td>
+
                         <td class="text-capitalize">{{ $leave->created_at->format('F j, Y  h:i') }} </td>
                         <td class="text-capitalize">{{ $leave->updated_at->format('F j, Y  h:i') }} </td>
                         <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
+                            @if (auth()->user()->role === "medic-admin")
+
                             <a href="leaves/{{ $leave->id }}/receipt">
                                 <i class="fa-solid fa-receipt text-secondary"></i>
                             </a>
+
+                            {{-- <form method="POST" action="/leaves/{{$leave->id}}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </button>
+                            </form> --}}
+
+                            @endif
+
 
                             <a type="button" data-mdb-toggle="modal" data-mdb-target="#leaveModal{{ $leave->id }}">
                                 <i class="fa-solid fa-edit text-success"></i>
@@ -61,13 +84,8 @@
 
                             @include('partials._modalleave')
 
-                            <form method="POST" action="/leaves/{{$leave->id}}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
-                                    <i class="fas fa-trash text-danger"></i>
-                                </button>
-                            </form>
+
+
                         </td>
                     </tr>
                 @endforeach

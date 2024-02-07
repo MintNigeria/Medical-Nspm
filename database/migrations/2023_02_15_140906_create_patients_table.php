@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('staff_id');
             $table->longText('address');
+            $table->longText('email');
+            $table->longText('department');
             $table->string('contact');
             $table->string('height');
             $table->string('allergy')->nullable();

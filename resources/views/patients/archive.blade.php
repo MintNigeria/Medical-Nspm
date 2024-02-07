@@ -63,7 +63,7 @@
                             <form method="POST" action="/patient/{{$patient->id}}">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Patient Data permanently?')"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn btn-danger disabled" onclick="return confirm('Are you sure you want to delete this Patient Data permanently?')" ><i class="fa-solid fa-trash"></i></button>
                             </form>
                             {{-- @endif --}}
 

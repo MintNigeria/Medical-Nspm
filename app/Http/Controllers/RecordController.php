@@ -98,8 +98,12 @@ class RecordController extends Controller
         return view('records.edit', [
             'record' => $record,
             'clinics' => Clinic::latest()->get(),
-            'allergies' => Allergy::where("patient_id", $record->patient->id),
-            'pharmacies' => Pharmacy::paginate(20),
+            'allergies' => Allergy::where("patient_id", $record->patient->id)->get(),
+            // 'pharmacies' => Pharmacy::paginate(20),
+            'inventories' => Inventory::latest()
+                    ->where('location', "=", auth()->user()->locality) // Compare as strings
+                    ->filter(request(['search']))
+                    ->paginate(15),
         ]);
         // dd($allergies->count());
     }
@@ -108,38 +112,24 @@ class RecordController extends Controller
     public function update(Request $request, Record $record)
     {
         $formFields = $request->validate([
+            'complaint' => 'nullable',
+            'physicalexam' => 'nullable',
             'assessment' => 'nullable',
             'prescription' => 'nullable',
             'status' => 'required',
-            'service_type' => 'required',
             'designate' => 'nullable',
             'management' => 'nullable',
             'flag' => 'nullable',
             'clinic_location' => 'nullable',
+            'doctor_act' => ['array', 'nullable'],
+            'tests' => 'array'
         ]);
 
-        if ($formFields['service_type'] === 'management') {
-            $formFields['prescription'] = null;
-            $formFields['designate'] = 'nurse';
-        } else {
-            $formFields['management'] = null;
-            // $formFields[']
-        }
+        // $formFields['doctor_act'] = $formFields['doctor_act'] ?? [];
+
 
         $record->update($formFields);
-        // if($record->designate === "nurse" && auth()->user()->locality === "abj"){
-        //     $mailUsers = User::where("role", "pharmacy")->get();
-        //     foreach ($mailUsers as $user) {
-        //         $user->notify(new AbujaNurseDesignateNotification(['locality' => 'abj'],$record->processing_by));
-        //     }
-        // }
 
-        // if($record->designate === "nurse" && auth()->user()->locality === "lag"){
-        //     $mailUsers = User::where("role", "pharmacy")->get();
-        //     foreach ($mailUsers as $user) {
-        //         $user->notify(new LagosNurseDesignateNotification(['locality' => 'lag'] ,$record->processing_by));
-        //     }
-        // }
         return redirect('/records/manage')->with(
             'message',
             'Record updated successfully!'
@@ -161,7 +151,9 @@ class RecordController extends Controller
 
     public function view_patient($patientId)
     {
-        $records = Record::where('patient_id', $patientId)->first();
+        $records = Record::where('patient_id', $patientId)->get();
+        // dd($records);
+
         return view('records.view', [
             'records' => $records,
              'allergy'=> Allergy::latest()->get()
@@ -176,34 +168,86 @@ class RecordController extends Controller
         // }
 
         return view('records.pharmacy', [
-            'records' => Record::where('designate', 'pharmacy')
-                 ->where('locality', auth()->user()->role)
-                ->whereNull('flag')
-                ->latest()
-                ->get(),
+            'records' => Record::where(function ($query) {
+                            $query->whereJsonContains('doctor_act', 'prescription');
+                                // ->orWhereJsonContains('doctor_act', 'doctor_act');
+                        })
+                        ->where('locality', auth()->user()->role)
+                        ->whereNull('flag')
+                        ->latest()
+                        ->get(),
         ]);
     }
 
+    public function preview()
+    {
+         if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
+        return view('records.preview', [
+            'records' => Record::latest()->where(function ($query) {
+                $query->whereJsonContains('doctor_act', 'tests');
+                    // ->orWhereJsonContains('doctor_act', 'doctor_act');
+            })->where('status', 'open')->get()
+        ]);
+    }
+
+    public function preview_report(Record $record)
+    {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
+        return view('records.preview_report', [
+            'record' => $record
+        ]);
+    }
+
+    public function referral_doc(Record $record)
+    {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
+        return view('records.referraldoc', [
+            'record' => $record
+        ]);
+    }
+
+
     public function nurse_mgmt()
     {
-        // if (auth()->user()->role !== 'nurse') {
-        //     abort(403, 'Unauthorized Action');
-        // }
-        // $notificationsabj = auth()->user()->unreadNotifications()->where('data->locality', 'abj') // Adjust based on how 'locality' is stored
-        // ->get();
-
-        // $notificationslag = auth()->user()->unreadNotifications()->where('data->locality', 'lag') // Adjust based on how 'locality' is stored
-        // ->get();
-
         return view('records.nurse_mgmt', [
-            // 'notificationsabj' => $notificationsabj,
-            // "notificationslag" => $notificationslag,
-            'records' => Record::where('designate', 'nurse')
-                    ->where('locality', auth()->user()->locality)
-                ->whereNull('flag')
-                ->latest()
-                ->get(),
+            'records' => Record::where('locality', auth()->user()->locality)
+                            ->where(function ($query) {
+                                $query->whereJsonContains('doctor_act', 'nurse');
+                            })
+                        ->where('status', '!=', 'closed')
+                        ->latest()
+                        ->paginate(30)
         ]);
+    }
+
+    public function flag_nurse($id){
+        $record = Record::find($id);
+        $record->flag_nurse = "positive";
+    }
+
+    public function flag_nurse_fail($id){
+        $record = Record::find($id);
+        $record->flag_nurse = "negative";
+    }
+
+
+    public function flag_prescription($id){
+        $record = Record::find($id);
+        $record->flag_prescription = "positive";
+    }
+
+    public function flag_prescription_fail($id){
+        $record = Record::find($id);
+        $record->flag_prescription = "negative";
     }
 
     public function flag_success($id)
@@ -241,6 +285,7 @@ class RecordController extends Controller
     {
         return view('records.manage', [
             'record' => Record::where('status', 'open')
+                ->latest()
                 ->where("locality", auth()->user()->locality)
                 ->filter(request(['search']))
                 ->get(),
@@ -258,7 +303,7 @@ class RecordController extends Controller
     {
         return view('records.receipt', [
             'patients' => Patient::latest()->get(),
-            'records' => Record::where('designate', 'outsource')
+            'records' => Record::where('clinic_location', 'Internal Lagos')->where('clinic_location', 'Internal Abuja')
                 ->latest()
                 ->get(),
         ]);

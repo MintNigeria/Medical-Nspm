@@ -10,9 +10,9 @@ class ReceiptController extends Controller
 {
     public function index()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('receipts.index', [
             'receipts' => Receipt::latest()
                 // ->filter()
@@ -21,9 +21,9 @@ class ReceiptController extends Controller
     }
     public function create($id)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $record = Record::find($id);
 
@@ -34,9 +34,9 @@ class ReceiptController extends Controller
 
     public function store(Request $request, Record $record)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $formFields = $request->validate([
             'prescription' => 'required',

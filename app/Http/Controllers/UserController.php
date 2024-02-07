@@ -8,15 +8,15 @@ use App\Models\User as ModelsUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 // use Illuminate\Foundation\Auth\User;
 
 class UserController extends Controller
 {
     public function home(Request $request)
     {
-        // if (auth()->user()->role !== 'medical_admin') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+
 
         return view(
             'home',
@@ -36,9 +36,9 @@ class UserController extends Controller
 
     public function index()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view(
             'users.index',
@@ -58,9 +58,9 @@ class UserController extends Controller
 
     public function archive()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view(
             'users.archive',
@@ -76,14 +76,17 @@ class UserController extends Controller
 
     public function create()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('users.register');
     }
 
     public function store(Request $request)
     {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         $formFields = $request->validate([
             'name' => ['required'],
             'staff_id' => ['required', Rule::unique('users', 'staff_id')],
@@ -105,6 +108,9 @@ class UserController extends Controller
 
 
     public function update(Request $request, ModelsUser $user){
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         $formFields = $request->validate([
             'name' => ['required'],
             'staff_id' => ['required', Rule::unique('users')->ignore($user)],
@@ -127,6 +133,36 @@ class UserController extends Controller
             'User Updated successfully!'
         );
     }
+    public function profile()
+    {
+        return view('users.profile');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = ModelsUser::find(Auth::id());
+
+        $formFields = $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+
+        if($formFields['password'] === 'password'){
+            return redirect('/profile')->with('message', 'New Password can\'t be set to default');
+        }
+
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('message', 'Current Password is incorrect');
+        }
+        $user->is_default = 0;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        Auth::logout();
+        return back()->with('success', 'Password Reset');
+    }
 
     public function login()
     {
@@ -136,28 +172,31 @@ class UserController extends Controller
     public function auth(Request $request)
     {
         $formFields = $request->validate([
-            'staff_id' => ['required'],
+            'staff_id' => 'required',
             'password' => 'required',
         ]);
 
         if (auth()->attempt($formFields)) {
-            $request->session()->regenerate();
+            $user = auth()->user();
 
-            if (auth()->user()->role == 'nurse') {
-                return redirect('/records')->with(
+            if ($user->is_default === 1) {
+                return redirect('/users/profile')->with(
                     'message',
-                    'You are Logged In'
+                    'Password Not Secured, Kindly Reset'
                 );
-            } elseif (auth()->user()->role == 'pharmacy') {
-                return redirect('/records/pharmacy')->with(
-                    'message',
-                    'You are Logged In'
-                );
-            } elseif (auth()->user()->role == 'him') {
-                return redirect('/patient')->with(
-                    'message',
-                    'You are Logged In'
-                );
+            }
+
+            $redirects = [
+                'nurse' => '/records',
+                'pharmacy' => '/records/pharmacy',
+                'him' => '/patient',
+                'medic-admin' => '/home',
+            ];
+
+            $role = $user->role;
+
+            if (array_key_exists($role, $redirects)) {
+                return redirect($redirects[$role])->with('message', 'You are Logged In');
             }
 
             return redirect('/home')->with('message', 'You are now logged in!');
@@ -165,6 +204,7 @@ class UserController extends Controller
 
         return back()->with('message', 'Invalid Credentials');
     }
+
 
     public function restore(ModelsUser $user)
     {
@@ -176,6 +216,9 @@ class UserController extends Controller
 
     public function destroy(ModelsUser $user)
     {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         if($user->trashed()){
             $user->forceDelete();
           return back()->with('message', 'User deleted permanently');
@@ -187,6 +230,7 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
+
         auth()->logout();
 
         $request->session()->invalidate();

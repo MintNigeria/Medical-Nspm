@@ -48,7 +48,7 @@
                         <label class="mt-3">Email</label>
                         <input
                           type="email"
-                          class="form-control text-uppercase"
+                          class="form-control"
                           name="email"
                           placeholder="Example: richey.okoh-michael@mintnigeria.com" value="{{old('email')}}"
                           id=""

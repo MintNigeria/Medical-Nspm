@@ -69,7 +69,6 @@
 
 
         <div class="mt-1 p-1">
-            {{-- {{ $record->links() }} --}}
         </div>
         </div>
     </div>

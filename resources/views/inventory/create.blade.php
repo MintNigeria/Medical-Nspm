@@ -44,12 +44,11 @@
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
                       </div>
-
                       <div class="form-group">
                         <label class="mt-3">Product Package</label>
                         <select name="packaging" id="" class="form-control text-uppercase">
                             <option value=""> Choose ...</option>
-                            <option value="liquid">Sachets</option>
+                            <option value="sachets">Sachets</option>
                             <option value="cartons">Cartons</option>
                             <option value="capsules">Capsules</option>
                             <option value="drops">Drops</option>
@@ -61,14 +60,13 @@
 
                       <div class="form-group">
                         <label class="mt-4">ADD Grouping (If Any)</label>
-                        <select class="form-select text-uppercase" name="grouping">
+                        <select class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="grouping">
                             <option value="">Choose ...</option>
                             @foreach ($groups as $group)
                                <option value="{{ $group->name }}">{{ $group->name }}</option>
                             @endforeach
                         </select>
                       </div>
-
                       <div class="form-group">
                         <label class="mt-3">No of Units</label>
                         <input

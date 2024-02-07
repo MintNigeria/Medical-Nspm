@@ -35,7 +35,7 @@
                       class="form-control text-uppercase"
                       name="staff_id"
                       placeholder="Example: 1010" value="{{old('staff_id')}}"
-                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)"
+                      {{-- oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)" --}}
                       id=""
                     />
                     @error('staff_id')
@@ -56,6 +56,50 @@
                     <p class="text-danger  mt-1">{{$message}}</p>
                     @enderror
                   </div>
+
+                  <div class="form-group">
+                    <label class="mt-3">Email Address</label>
+                    <input
+                      type="email"
+                      class="form-control text-uppercase"
+                      name="email"
+                      placeholder="" value="{{old('email')}}"
+                      id=""
+                    />
+                    @error('email')
+                    <p class="text-danger  mt-1">{{$message}}</p>
+                    @enderror
+                  </div>
+
+                  <div class="form-group mt-4">
+                    <label>Department</label><br />
+                    <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
+                        <option value="">Choose ...</option>
+                        <option value="ICT">ICT</option>
+                        <option value="HUMAN RESOURCES">HUMAN RESOURCES</option>
+                        <option value="FINANCE">FINANCE</option>
+                        <option value="AUDIT">AUDIT</option>
+                        <option value="RISK">RISK</option>
+                        <option value="STRATEGY">STRATEGY</option>
+                        <option value="SALES & MARKETING">SALES & MARKETING.</option>
+                        <option value="PROCUREMENT">PROCUREMENT</option>
+                        <option value="SECURITY">SECURITY</option>
+                        <option value="COPORATE COMMUNICATIONS">COPORATE COMMUNICATIONS</option>
+                        <option value="INSPECTORATE">INSPECTORATE</option>
+                        <option value="MEDICAL">MEDICAL</option>
+                        <option value="EPMO">EPMO</option>
+                        <option value="PRODUCTION">PRODUCTION</option>
+                        <option value="MANUFACTURING">MANUFACTURING</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="LEGAL">LEGAL</option>
+                        <option value="SD">SD</option>
+
+                    </select>
+                    @error('department')
+                    <p class="text-danger text-xs mt-1">{{$message}}</p>
+                    @enderror
+                  </div>
+
 
                   <div class="form-group">
                     <label class="mt-4">Home Address</label>

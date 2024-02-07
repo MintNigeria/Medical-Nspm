@@ -1,80 +1,97 @@
-@extends('layout')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="{{ asset("css/main.css") }}">
+    <link rel="icon" href="{{ asset("images/logo.png") }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSPMC's CaseNotes</title>
+</head>
 
-@section('content')
 <body>
-    <div class="navigation">
-      <div class="navigation__header">
-        <h3>
-          <i class="fa fa-crutches"></i>
-          Nspm CaseNotes
-        </h3>
-      </div>
-      <div class="navigation__links">
-        <a class="btn btn-lg header" href="/users/login">
-          Get Started
-        </a>
-      </div>
-    </div>
-    <div class="hero__section">
-      <img src="{{ asset('images/welco.jpg') }}" alt="" />
-      <div class="central-text">
-        Welcome to Nspmc CaseNotes
-        <p style="justify-self: center; font-size: 20px;">
-            Building a Stronger & Healthier Nspm Together ...
-          </p>
-      </div>
-    </div>
 
-    <div class="about__section">
-      <div class="about__section__content">
-        <h4>About Nspmc CaseNotes</h4>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-          veniam sapiente reprehenderit, omnis ex veritatis, explicabo odit,
-          dolore expedita blanditiis eius facilis laboriosam iusto fugit!
-          Maiores, corrupti! Reprehenderit, perspiciatis fugiat?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-          veniam sapiente reprehenderit, omnis ex veritatis, explicabo odit,
-          dolore expedita blanditiis eius facilis laboriosam iusto fugit!
-          Maiores, corrupti! Reprehenderit, perspiciatis fugiat?
-        </p>
-        <a href="/users/login" class="btn btn-lg mt-5 font-weight-bold header">
-          Get Started
-        </a>
-      </div>
-      <div class="about__section__img">
-        <img src="{{ asset('images/doc.jpg') }}" alt="" />
-      </div>
-    </div>
-
-    <div class="services__section">
-      <div class="container-section">
-        <h4>Our Services</h4>
-
-        <div class="cards">
-          <div class="card">
-            <i class="fas fa-crutch"></i>
-          </div>
-          <div class="card">
-            <i class="fas fa-bandage"></i>
-          </div>
-          <div class="card">
-            <i class="fas fa-ambulance"></i>
-          </div>
-          <div class="card">
-            <i class="fas fa-syringe"></i>
-
-          </div>
+    <div class="header">
+        <div class="header_logo">
+            <div>
+                <img src="{{ asset("images/logo.png") }}" alt="nspm logo" >
+            </div>
+            <div class="header_casenotes">
+                <h3 id="header_font_600">NSPMC's <br>Case<span class='header_notes'>Notes</span></h3>
+            </div>
         </div>
-      </div>
+
+        <div class="header_center"  style="color: #fff; font-weight: 700;position: absolute; font-size: 30px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            Building a Stronger & Healthier NSPM Together
+            <a class="btn" href="/users/login">Get Started</a>
+        </div>
+
+
     </div>
 
+    <div class="services">
+
+        <h2 id="header_font_600">Our <span class='header_notes'>Services</span></h2>
+
+        <div class="services_boxes">
+            <section class="services_boxes_box"><img src="{{ asset("images/records.png") }}" alt="records">
+               <div class="services_overlay_text">
+                Patient and dependent <br> record-keeping.
+               </div>
+            </section>
+            <section class="services_boxes_box"><img src="{{ asset("images/automate.png") }}" alt="automate">
+                <div class="services_overlay_text">
+                    Streamline the sick leave <br> procedure through <br> automation.
+                </div>
+            </section>
+            <section class="services_boxes_box"><img src="{{ asset("images/attendTo.png") }}" alt="attendTo">
+                <div class="services_overlay_text">
+                    Providing patients with <br> good care.
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <div class="aboutUs">
+        <div class="aboutUs_img">
+            <img src="{{ asset("images/aboutUsPic.png") }}" alt="doctor standing and smiling" id="aboutUs_img_id">
+        </div>
+        <div class="aboutUs_text">
+            <h2 id="header_font_500">About <span class="header_notes_pink">Us</span></h2>
+            <p>Torem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+             libero et velit interdum, ac aliquet odio mattis. Class aptent taciti
+              sociosqu ad litora torquent per conubia nostra, per inceptos
+              himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut
+              commodo efficitur neque.</p>
+        </div>
+
+    </div>
+
+    <div class="conclude">
+
+        <div class="conclude_text">
+            <h1 class="conclude_text_text">DISCOVER A <br> HEALTHY AND HAPPIER <br> <span class="conclude_text_bold">YOU</span></h1>
+        </div>
+
+        <div class="conclude_image">
+            <img src="{{ asset("images/endPic.png") }}" alt="happy doctors" id="conclude_image_id">
+        </div>
+
+    </div>
     <div class="footer">
+        <div class="footer_text">
+            <h3> Deigned and developed by NSPM ICT</h3>
+        </div>
 
-      <p>Designed & Developed By NSPM (ICT)</p>
     </div>
-  </body>
 
-  @endsection
+</body>
+</html>
+
+

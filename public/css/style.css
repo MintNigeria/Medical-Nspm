@@ -1,4 +1,4 @@
-body {
+r {
   margin: 0;
   padding: 0;
 }
@@ -345,8 +345,143 @@ b{
     /* border: 1px solid #ccc; */
 }
 
-/* .sidebar_central {
-} */
+.disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+     opacity: 0.5;
+}
+.preview__grid{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.preview__grid > .card{
+    height: 480px;
+    margin: 10px 4px;
+}
+.preview__text{
+    margin: 20px 0px;
+}
+
+.preview__report{
+    background-color: #fafafa;
+    width: 100%;
+    min-height: 100vh;
+    padding: 10px;
+
+}
+.preview__report__header{
+    padding: 10px 0px;
+    color: teal;
+}
+
+.preview__report > nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.preview__report__header > img{
+    margin: 3px;
+    height: 60px;
+    width: 60px;
+}
+
+.preview__address{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.preview__address > div{
+    font-size: 10px;
+}
+
+.preview__patient__biodata{
+    margin: 20px 0px;
+    color:#1C2833;
+    font-size: 14px;
+    /* border: 2px solid #1C2833;
+    border-radius: 10px; */
+}
+.preview__patient__biodata > table > thead{
+    background-color: #727475;
+     color: #fff;
+     display: flex;
+     flex-direction: column;
+     text-transform: uppercase;
+
+}
+
+.preview__patient__biodata > table > tbody >tr{
+    color:#1C2833;
+    /* background-color: red; */
+
+}
+
+
+.referral__doc{
+    background-color: #feffb9a4;
+    padding: 10px;
+    color: #000;
+}
+.referral__doc > nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-weight:bold;
+}
+
+.referral__doc > nav > .title{
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+
+.destination,
+.source {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: capitalize;
+}
+
+
+.referral_list{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+}
+.referral_list > .heading{
+    border-bottom: 1px solid #000;
+    width: 100%;
+}
+
+.referral__lab_info > .heading{
+    border-bottom: 1px solid #000;
+    text-transform: capitalize;
+    font-weight: bold;
+    width: 100%;
+}
+
+.referral_reason{
+    height: 40vh;
+}
+
+
+.referral__lab{
+    width: 100%;
+    text-align: center;
+    margin: 30px 0px 0px 0px;
+    background-color: #1C2833;
+    color: #fff;
+
+}
+
+
 
 @media screen {
   #printSection {
@@ -501,3 +636,5 @@ tbody > tr >td{
     margin: 10px 0px;
     color: teal;
 }
+
+

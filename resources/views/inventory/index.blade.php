@@ -17,8 +17,8 @@
             >
               <h4 class="header-title">Inventory  Data
                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#modalNotify">
-                    <span class="bell" >{{ $notifications->count() }}</span>
-                    @include('partials._modalnotify')
+                  {{-- <span class="bell" >{{ $notifications->count() }}</span>
+                    @include('partials._modalnotify')   --}}
                 </a>
                 </h4>
 
@@ -38,6 +38,7 @@
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Product Type </th>
+                    <th scope="col">Group </th>
                     <th scope="col">Packaging</th>
                     <th scope="col">No Of Units Available</th>
                     <th scope="col">Location</th>
@@ -50,6 +51,7 @@
                         <tr>
                             <td>{{ $inventory->name }}</td>
                             <td>{{ $inventory->type }}</td>
+                            <td>{{ $inventory->grouping }}</td>
                             <td>{{ $inventory->packaging }}</td>
                             <td class="{{ $inventory->no_of_units > $inventory->unit_deficit   ? 'text-success':  'text-danger'}}" >{{ $inventory->no_of_units }}</td>
                             <td>{{ $inventory->location }}</td>
@@ -72,6 +74,8 @@
                                     <button class="btn" onclick="return confirm('Are you sure you want to reduce count for this Item?')"><i class="fa-solid fa-minus"></i></button>
                                   </form>
 
+                                  @if (auth()->user()->role === "pharmacy-admin")
+
                                   <form method="POST" action="/inventory/{{$inventory->id}}">
                                     @csrf
                                     @method('DELETE')
@@ -79,6 +83,8 @@
                                         <i class="fas fa-trash text-danger"></i>
                                     </button>
                                 </form>
+                                  @endif
+
 
 
                             </td>

@@ -61,10 +61,10 @@
                             @method('DELETE')
                             <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Patient Data?')"><i class="fa-solid fa-trash"></i></button>
                         </form>
-                        {{-- @endif --}}
 
 
-                            <a href="/dependents/{{ $patient->id }}/dependent" class="btn btn-outline-success">
+
+                        <a href="/dependents/{{ $patient->id }}/dependent" class="btn btn-outline-success disabled">
                             <i class="fas fa-heartbeat" style="cursor: pointer;color:teal"></i>
                             {{-- Dependents --}}
                         </a>

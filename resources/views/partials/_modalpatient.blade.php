@@ -55,6 +55,48 @@
                       </div>
 
                       <div class="form-group">
+                        <label class="mt-3">Email Address</label>
+                        <input
+                          type="email"
+                          class="form-control text-uppercase"
+                          name="email"
+                          placeholder="" value="{{$patient->email}}"
+                          id=""
+                        />
+                        @error('email')
+                        <p class="text-danger  mt-1">{{$message}}</p>
+                        @enderror
+                      </div>
+
+                      <div class="form-group mt-4">
+                        <label>Department</label><br />
+                        <select class="text-uppercase form-control" searchable="Search here.." name="department">
+                            <option value="" @if(empty($patient->department)) selected @endif>Choose ...</option>
+                            <option value="ICT" @if($patient->department == 'ICT') selected @endif>ICT</option>
+                            <option value="HUMAN RESOURCES" @if($patient->department == 'HUMAN RESOURCES') selected @endif>HUMAN RESOURCES</option>
+                            <option value="FINANCE" @if($patient->department == 'FINANCE') selected @endif>FINANCE</option>
+                            <option value="AUDIT" @if($patient->department == 'AUDIT') selected @endif>AUDIT</option>
+                            <option value="RISK" @if($patient->department == 'RISK') selected @endif>RISK</option>
+                            <option value="STRATEGY" @if($patient->department == 'STRATEGY') selected @endif>STRATEGY</option>
+                            <option value="SALES & MARKETING" @if($patient->department == 'SALES & MARKETING') selected @endif>SALES & MARKETING.</option>
+                            <option value="PROCUREMENT" @if($patient->department == 'PROCUREMENT') selected @endif>PROCUREMENT</option>
+                            <option value="SECURITY" @if($patient->department == 'SECURITY') selected @endif>SECURITY</option>
+                            <option value="COPORATE COMMUNICATIONS" @if($patient->department == 'COPORATE COMMUNICATIONS') selected @endif>COPORATE COMMUNICATIONS</option>
+                            <option value="INSPECTORATE" @if($patient->department == 'INSPECTORATE') selected @endif>INSPECTORATE</option>
+                            <option value="MEDICAL" @if($patient->department == 'MEDICAL') selected @endif>MEDICAL</option>
+                            <option value="EPMO" @if($patient->department == 'EPMO') selected @endif>EPMO</option>
+                            <option value="PRODUCTION" @if($patient->department == 'PRODUCTION') selected @endif>PRODUCTION</option>
+                            <option value="MANUFACTURING" @if($patient->department == 'MANUFACTURING') selected @endif>MANUFACTURING</option>
+                            <option value="ADMIN" @if($patient->department == 'ADMIN') selected @endif>ADMIN</option>
+                            <option value="LEGAL" @if($patient->department == 'LEGAL') selected @endif>LEGAL</option>
+                            <option value="SD" @if($patient->department == 'SD') selected @endif>SD</option>
+                        </select>
+                        @error('department')
+                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                      <div class="form-group">
                         <label class="mt-4">Home Address</label>
                         <textarea
                           type="text"

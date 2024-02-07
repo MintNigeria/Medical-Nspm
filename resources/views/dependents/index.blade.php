@@ -47,8 +47,8 @@
                     <td>{{ $patient->height }}</td>
                     <td>{{ $patient->birth_date }}</td>
 
-                    <td style="display:flex; align-items:center; justify-content:space-evenly">
-                            <a href="/dependents/{{ $patient->id }}/dependent" class="btn btn-outline-success">
+                    <td style="display:flex; align-items:center; justify-content:space-evenly;">
+                            <a href="/dependents/{{ $patient->id }}/dependent" class="btn btn-outline-success disabled">
                             <i class="fas fa-heartbeat" style="cursor: pointer;color:teal"></i>
                         </a>
 

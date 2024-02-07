@@ -16,38 +16,77 @@
         @include('partials._searchoprecord')
         </div>
 
-        <div style="display:grid; grid-template-columns: auto auto auto auto">
+        {{-- <div style="display:grid; grid-template-columns: auto auto auto auto"> --}}
             @unless (count($records) === 0)
-            @foreach ($records as $record)
+            <div class="preview__grid">
+                @foreach ($records as $record)
+                <div class="card">
+                    <div class="card-body">
+                      <p class="card-text preview__text">
+                        <div><b>Patient Name</b> : <span>{{ $record->patient->name }} </span></div>
+                        <div><b>Patient StaffId</b> : <span>{{ $record->patient->staff_id }} </span></div>
+                        <div><b>Blood Pressure</b> :
+                            @if($record->blood_pressure_systolic > 140 || $record->blood_pressure_diastolic > 100)
+                            <span class="blood_danger"> {{ $record->blood_pressure_systolic }}/ {{ $record->blood_pressure_diastolic }} (mmHg)</span>
+                            @else
+                            <span>: {{ $record->blood_pressure_systolic }}/ {{ $record->blood_pressure_diastolic }} (mmHg)</span>
 
-                  <div class="card p-4 mt-5 mx-3 font-weight-bold" style="color: teal;padding:10px;
-                  ">
+                            @endif
 
-                  <p class="text-primary"> Staff_Id : {{$record->patient->staff_id  }}</p>
-                  <p class="mb-2 text-primary font-weight-bold"> Management</p>
-                  <x-patient-nurse :nurse_mgmtCsv="$record->management" />
-                  <p></p>
+                        </div>
+                        <div><b>Pulse Rate</b> : <span>{{ $record->pulse_rate }} (bpm) </span></div>
+                        <div><b>Assesment</b> : <span>{{ Str::limit($record->assessment, 8, '...')}} </span></div>
+                        @if ($record->bmi)
+                        <p><span>Current Weight</span>: <span> {{ $record->weight}} Kg </span><p>
+                        <p><span>Current BMI</span>: <span> {{ round($record->bmi, 6 )}} Kg/m2</p>
+                        @endif
+                        <div><b>Test count </b> : <span>
+                            @php
+                            $tests = json_decode($record->tests);
+                            $numberOfTests = is_array($tests) ? count($tests) : 0;
+                            echo $numberOfTests;
+                             @endphp
+                        </span></div>
+                        <div><b>Processed By</b> : <span>{{ $record->processing_by }} </span></div>
+                        <div><b>Last Updated</b>: <span>
+                            {{ $record->updated_at->format('F j, Y, g:i a') }}
+                        </span></div>
 
-
-                  <form method="POST" action="/record/{{$record->id}}/flag_success">
-                    @csrf
-                    @method('PUT')
-                    <button class="btn btn-success mt-1">Intiate Process Close</button>
-                 </form>
-
-
-                </div>
-            @endforeach
-
-            @else
-            <div class="alert-primary mt-5 p-3" style="width: 100%;border-radius: 20px;">
-
-                <h5 class="text-danger font-weight-bold">No Record awaiting Management </h5>
-
+                      </p>
+                      <div class="d-flex justify-between">
+                        <form method="POST" action="/records/{{$record->id}}/flag_nurse">
+                            @csrf
+                            @method('PUT')
+                            <button class="btn btn-outline-secondary" onclick="return confirm('Are you sure you want to check this as done? ')">
+                                <i class="fas fa-plus text-secondary"></i>
+                            </button>
+                        </form>
+                        <form method="POST" action="/records/{{$record->id}}/flag_nurse_fail">
+                            @csrf
+                            @method('PUT')
+                            <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to check this as not done? ')">
+                                <i class="fas fa-minus text-danger"></i>
+                            </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                @endforeach
             </div>
 
-            @endunless
+        @endunless
 
+
+
+            {{-- <x-patient-nurse :nurse_mgmtCsv="$record->management" />
+                <p></p>
+
+
+                <form method="POST" action="/record/{{$record->id}}/flag_success">
+                  @csrf
+                  @method('PUT')
+                  <button class="btn btn-success mt-1">Intiate Process Close</button>
+               </form> --}}
 
 
 

@@ -33,13 +33,15 @@ rel="stylesheet"
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
    <!-- Include the required MDBootstrap CSS and JS files -->
 
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 
    <!-- Add these to your Blade template -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 
@@ -62,50 +64,6 @@ rel="stylesheet"
     $(document).ready(function() {
     $('.js-example-basic-single').select2();
 });
-</script>
-
-
-
-
-
-
-
-<script>
-    var ctx = document.getElementById('chart').getContext('2d');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [{
-                label: '',
-                backgroundColor: '',
-                borderColor: '',
-                borderWidth: 1,
-                data: []
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
-    function getData() {
-        fetch('/chart')
-            .then(response => response.json())
-            .then(data => {
-                chart.data.labels = data.map(d => d.month);
-                chart.data.datasets[0].data = data.map(d => d.sum);
-                chart.update();
-            });
-    }
-
-    getData();
 </script>
 
 </html>

@@ -48,6 +48,12 @@
                         <option value="pharmacy" @if($user->role === "pharmacy")
                             selected
                         @endif>Pharmacy</option>
+                        <option value="pharmacy-admin" @if($user->role === "pharmacy-admin")
+                            selected
+                        @endif>Pharmacy-Admin</option>
+                        <option value="medic-admin" @if($user->role === "medic-admin")
+                            selected
+                        @endif>Medical Administrator</option>
                         <option value="him" @if($user->role === "him")
                             selected
                         @endif>HIM Officer</option>

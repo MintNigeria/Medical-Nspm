@@ -19,7 +19,7 @@
             <div>
                   <div class="form-group">
                     <label>Staff ID</label><br />
-                    <select  class=" js-example-basic-single text-uppercase form-control" searchable="Search here.." name="patient_id">
+                    <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="patient_id">
                         <option value="">Choose ...</option>
                         @unless (count($patients) === 0)
                             @foreach ($patients as $patient)

@@ -10,6 +10,7 @@ class LeaveController extends Controller
 {
     public function index()
     {
+
         return view(
              'leaves.index',
         with([
@@ -57,7 +58,8 @@ class LeaveController extends Controller
     {
         $formFields = $request->validate([
             'patient_id' => 'required',
-            'no_of_days' => 'required',
+            'start_day' => 'required',
+            'end_day' => 'required',
             'comment' => 'required',
         ]);
 
@@ -73,7 +75,8 @@ class LeaveController extends Controller
     {
         $formFields = $request->validate([
             // 'patient_id' => 'required',
-            'no_of_days' => 'required',
+            'start_day' => 'required',
+            'end_day' => 'required',
             'comment' => 'required',
         ]);
 

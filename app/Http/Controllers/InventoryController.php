@@ -24,6 +24,7 @@ class InventoryController extends Controller
         return view(
             'inventory.index',
             with([
+                'groups' => Group::latest()->get(),
                 'notifications' => $notifications,
                 'archives' => Inventory::onlyTrashed(),
                 'inventories' => Inventory::latest()
@@ -71,13 +72,14 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $formFields = $request->validate([
             'name' => ['required', Rule::unique('inventories', 'name')],
             'no_of_units' => 'required',
+            'grouping' => 'required',
             // 'location' => 'required',
             'type' => 'required',
             'packaging' => 'required',
@@ -89,7 +91,12 @@ class InventoryController extends Controller
 
 
         $inventory = Inventory::create($formFields);
-        $inventoryName = $inventory->name;
+        // $inventoryName = $inventory->name;
+
+        return redirect('/inventory')->with(
+            'message',
+            'Inventory Created successfully!'
+        );
 
     }
 
@@ -105,22 +112,20 @@ class InventoryController extends Controller
 
     public function update(Request $request, Inventory $inventory)
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
-
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
         $formFields = $request->validate([
             'name' => ['required', Rule::unique('inventories')->ignore($inventory)],
+            'grouping' => 'required',
             'no_of_units' => 'required',
             'unit_deficit' => 'required',
-            'location' => 'required',
             'type' => 'required',
             'packaging' => 'required',
         ]);
+
+
         $inventory->update($formFields);
-
-
-
         return redirect('/inventory')->with(
             'message',
             'Inventory Updated successfully!'
@@ -129,9 +134,9 @@ class InventoryController extends Controller
 
     public function destroy(Inventory $inventory)
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
         if($inventory->trashed()){
             $inventory->forceDelete();
             return redirect('/inventory')->with(

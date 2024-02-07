@@ -52,7 +52,7 @@
 
                   <div class="form-group">
                     <label class="mt-4">ADD Grouping (If Any)</label>
-                    <select class="form-select text-uppercase" name="grouping">
+                    <select class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="grouping">
                         <option value="">Choose ...</option>
                         @foreach ($groups as $group)
                            <option value="{{ $group->name }}">{{ $group->name }}</option>

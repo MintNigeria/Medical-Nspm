@@ -12,9 +12,13 @@ return new class extends Migration {
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->string('patient_id');
+            $table
+                ->foreignId('patient_id')
+                ->constrained()
+                ->onDelete('cascade');
             $table->string('comment');
-            $table->string('no_of_days');
+            $table->string('start_day');
+            $table->string('end_day');
             $table->timestamps();
         });
     }
