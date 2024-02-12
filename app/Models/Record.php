@@ -12,13 +12,17 @@ class Record extends Model
 
     public function scopeFilter($query, array $filters)
     {
-        if ($filters['search'] ?? false) {
-            $query->where(
-                'patient.name',
-                'like',
-                '%' . request('search') . '%'
-            );
-        }
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where('patient.name', 'like', '%' . $search . '%');
+        });
+
+        $query->when($filters['start_date'] ?? false, function ($query, $startDate) {
+            $query->where('created_at', '>=', $startDate);
+        });
+
+        $query->when($filters['end_date'] ?? false, function ($query, $endDate) {
+            $query->where('created_at', '<=', $endDate);
+        });
     }
 
     // public function scopeFilter($query, $staff_id)
@@ -33,6 +37,11 @@ class Record extends Model
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'patient_id');
+    }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class, 'record_id');
     }
 
     public function receipt()

@@ -39,7 +39,7 @@
     </div>
     <div class="log-img">
       <h1 class="text-white text-uppercase font-weight-bold">
-        Welcome TO NSPM Medical
+        Welcome TO NSPM Medical CaseNotes
       </h1>
       {{-- <p class="text-white">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, iusto.

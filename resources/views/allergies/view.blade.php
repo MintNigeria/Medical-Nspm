@@ -41,9 +41,8 @@
                     @foreach ($allergys as  $allergy)
 
                         <tr>
-                            <td>{{ $allergy->allergies }}</td>
+                            <td>{{ Str::limit($allergy->allergies, 20, '...') }}</td>
                             <td> Preview </td>
-
                         </tr>
                     @endforeach
                 </tbody>

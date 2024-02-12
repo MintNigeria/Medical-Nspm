@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label class="mt-3">tYPE</label>
-                    <select name="type" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." required>
+                    <select name="type" class="text-uppercase form-control" searchable="Search here.." required>
                         <option value="" @if ($clinic->type == "") selected @endif>Choose ...</option>
                         <option value="Internal Lagos" @if ($clinic->type == "Internal Lagos") selected @endif>Internal Lagos</option>
                         <option value="Internal Abuja" @if ($clinic->type == "Internal Abuja") selected @endif>Internal Abuja</option>

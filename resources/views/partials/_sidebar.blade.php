@@ -22,6 +22,9 @@
             <li>
                 <a href="/leaves">Sick Leave</a>
             </li>
+            <li>
+                <a href="/records/all">All Records</a>
+            </li>
 
 
         @endif
@@ -29,6 +32,9 @@
             @if (auth()->user()->role === "nurse")
                 <li>
                     <a href="/users/profile">Profile</a>
+                </li>
+                <li>
+                    <a href="/records/queue">Queue</a>
                 </li>
                 <li>
                     <a href="/records">New Record</a>

@@ -17,7 +17,7 @@ return new class extends Migration {
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('is_dependent')->default(0);
-            $table->string('prescription');
+            $table->string('prescription')->nullable();
             $table->string('cost');
             $table->timestamps();
         });

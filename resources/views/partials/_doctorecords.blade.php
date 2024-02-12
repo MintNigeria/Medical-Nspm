@@ -577,7 +577,7 @@
                 @endforeach
             @endunless
         </select>
-        @error('patient_id')
+        @error('clinic_location')
         <p class="text-danger text-xs mt-1">{{$message}}</p>
         @enderror
       </div>

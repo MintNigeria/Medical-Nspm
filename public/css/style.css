@@ -357,7 +357,7 @@ b{
 
 .preview__grid > .card{
     height: 480px;
-    margin: 10px 4px;
+    width: 30vw;
 }
 .preview__text{
     margin: 20px 0px;
@@ -638,3 +638,62 @@ tbody > tr >td{
 }
 
 
+
+
+.listing{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.listing-header{
+    background-color: #616161;
+    color:#fff;
+    font-weight: bold;
+}
+
+.listing-tab{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listing-tab > div {
+    display: flex;
+    align-items:flex-start;
+    justify-content: flex-start;
+}
+
+.listing-tab > div > p{
+    color:#1C2833;
+    font-weight: 700;
+    padding-left: 10px;
+}
+
+.listing-notes{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+}
+
+.listing-notes > p{
+    text-transform: capitalize;
+    font-weight: lighter;
+    color: #1C2833;
+    font-style: italic;
+}
+
+.listing-actions{
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+    /* flex-direction: ; */
+}
+
+.border-line{
+    font-weight: 400;
+    background-color: #1C2833;
+    color: #37474f;
+}

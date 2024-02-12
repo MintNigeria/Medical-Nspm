@@ -9,8 +9,14 @@
         <div class="modal-body">
             <form action="/allergies/{{ $patient->id }}" method="POST">
                 @csrf
+                    <div class="form-group">
+                        <label class="my-1">
+
+                        </label>
+
+                    </div>
                       <div class="form-group">
-                        <label class="my-4">STATE ALLERGY</label>
+                        <label class="my-1">STATE ALLERGY</label>
                         <textarea
                           type="text"
                           class="form-control text-uppercase"

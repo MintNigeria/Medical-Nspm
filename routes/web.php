@@ -8,6 +8,7 @@ use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\AllergyController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\UserController;
@@ -92,9 +93,10 @@ Route::post('/patient/{patient}/restore', [
 // // Single Listing
 // Route::get('/patient/{patient}', [PatientController::class, 'show']);
 
-// //Records
+//Records
 
 Route::get('/records', [RecordController::class, 'index'])->middleware('auth');
+Route::get('/records/queue', [RecordController::class, 'queue'])->middleware('auth');
 
 // // Show Create Form
 // Route::get('/record/create', [RecordController::class, 'create']);
@@ -175,6 +177,12 @@ Route::get('/records/{patientId}/view', [
     RecordController::class,
     'view_patient',
 ])->middleware('auth');
+
+// Single Listing
+Route::get('/records/all', [RecordController::class, 'all'])->middleware(
+    'auth'
+);
+
 
 // Single Listing
 Route::get('/record/{record}', [RecordController::class, 'show'])->middleware(
@@ -456,3 +464,13 @@ Route::post('/injuries/{injury}/restore', [InjuryController::class, 'restore'])-
     'auth'
 )->withTrashed();
 
+
+
+// Feedbacks
+Route::get("feedbacks/{recordId}/", [FeedbackController::class, 'index'])->middleware("auth")->name('feedbacks.index');
+Route::get("records/{recordId}/feedbacks", [FeedbackController::class, 'feedbacks'])->middleware("auth");
+Route::get("feedbacks/{recordId}/create", [FeedbackController::class, 'create'])->middleware("auth");
+Route::post("feedbacks/{recordId}/", [FeedbackController::class, 'store'])->middleware("auth");
+Route::delete('/feedbacks/{feedback}', [FeedbackController::class, 'destroy'])->middleware(
+    'auth'
+);

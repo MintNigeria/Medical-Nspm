@@ -32,6 +32,18 @@ class RecordController extends Controller
         ]);
     }
 
+    public function queue()
+    {
+        if (auth()->user()->role !== 'nurse') {
+            abort(403, 'Unauthorized Action');
+        }
+
+        return view('records.queue', [
+            'records' => Record::latest()->where("status", 'open')->paginate(30),
+            'patients' => Patient::latest()->get(),
+        ]);
+    }
+
     //Show A Patient
     public function show(Record $record)
     {
@@ -69,7 +81,7 @@ class RecordController extends Controller
         $uniqueIdentifier = Str::uuid();
 
         $encryptedSlug = Crypt::encrypt($uniqueIdentifier);
-        $limitedEncryptedSlug = substr($encryptedSlug, 0, 11);
+        $limitedEncryptedSlug = substr($encryptedSlug, 0, 21);
         $formFields['slug'] = $limitedEncryptedSlug;
 
         // $formFields["slug"] =
@@ -81,6 +93,7 @@ class RecordController extends Controller
 
             $formFields['bmi'] = $formFields['weight'] / $patient['height'];
         }
+
 
         Record::create($formFields);
 
@@ -186,10 +199,11 @@ class RecordController extends Controller
         }
 
         return view('records.preview', [
-            'records' => Record::latest()->where(function ($query) {
-                $query->whereJsonContains('doctor_act', 'tests');
-                    // ->orWhereJsonContains('doctor_act', 'doctor_act');
-            })->where('status', 'open')->get()
+            'records' => Record::latest()
+            // ->where(function ($query) {
+            //     $query->whereJsonContains('doctor_act', 'tests');
+            // })
+            ->where('status', 'open')->paginate(45)
         ]);
     }
 
@@ -224,19 +238,23 @@ class RecordController extends Controller
                                 $query->whereJsonContains('doctor_act', 'nurse');
                             })
                         ->where('status', '!=', 'closed')
+                        ->whereNull('flag_nurse')
                         ->latest()
                         ->paginate(30)
         ]);
     }
 
-    public function flag_nurse($id){
-        $record = Record::find($id);
+    public function flag_nurse(Record $record){
         $record->flag_nurse = "positive";
+        $record->save();
+        return back()->with('message', 'Record Status Updated');
     }
 
     public function flag_nurse_fail($id){
         $record = Record::find($id);
         $record->flag_nurse = "negative";
+        $record->save();
+        return back()->with('message', 'Pharmacy Status Updated');
     }
 
 
@@ -303,9 +321,28 @@ class RecordController extends Controller
     {
         return view('records.receipt', [
             'patients' => Patient::latest()->get(),
-            'records' => Record::where('clinic_location', 'Internal Lagos')->where('clinic_location', 'Internal Abuja')
-                ->latest()
-                ->get(),
+            'records' => Record::where('clinic_location', '!=', 'Internal Lagos')
+                    ->where('clinic_location', '!=', 'Internal Abuja')
+                    ->latest()
+                    ->get(),
+        ]);
+    }
+
+    public function all()
+    {
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+
+        return view('records.all', [
+            'patients' => Patient::latest()->get(),
+            'records' => Record::latest()
+                                ->when($startDate, function ($query) use ($startDate) {
+                                    return $query->where('created_at', '>=', $startDate);
+                                })
+                                ->when($endDate, function ($query) use ($endDate) {
+                                    return $query->where('created_at', '<=', $endDate);
+                                })
+                            ->paginate(30),
         ]);
     }
 }

@@ -46,7 +46,7 @@ class UserController extends Controller
                 'archives' =>ModelsUser::onlyTrashed(),
                 'records' => Record::latest()->where('locality', auth()->user()->locality)
                             ->where('status', 'open')
-                            ->filter(request(['search']))
+                            // ->filter(request(['search']))
                             ->paginate(10),
                 'users' => ModelsUser::latest()
                     ->where('id', '!=', auth()->user()->id)

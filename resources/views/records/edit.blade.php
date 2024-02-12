@@ -79,7 +79,11 @@ $age = $today->diff($birthDate)->y;
                             {{ $record->nurse_note }}</b></p>
                     @endif
                 </div>
-                <a href="/allergies/{{ $record->patient->id }}/view" class="btn btn-secondary h-25">Allergy</a>
+                <p>
+                    <a href="/feedbacks/{{ $record->patient->id }}/index" class="btn btn-dark text-success h-15">Feedback(s)</a>
+                    <a href="/allergies/{{ $record->patient->id }}/view" class="btn btn-secondary h-15">Allergy</a>
+                </p>
+
                 </div>
         <hr>
 
@@ -117,13 +121,40 @@ $age = $today->diff($birthDate)->y;
                 </button>
             </div>
             <div class="modal-body">
+                        <div class="alert alert-primary">
                         THIS PATIENT HAS <b class="text-danger font-bold text-2xl" style="font-size: 20px;"> ({{ $allergies->count() }})</b> allergies Recorded.
+
+                        </div>
                 <br />
                 @unless (count($allergies) === 0)
                 @foreach ($allergies as $allergy)
-                    <p class="text-black alert-primary my-2">{{ Str::limit($allergy->allergies, 10, '...') }}</p>
+                    <p class="text-black alert-primary my-2 ">{{ Str::limit($allergy->allergies, 10, '...') }}</p>
                 @endforeach
             @endunless
+
+            @if($record->flag_prescription === "positive")
+            <div class="alert alert-primary">
+                PRESCRIPTION POSITIVE
+            </div>
+            @endif
+
+            @if($record->flag_prescription === "negative")
+            <div class="alert alert-danger">
+                PRESCRIPTION NEGATIVE
+            </div>
+            @endif
+
+            @if($record->flag_nurse === "positive")
+            <div class="alert alert-primary">
+                NURSE MANAGEMENT POSITIVE
+            </div>
+            @endif
+
+            @if($record->flag_nurse === "negative")
+            <div class="alert alert-danger">
+                NURSE MANAGEMENT NEGATIVE
+            </div>
+            @endif
             </div>
 
         </div>
