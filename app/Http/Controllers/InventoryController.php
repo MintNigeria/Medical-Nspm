@@ -13,9 +13,9 @@ class InventoryController extends Controller
 {
     public function index()
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $notifications = auth()->user()->unreadNotifications;
 
@@ -50,6 +50,11 @@ class InventoryController extends Controller
 
     public function stock_low()
     {
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
+
+
         return view('inventory.stock_low')->with([
             'inventories' => Inventory::latest()
                 ->whereRaw('CAST(no_of_units AS SIGNED) < CAST(unit_deficit AS SIGNED)')
@@ -61,9 +66,9 @@ class InventoryController extends Controller
 
     public function create()
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('inventory.create',  with([
             'groups' => Group::latest()->get()
@@ -103,16 +108,16 @@ class InventoryController extends Controller
     // Show Edit Form
     public function edit(Inventory $inventory)
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('inventory.edit', ['inventory' => $inventory]);
     }
 
     public function update(Request $request, Inventory $inventory)
     {
-        if (auth()->user()->role !== 'pharmacy') {
+        if (auth()->user()->role !== 'pharmacy_admin') {
             abort(403, 'Unauthorized Action');
         }
         $formFields = $request->validate([
@@ -160,9 +165,9 @@ class InventoryController extends Controller
 
     public function increment($id)
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $inventory = Inventory::find($id);
 
@@ -177,9 +182,9 @@ class InventoryController extends Controller
 
     public function reduce($id)
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $inventory = Inventory::find($id);
 

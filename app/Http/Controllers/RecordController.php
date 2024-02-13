@@ -106,6 +106,10 @@ class RecordController extends Controller
     // Show Edit Form
     public function edit($slug)
     {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $slug = $record = Record::where('slug', $slug)->first();
 
         return view('records.edit', [
@@ -151,6 +155,9 @@ class RecordController extends Controller
 
     public function updateStatusAndRedirect($slug)
     {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
 
   // $id  = Crypt::decrypt($id);
         // $record = Record::find($id);
@@ -176,9 +183,9 @@ class RecordController extends Controller
     //View Pharmacy Records
     public function pharmacy()
     {
-        // if (auth()->user()->role !== 'pharmacy') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'pharmacy') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('records.pharmacy', [
             'records' => Record::where(function ($query) {
@@ -319,6 +326,10 @@ class RecordController extends Controller
 
     public function receipts()
     {
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
+
         return view('records.receipt', [
             'patients' => Patient::latest()->get(),
             'records' => Record::where('clinic_location', '!=', 'Internal Lagos')
@@ -330,6 +341,11 @@ class RecordController extends Controller
 
     public function all()
     {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
+
         $startDate = request('start_date');
         $endDate = request('end_date');
 

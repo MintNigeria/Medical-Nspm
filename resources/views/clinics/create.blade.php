@@ -39,6 +39,7 @@
                         <option value="Cardiology Clinic">Cardiology Clinic</option>
                         <option value="Dermatology Clinic">Dermatology Clinic</option>
                         <option value="Orthopedic Clinic">Orthopedic Clinic</option>
+                        <option value="Hearing Clinic">Hearing Clinic</option>
                         <option value="Pediatric Clinic">Pediatric Clinic</option>
                         <option value="Psychiatry Clinic">Psychiatry Clinic</option>
                         <option value="Urology Clinic">Urology Clinic</option>

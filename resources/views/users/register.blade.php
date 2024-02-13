@@ -44,7 +44,7 @@
                         @enderror
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" style="text-transform: none;">
                         <label class="mt-3">Email</label>
                         <input
                           type="email"
@@ -54,7 +54,7 @@
                           id=""
                         />
                         @error('email')
-                        <p class="text-danger  text-xs mt-1">{{$message}}</p>
+                        <p class="text-dangertext-xs mt-1">{{$message}}</p>
                         @enderror
                       </div>
 

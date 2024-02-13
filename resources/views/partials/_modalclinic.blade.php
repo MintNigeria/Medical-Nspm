@@ -30,6 +30,7 @@
                         <option value="Cardiology Clinic" @if ($clinic->type == "Cardiology Clinic") selected @endif>Cardiology Clinic</option>
                         <option value="Dermatology Clinic" @if ($clinic->type == "Dermatology Clinic") selected @endif>Dermatology Clinic</option>
                         <option value="Orthopedic Clinic" @if ($clinic->type == "Orthopedic Clinic") selected @endif>Orthopedic Clinic</option>
+                        <option value="Hearing Clinic" @if ($clinic->type == "Hearing Clinic") selected @endif >Hearing Clinic</option>
                         <option value="Pediatric Clinic" @if ($clinic->type == "Pediatric Clinic") selected @endif>Pediatric Clinic</option>
                         <option value="Psychiatry Clinic" @if ($clinic->type == "Psychiatry Clinic") selected @endif>Psychiatry Clinic</option>
                         <option value="Urology Clinic" @if ($clinic->type == "Urology Clinic") selected @endif>Urology Clinic</option>

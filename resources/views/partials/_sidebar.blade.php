@@ -46,10 +46,6 @@
                 <li>
                     <a href="/injuries">Injury Records</a>
                 </li>
-
-                <li>
-                    <a href="/leaves">Sick Leave</a>
-                </li>
             @endif
             @if(auth()->user()->role == "pharmacy-admin")
             <li>

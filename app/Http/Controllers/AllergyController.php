@@ -14,6 +14,10 @@ class AllergyController extends Controller
     }
 
     public function create($patientId){
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $patient = Patient::where('id', $patientId)->first();
         return view("allergies.create", [
             ''
@@ -22,6 +26,10 @@ class AllergyController extends Controller
 
     public function store(Request $request, $patientId)
     {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
             'allergies' => 'required',
         ]);
@@ -38,6 +46,10 @@ class AllergyController extends Controller
 
 
     public function view($patientId){
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $patient = Patient::where('id', $patientId)->first();
         return view("allergies.view",
         ['patient' => $patient,

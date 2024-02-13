@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 class FeedbackController extends Controller
 {
     public function index($recordId){
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $record = Record::where('id', $recordId)->first();
         return view("feedbacks.index",
         [
@@ -21,6 +25,10 @@ class FeedbackController extends Controller
     }
 
     public function create($recordId){
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $record = Record::where('id', $recordId)->first();
         return view("feedbacks.create",
         [
@@ -33,6 +41,10 @@ class FeedbackController extends Controller
 
     public function store(Request $request, $recordId)
     {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
             'feedback_type' => 'required',
             'clinic_type' => 'nullable',
@@ -56,6 +68,9 @@ class FeedbackController extends Controller
 
     public function feedbacks($recordId)
     {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('records.feedbacks', [
             'record' => Record::where('id', $recordId)->first(),

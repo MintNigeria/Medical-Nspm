@@ -7,7 +7,7 @@
         <div id="content__overflow">
         <div style="display: flex; align-items:center;justify-content:space-between">
             <h4 class="header-title"> OPEN RECORDS</h4>
-        @include('partials._searchoprecord')
+        {{-- @include('partials._searchoprecord') --}}
         <a href="/records/queue" class="btn btn-primary" >
             <i class="fas fa-hourglass"></i>
         </a>
