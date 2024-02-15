@@ -9,7 +9,7 @@
             <div class="centered-div">
               <div class="card">
                 <div class="card-header bg-color">
-                  ADD New Clinic
+                  ADD New Retainer
                 </div>
                 <div class="card-body">
             <form method="POST" action="/clinics/">
@@ -19,7 +19,7 @@
                     <label>Name</label>
                     <input
                       type="text"
-                      class="form-control text-uppercase"
+                      class="form-control"
                       name="name"
                       placeholder="Example: JOHN HOPSKINS HOSPITAL" value="{{old('name')}}"
                       id=""

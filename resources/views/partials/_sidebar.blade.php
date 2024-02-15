@@ -103,7 +103,7 @@
 
 
             <li>
-                <a href="/clinics">Clinics</a>
+                <a href="/retainers">Retainers</a>
             </li>
 
             <li>

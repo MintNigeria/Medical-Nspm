@@ -68,7 +68,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="mt-3">Blood Temperature</label>
+                    <label class="mt-3">Body Temperature</label>
                     <input
                       type="text"
                       class="form-control text-uppercase"

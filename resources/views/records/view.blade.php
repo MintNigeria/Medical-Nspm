@@ -14,9 +14,7 @@
                 <button type="button" class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
                     Patient's Profile
                 </button>
-                <button type="button" class="btn btn-secondary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                    View Allergies
-                </button>
+
             </div>
 
 

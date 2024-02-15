@@ -352,12 +352,13 @@ b{
 }
 .preview__grid{
     display: grid;
+    flex: auto;
     grid-template-columns: auto auto auto;
 }
 
 .preview__grid > .card{
     height: 480px;
-    width: 30vw;
+    width: 27vw;
 }
 .preview__text{
     margin: 20px 0px;
@@ -576,14 +577,14 @@ b{
 .header-title{
     color: #1C2833;
     font-weight: 700;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
 }
 
 .table-color{
     background-color: #1C2833;
     color: #fff;
     font-weight: 900;
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .table-color-body{
@@ -593,7 +594,12 @@ b{
 
 tbody > tr >td{
     font-weight: 700;
-    text-transform: lowercase;
+    text-transform:none;
+}
+
+tbody > tr >td:nth-child(1){
+    font-weight: 700;
+    text-transform:capitalize;
 }
 
 .btn-color{
@@ -679,7 +685,7 @@ tbody > tr >td{
 }
 
 .listing-notes > p{
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     font-weight: lighter;
     color: #1C2833;
     font-style: italic;

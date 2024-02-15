@@ -16,11 +16,11 @@
               justify-content: space-between;
             "
           >
-            <h4 class="header-title">Feedback(s) {{ $feedbacks->count() }}</h4>
+            <h4 class="header-title">Follow Up(s) {{ $feedbacks->count() }}</h4>
             <div>
                <a href="/feedbacks/{{ $record->id }}/create" class="btn btn-outline-secondary"
                >
-                Add New Feedback
+                Add FollowUp
             </a>
             </div>
 

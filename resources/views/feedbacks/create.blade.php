@@ -17,7 +17,7 @@
                     @csrf
                 <div>
                       <div class="form-group">
-                        <label class="my-3">Feedback Type</label>
+                        <label class="my-3">FollowUp Type</label>
                         <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="feedback_type">
                             <option value="">Choose ...</option>
                             <option value="Lab_Result">Lab Results</option>

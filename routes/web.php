@@ -346,9 +346,9 @@ Route::post('/pharmacy/{pharmacy}/restore', [PharmacyController::class, 'restore
 )->withTrashed();
 
 /** Clinics  */
-Route::get('/clinics', [ClinicController::class, 'index'])->middleware('auth');
-Route::get('/clinics/archive', [ClinicController::class, 'archive'])->middleware('auth');
-Route::get('/clinics/create', [ClinicController::class, 'create'])->middleware(
+Route::get('/retainers', [ClinicController::class, 'index'])->middleware('auth');
+Route::get('/retainers/archive', [ClinicController::class, 'archive'])->middleware('auth');
+Route::get('/retainers/create', [ClinicController::class, 'create'])->middleware(
     'auth'
 );
 Route::post('/clinics', [ClinicController::class, 'store'])->middleware('auth');
@@ -467,7 +467,7 @@ Route::post('/injuries/{injury}/restore', [InjuryController::class, 'restore'])-
 
 
 // Feedbacks
-Route::get("feedbacks/{recordId}/", [FeedbackController::class, 'index'])->middleware("auth")->name('feedbacks.index');
+Route::get("feedbacks/{recordId}/index", [FeedbackController::class, 'index'])->middleware("auth")->name('feedbacks.index');
 Route::get("records/{recordId}/feedbacks", [FeedbackController::class, 'feedbacks'])->middleware("auth");
 Route::get("feedbacks/{recordId}/create", [FeedbackController::class, 'create'])->middleware("auth");
 Route::post("feedbacks/{recordId}/", [FeedbackController::class, 'store'])->middleware("auth");

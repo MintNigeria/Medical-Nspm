@@ -188,14 +188,14 @@ class RecordController extends Controller
         }
 
         return view('records.pharmacy', [
-            'records' => Record::where(function ($query) {
-                            $query->whereJsonContains('doctor_act', 'prescription');
-                                // ->orWhereJsonContains('doctor_act', 'doctor_act');
-                        })
-                        ->where('locality', auth()->user()->role)
-                        ->whereNull('flag')
+            'records' =>  Record::where('locality', auth()->user()->locality)
+                            ->where(function ($query) {
+                                $query->whereJsonContains('doctor_act', 'prescription');
+                            })
+                        ->where('status', '!=', 'closed')
+                        ->whereNull('flag_prescription')
                         ->latest()
-                        ->get(),
+        ->paginate(30)
         ]);
     }
 
@@ -205,12 +205,20 @@ class RecordController extends Controller
             abort(403, 'Unauthorized Action');
         }
 
+
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+
         return view('records.preview', [
             'records' => Record::latest()
-            // ->where(function ($query) {
-            //     $query->whereJsonContains('doctor_act', 'tests');
-            // })
-            ->where('status', 'open')->paginate(45)
+                    ->when($startDate, function ($query) use ($startDate) {
+                        return $query->where('created_at', '>=', $startDate);
+                    })
+                    ->when($endDate, function ($query) use ($endDate) {
+                        return $query->where('created_at', '<=', $endDate);
+                    })
+                     ->where('status', 'open')
+                     ->paginate(35)
         ]);
     }
 
@@ -261,18 +269,22 @@ class RecordController extends Controller
         $record = Record::find($id);
         $record->flag_nurse = "negative";
         $record->save();
-        return back()->with('message', 'Pharmacy Status Updated');
+        return back()->with('message', 'Record Status Updated');
     }
 
 
     public function flag_prescription($id){
         $record = Record::find($id);
         $record->flag_prescription = "positive";
+        $record->save();
+        return back()->with('message', 'Pharmacy Status Updated');
     }
 
     public function flag_prescription_fail($id){
         $record = Record::find($id);
         $record->flag_prescription = "negative";
+        $record->save();
+        return back()->with('message', 'Pharmacy Status Updated');
     }
 
     public function flag_success($id)

@@ -62,7 +62,7 @@ class FeedbackController extends Controller
 
         return redirect()->route('feedbacks.index', ['recordId' => $recordId])->with(
             'message',
-            'Feedback added successfully!'
+            'FollowUp added successfully!'
         );
     }
 
@@ -81,6 +81,6 @@ class FeedbackController extends Controller
     public function destroy(Feedbacks $feedback)
     {
         $feedback->delete();
-        return back()->with('message', 'Feedback deleted');
+        return back()->with('message', 'FollowUp deleted');
     }
 }

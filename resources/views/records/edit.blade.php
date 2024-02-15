@@ -80,7 +80,7 @@ $age = $today->diff($birthDate)->y;
                     @endif
                 </div>
                 <p>
-                    <a href="/feedbacks/{{ $record->patient->id }}/index" class="btn btn-dark text-success h-15">Feedback(s)</a>
+                    <a href="/feedbacks/{{ $record->patient->id }}/index" class="btn btn-dark text-success h-15">Follow Up(s)</a>
                     <a href="/allergies/{{ $record->patient->id }}/view" class="btn btn-secondary h-15">Allergy</a>
                 </p>
 
@@ -122,15 +122,18 @@ $age = $today->diff($birthDate)->y;
             </div>
             <div class="modal-body">
                         <div class="alert alert-primary">
-                        THIS PATIENT HAS <b class="text-danger font-bold text-2xl" style="font-size: 20px;"> ({{ $allergies->count() }})</b> allergies Recorded.
+                        THIS PATIENT HAS <b class="text-danger font-bold text-2xl" style="font-size: 20px;cursor: pointer;" onclick="toggleAllergies()"> ({{ $allergies->count() }})</b> allergies Recorded.
 
                         </div>
                 <br />
-                @unless (count($allergies) === 0)
-                @foreach ($allergies as $allergy)
-                    <p class="text-black alert-primary my-2 ">{{ Str::limit($allergy->allergies, 10, '...') }}</p>
-                @endforeach
-            @endunless
+                <div id="allergiesDiv" style="display: none;">
+                    @unless (count($allergies) === 0)
+                        @foreach ($allergies as $allergy)
+                            <p class="text-black alert-primary my-2 ">{{ Str::limit($allergy->allergies, 10, '...') }}</p>
+                        @endforeach
+                    @endunless
+                </div>
+
 
             @if($record->flag_prescription === "positive")
             <div class="alert alert-primary">
@@ -160,6 +163,13 @@ $age = $today->diff($birthDate)->y;
         </div>
     </div>
 </div>
+
+<script>
+    function toggleAllergies() {
+        var allergiesDiv = document.getElementById('allergiesDiv');
+        allergiesDiv.style.display = (allergiesDiv.style.display === 'none') ? 'block' : 'none';
+    }
+</script>
 
 
 

@@ -15,6 +15,8 @@
             >
             </div>
             <h4 class="header-title">Records {{ $records->count() }}</h4>
+            @include('partials._previewdate')
+
 
             @unless (count($records) === 0)
                 <div class="preview__grid">
@@ -52,7 +54,18 @@
                             </span></div>
 
                           </p>
+
+                          @if($record->processing_by){
                           <a href="/records/{{ $record->id }}/preview" class="btn btn-success" data-mdb-ripple-init>Preview</a>
+                          }
+
+                          @else
+
+                          <div class="alert alert-danger">
+                            Not Yet Initiated
+                          </div>
+
+                          @endif
                         </div>
                       </div>
                     @endforeach

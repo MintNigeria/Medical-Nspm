@@ -4,7 +4,7 @@
 <body>
     <div class="dashboard">
         @include('partials._sidebar')
-        <div class="content p-4">
+        <div class="content p-4" id="content__overflow">
             <div
               class="font-weight-bold"
               style="
@@ -13,10 +13,10 @@
                 justify-content: space-between;
               "
             >
-              <h4 class="header-title">Clinic(s)</h4>
+              <h4 class="header-title">Retainer(s)</h4>
             @include('partials._searchclinic')
               <div>
-                <a href="/clinics/create" class="btn bg-color">Create New Clinic</a>
+                <a href="/retainers/create" class="btn bg-color">Create New Retainer</a>
               <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
               </div>
 

@@ -12,7 +12,7 @@ class ClinicController extends Controller
         // if (auth()->user()->role !== 'him') {
         //     abort(403, 'Unauthorized Action');
         // }
-        return view('clinics.index', [
+        return view('retainers.index', [
             'archives' =>Clinic::onlyTrashed(),
             'clinics' => Clinic::latest()
                 ->filter(request(['search']))
@@ -25,7 +25,7 @@ class ClinicController extends Controller
         // if (auth()->user()->role !== 'him') {
         //     abort(403, 'Unauthorized Action');
         // }
-        return view('clinics.archive', [
+        return view('retainers.archive', [
             'clinics' => Clinic::onlyTrashed()
                 ->filter(request(['search']))
                 ->paginate(100),
@@ -37,7 +37,7 @@ class ClinicController extends Controller
         // if (auth()->user()->role !== 'him') {
         //     abort(403, 'Unauthorized Action');
         // }
-        return view('clinics.create');
+        return view('retainers.create');
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class ClinicController extends Controller
 
         Clinic::create($formFields);
 
-        return redirect('/clinics')->with(
+        return redirect('/retainers')->with(
             'message',
             'New Clinic created successfully!'
         );
@@ -66,9 +66,9 @@ class ClinicController extends Controller
 
         $clinic->update($formFields);
 
-        return redirect('/clinics')->with(
+        return redirect('/retainers')->with(
             'message',
-            ' Clinic Updated successfully!'
+            ' Retainer Updated successfully!'
         );
     }
     public function destroy(Clinic $clinic)
@@ -78,15 +78,15 @@ class ClinicController extends Controller
         // }
         if($clinic->trashed()){
             $clinic->forceDelete();
-            return redirect('/clinics')->with(
+            return redirect('/retainers')->with(
                 'message',
-                'Clinic deleted Permanently'
+                'Retainer deleted Permanently'
             );
         }
         $clinic->delete();
-        return redirect('/clinics')->with(
+        return redirect('/retainers')->with(
             'message',
-            'Clinic deleted successfully'
+            'Retainer deleted successfully'
         );
     }
 
@@ -97,9 +97,9 @@ class ClinicController extends Controller
         // }
 
         $clinic->restore();
-        return redirect('/clinics')->with(
+        return redirect('/retainers')->with(
             'message',
-            'Clinic deleted successfully'
+            'Retainer deleted successfully'
         );
     }
 }
