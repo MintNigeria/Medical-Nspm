@@ -17,15 +17,16 @@
             >
               <h4 class="header-title">Inventory  Data
                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#modalNotify">
-                  {{-- <span class="bell" >{{ $notifications->count() }}</span>
-                    @include('partials._modalnotify')   --}}
                 </a>
                 </h4>
 
 
               @include('partials._searchinventory')
+           
               <div>
+                 @if(auth()->user()->user_type === "pharmacy-admin")
                  <a href="/inventory/create" class="btn btn-color">Create Inventory</a>
+                @endif
               <button onclick="exportToCsv()" class="btn btn-outline-success">Export XLS</button>
               </div>
             </div>
@@ -56,8 +57,13 @@
                             <td class="{{ $inventory->no_of_units > $inventory->unit_deficit   ? 'text-success':  'text-danger'}}" >{{ $inventory->no_of_units }}</td>
                             <td>{{ $inventory->location }}</td>
                             <td style="display:flex; align-items:center; justify-content:space-evenly">
+                                 @if(auth()->user()->user_type === "pharmacy-admin")
                                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#inventoryModal{{ $inventory->id }}">
                                     <i class="fa-solid fa-edit text-success"></i>
+                                </a>
+                                @endif
+                                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#inventoryDispenseModal{{ $inventory->id }}">
+                                    <i class="fa-solid fa-minus text-success"></i>
                                 </a>
 
                                 @include('partials._modalinventory')
@@ -136,5 +142,7 @@
     link.click();
 }
 </script>
+
+
 
 @endsection

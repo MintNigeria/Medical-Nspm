@@ -104,6 +104,22 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                   </div>
+
+                      <div class="form-group">
+                  <label class="mt-3 text-danger">Expiration Date </label>
+                  <input
+                      type="date"
+                      class="form-control"
+                      placeholder="Example: 9"
+                      value="{{$inventory->expiration_date}}"
+                      id=""
+                  />
+                  
+                  @error('expiration_date')
+                  <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                  @enderror
+              </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>
@@ -113,6 +129,111 @@
             </div>
     </div>
   </div>
+
+  <!-- Modal -->
+<div class="modal fade text-uppercase" id="inventoryDispenseModal{{$inventory->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-bluedark" style="background-color:#238263;color:#fff">
+                <h5 class="modal-title" id="exampleModalLabel">Dispense Drug</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/inventory/{{ $inventory->id }}" method="POST">
+                @csrf
+                @method('PUT')
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" id="" class="form-control text-uppercase" value="{{ $inventory->name }}" disabled>
+                    @error('name')
+                    <p class="text-danger  mt-1">{{$message}}</p>
+                    @enderror
+                </div>
+                  <div class="form-group">
+                    <label class="mt-4">ADD Grouping (If Any)</label>
+                    <select class="form-control" searchable="Search here.." name="grouping" disabled>
+                        <option value="">Choose ...</option>
+                        @foreach ($groups as $group)
+                           <option value="{{ $group->name }}" @if($inventory->grouping) selected @endif>{{ $group->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="mt-3">No of Units</label>
+                    <input
+                      type="number"
+                      class="form-control text-uppercase"
+                      name="no_of_units"
+                      placeholder="Example: 9" value="{{$inventory->no_of_units}}"
+                      id=""
+                      disabled
+                    />
+                    @error('no_of_units')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+                  </div>
+
+                    <div class="form-group" id="expirationContent">
+                  <label class="mt-3 text-danger">Expiration Date (<span id="expirationWarning" class="text-danger text-xs mt-1"></span>)</label>
+                  <input
+                      type="date"
+                      class="form-control bg-danger text-white"
+                      placeholder="Example: 9"
+                      value="{{$inventory->expiration_date}}"
+                      id="expirationDateInput"
+                      disabled
+                  />
+                  
+                  @error('expiration_date')
+                  <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                  @enderror
+              </div>
+
+                 
+                <div class="modal-footer" id="expirationButton">
+                    <button type="submit" class="btn btn-success">Dispense (<i class="fas fa-minus"></i>)</button>
+                </div>
+        </form>
+            </div>
+    </div>
+  </div>
+
+<script>
+    // Get the current date
+    const currentDate = new Date();
+
+    // Get the expiration date from the input
+    const expirationDateInput = document.getElementById('expirationDateInput');
+    const expirationDate = new Date(expirationDateInput.value);
+
+    // Calculate the difference in months
+    const monthsDifference = (expirationDate.getFullYear() - currentDate.getFullYear()) * 12 +
+        (expirationDate.getMonth() - currentDate.getMonth());
+
+    const expirationWarning = document.getElementById('expirationWarning');
+
+    // Check if the expiration date is less than 6 months
+    if (monthsDifference <= 0) {
+         expirationWarning.textContent = 'This item has expired!' ;
+        document.getElementById('expirationContent').style.display = "block";
+        document.getElementById('expirationButton').style.display = "none";
+
+    }else if(monthsDifference < 6)
+    {
+        expirationWarning.textContent = 'This item is nearing expiration!' ;
+        document.getElementById('expirationContent').style.display = "block";
+    }
+    
+    else{
+        expirationWarning.textContent = 'This item has not passed expiration.';
+        document.getElementById('expirationContent').style.display = "none";
+
+
+    }
+</script>
 
 
 
@@ -168,3 +289,4 @@
             </div>
     </div>
   </div>
+

@@ -117,6 +117,22 @@ class PatientController extends Controller
         );
     }
 
+    public function update_dob(Request $request, Patient $patient)
+    {
+        // if (auth()->user()->role !== 'him') {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        $formFields = $request->validate([
+            'birth_date' => 'required',
+        ]);
+        $patient->update($formFields);
+
+        return redirect('/patient')->with(
+            'message',
+            'Patient Birth Date Updated successfully!'
+        );
+    }
     // Delete Listing
     public function destroy(Patient $patient)
     {

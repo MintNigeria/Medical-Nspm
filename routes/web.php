@@ -77,6 +77,11 @@ Route::put('/patient/{patient}', [
     'update',
 ])->middleware('auth');
 
+Route::put('/patient/{patient}/dob', [
+    PatientController::class,
+    'update_dob',
+])->middleware('auth');
+
 Route::get('/patient/export/', [PatientController::class, 'export']);
 
 // Delete Listing

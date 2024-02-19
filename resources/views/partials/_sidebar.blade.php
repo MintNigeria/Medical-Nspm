@@ -54,9 +54,9 @@
             <li>
                 <a href="/inventory">Inventories</a>
             </li>
-            {{-- <li>
+            <li>
                 <a href="/pharmacy">Pharmacy</a>
-            </li> --}}
+            </li>
             <li>
                 <a href="/grouping">Pha-Grouping</a>
             </li>
@@ -75,9 +75,9 @@
                 <a href="/inventory">Inventories</a>
             </li>
 
-            {{-- <li>
-                <a href="/pharmacy">Pharmacy</a>
-            </li> --}}
+            <li>
+                <a href="records/pharmacy">Pharmacy</a>
+            </li>
             <li>
                 <a href="/grouping">Pha-Grouping</a>
             </li>

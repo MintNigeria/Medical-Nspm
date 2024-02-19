@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('unit_deficit');
             $table->string('type');
             $table->string('packaging');
+            $table->string('expiration_date');
             $table->timestamps();
         });
     }

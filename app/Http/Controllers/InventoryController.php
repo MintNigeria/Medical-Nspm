@@ -13,9 +13,9 @@ class InventoryController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $notifications = auth()->user()->unreadNotifications;
 
@@ -50,9 +50,9 @@ class InventoryController extends Controller
 
     public function stock_low()
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
 
         return view('inventory.stock_low')->with([
@@ -66,9 +66,9 @@ class InventoryController extends Controller
 
     public function create()
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('inventory.create',  with([
             'groups' => Group::latest()->get()
@@ -77,9 +77,9 @@ class InventoryController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $formFields = $request->validate([
             'name' => ['required', Rule::unique('inventories', 'name')],
@@ -89,14 +89,11 @@ class InventoryController extends Controller
             'type' => 'required',
             'packaging' => 'required',
             'unit_deficit' => 'nullable',
+            'expiration_date' => 'required',
         ]);
-
-
         $formFields['location'] = auth()->user()->locality;
 
-
         $inventory = Inventory::create($formFields);
-        // $inventoryName = $inventory->name;
 
         return redirect('/inventory')->with(
             'message',
@@ -108,9 +105,9 @@ class InventoryController extends Controller
     // Show Edit Form
     public function edit(Inventory $inventory)
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         return view('inventory.edit', ['inventory' => $inventory]);
     }
@@ -139,9 +136,9 @@ class InventoryController extends Controller
 
     public function destroy(Inventory $inventory)
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
         if($inventory->trashed()){
             $inventory->forceDelete();
             return redirect('/inventory')->with(
@@ -182,13 +179,15 @@ class InventoryController extends Controller
 
     public function reduce($id)
     {
-        if (auth()->user()->role !== 'pharmacy') {
-            abort(403, 'Unauthorized Action');
-        }
+        // if (auth()->user()->role !== 'pharmacy') {
+        //     abort(403, 'Unauthorized Action');
+        // }
 
         $inventory = Inventory::find($id);
 
         $inventory->no_of_units = $inventory->no_of_units - 1;
+
+        $inventory->save();
 
 
         return redirect('/inventory')->with(

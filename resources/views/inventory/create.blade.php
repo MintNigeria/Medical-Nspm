@@ -32,13 +32,24 @@
                       </div>
                       <div class="form-group">
                         <label class="mt-3">Product Type</label>
-                        <select name="type" id="" class="form-control text-uppercase">
+                        <select name="type" id="" class="js-example-basic-single form-control text-uppercase">
                             <option value=""> Choose ...</option>
-                            <option value="liquid">Liquid</option>
-                            <option value="tablets">Tablets</option>
-                            <option value="injection"> Injection</option>
-                            <option value="capsules">Capsules</option>
-                            <option value="drops">Drops</option>
+                            <option value="Tablets">Tablets</option>
+                            <option value="Capsules">Capsules</option>
+                            <option value="Suspension">Suspension</option>
+                            <option value="Syrup">Syrup</option>
+                            <option value="Injection">Injection</option>
+                            <option value="Inhalation">Inhalation</option>
+                            <option value="Infusion">Infusion</option>
+                            <option value="Suppository">Suppository</option>
+                            <option value="Drops">Drops</option>
+                            <option value="Ear Drops">Ear Drops</option>
+                            <option value="Nasal Spray">Nasal Spray</option>
+                            <option value="Cream">Cream</option>
+                            <option value="Consumables">Consumables</option>
+                            <option value="Lozenges">Lozenges</option>
+                            <option value="Powder">Powder</option>
+                            <option value="Granules">Granules</option>
                         </select>
                         @error('type')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -46,12 +57,10 @@
                       </div>
                       <div class="form-group">
                         <label class="mt-3">Product Package</label>
-                        <select name="packaging" id="" class="form-control text-uppercase">
-                            <option value=""> Choose ...</option>
-                            <option value="sachets">Sachets</option>
-                            <option value="cartons">Cartons</option>
-                            <option value="capsules">Capsules</option>
-                            <option value="drops">Drops</option>
+                        <select name="packaging" id="" class="js-example-basic-single form-control text-uppercase">
+                           <option>Choose ...</option>
+                           <option value="cartons">Cartons</option>
+                           <option  value="boxes">Boxes</option>
                         </select>
                         @error('packaging')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -95,6 +104,20 @@
                         @error('unit_deficit')
                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                         @enderror
+                      </div>
+
+                       <div class="form-group">
+                          <label class="mt-3">Expiration Date</label>
+                          <input
+                            type="date"
+                            class="form-control text-uppercase"
+                            name="expiration_date"
+                            value="{{old('expiration_date')}}"
+                            id=""
+                          />
+                          @error('expiration_date')
+                          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                          @enderror
                       </div>
                       {{-- <div class="form-group">
                         <label class="mt-4">Location </label>
