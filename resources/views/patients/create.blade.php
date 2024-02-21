@@ -75,25 +75,29 @@
                     <label>Department</label><br />
                     <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
                         <option value="">Choose ...</option>
+                        <option value="Internal Audit & Compliance">Internal Audit & Compliance</option>
+                        <option value="Strategy">Strategy</option>
+                        <option value="Planning">Planning</option>
+                        <option value="CS/LA">CS/LA</option>
+                        <option value="Treasury">Treasury</option>
+                        <option value="Cost & Management">Cost & Management</option>
                         <option value="ICT">ICT</option>
-                        <option value="HUMAN RESOURCES">HUMAN RESOURCES</option>
-                        <option value="FINANCE">FINANCE</option>
-                        <option value="AUDIT">AUDIT</option>
-                        <option value="RISK">RISK</option>
-                        <option value="STRATEGY">STRATEGY</option>
-                        <option value="SALES & MARKETING">SALES & MARKETING.</option>
-                        <option value="PROCUREMENT">PROCUREMENT</option>
-                        <option value="SECURITY">SECURITY</option>
-                        <option value="COPORATE COMMUNICATIONS">COPORATE COMMUNICATIONS</option>
-                        <option value="INSPECTORATE">INSPECTORATE</option>
-                        <option value="MEDICAL">MEDICAL</option>
+                        <option value="Risk Management">Risk Management</option>
+                        <option value="Inspectorate">Inspectorate</option>
+                        <option value="Security">Security</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Security">Security</option>
+                        <option value="Protocol & Transport">Protocol & Transport</option>
+                        <option value="Coporate Communications">Coporate Communications</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Medical Services">Medical Services</option>
                         <option value="EPMO">EPMO</option>
-                        <option value="PRODUCTION">PRODUCTION</option>
-                        <option value="MANUFACTURING">MANUFACTURING</option>
-                        <option value="ADMIN">ADMIN</option>
-                        <option value="LEGAL">LEGAL</option>
-                        <option value="SD">SD</option>
-
+                        <option value="Production">Production</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Sales & Marketing">Sales & Marketing</option>
+                        <option value="SD - Engineering">SD - Engineering</option>
+                        <option value="SD - Production">SD - Production</option>
+                        <option value="R&D">R&D</option>
                     </select>
                     @error('department')
                     <p class="text-danger text-xs mt-1">{{$message}}</p>

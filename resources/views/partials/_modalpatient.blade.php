@@ -72,24 +72,28 @@
                         <label>Department</label><br />
                         <select class="text-uppercase form-control" searchable="Search here.." name="department">
                             <option value="" @if(empty($patient->department)) selected @endif>Choose ...</option>
-                            <option value="ICT" @if($patient->department == 'ICT') selected @endif>ICT</option>
-                            <option value="HUMAN RESOURCES" @if($patient->department == 'HUMAN RESOURCES') selected @endif>HUMAN RESOURCES</option>
-                            <option value="FINANCE" @if($patient->department == 'FINANCE') selected @endif>FINANCE</option>
-                            <option value="AUDIT" @if($patient->department == 'AUDIT') selected @endif>AUDIT</option>
-                            <option value="RISK" @if($patient->department == 'RISK') selected @endif>RISK</option>
-                            <option value="STRATEGY" @if($patient->department == 'STRATEGY') selected @endif>STRATEGY</option>
-                            <option value="SALES & MARKETING" @if($patient->department == 'SALES & MARKETING') selected @endif>SALES & MARKETING.</option>
-                            <option value="PROCUREMENT" @if($patient->department == 'PROCUREMENT') selected @endif>PROCUREMENT</option>
-                            <option value="SECURITY" @if($patient->department == 'SECURITY') selected @endif>SECURITY</option>
-                            <option value="COPORATE COMMUNICATIONS" @if($patient->department == 'COPORATE COMMUNICATIONS') selected @endif>COPORATE COMMUNICATIONS</option>
-                            <option value="INSPECTORATE" @if($patient->department == 'INSPECTORATE') selected @endif>INSPECTORATE</option>
-                            <option value="MEDICAL" @if($patient->department == 'MEDICAL') selected @endif>MEDICAL</option>
-                            <option value="EPMO" @if($patient->department == 'EPMO') selected @endif>EPMO</option>
-                            <option value="PRODUCTION" @if($patient->department == 'PRODUCTION') selected @endif>PRODUCTION</option>
-                            <option value="MANUFACTURING" @if($patient->department == 'MANUFACTURING') selected @endif>MANUFACTURING</option>
-                            <option value="ADMIN" @if($patient->department == 'ADMIN') selected @endif>ADMIN</option>
-                            <option value="LEGAL" @if($patient->department == 'LEGAL') selected @endif>LEGAL</option>
-                            <option value="SD" @if($patient->department == 'SD') selected @endif>SD</option>
+                             <option value="Internal Audit & Compliance" @if($patient->department == "Internal Audit & Compliance")selected @endif>Internal Audit & Compliance</option>
+                            <option value="Strategy" @if($patient->department == "Strategy")selected @endif>Strategy</option>
+                            <option value="Planning"  @if($patient->department == "Planning")selected @endif>Planning</option>
+                            <option value="CS/LA" @if($patient->department == "CS/LA")selected @endif>CS/LA</option>
+                            <option value="Treasury"  @if($patient->department == "Treasury")selected @endif>Treasury</option>
+                            <option value="Cost & Management"  @if($patient->department == "Cost & Management")selected @endif>Cost & Management</option>
+                            <option value="ICT" @if($patient->department == "ICT")selected @endif>ICT</option>
+                            <option value="Risk Management" @if($patient->department == "Risk Management")selected @endif>Risk Management</option>
+                            <option value="Inspectorate"  @if($patient->department == "Inspectorate")selected @endif>Inspectorate</option>
+                            <option value="Security"  @if($patient->department == "Security")selected @endif>Security</option>
+                            <option value="Finance" @if($patient->department == "Finance")selected @endif>Finance</option>
+                            <option value="Protocol & Transport" @if($patient->department == "Protocol & Transport")selected @endif>Protocol & Transport</option>
+                            <option value="Coporate Communications"  @if($patient->department == "Coporate Communications")selected @endif>Coporate Communications</option>
+                            <option value="Human Resources"  @if($patient->department == "Human Resources")selected @endif>Human Resources</option>
+                            <option value="Medical Services"  @if($patient->department == "Medical Services")selected @endif>Medical Services</option>
+                            <option value="EPMO"  @if($patient->department == "EPMO")selected @endif>EPMO</option>
+                            <option value="Production"  @if($patient->department == "Production")selected @endif>Production</option>
+                            <option value="Engineering"  @if($patient->department == "Engineering")selected @endif>Engineering</option>
+                            <option value="Sales & Marketing"  @if($patient->department == "Sales & Marketing")selected @endif>Sales & Marketing</option>
+                            <option value="SD Engineering"  @if($patient->department == "SD Engineering")selected @endif>SD - Engineering</option>
+                            <option value="SD Production"  @if($patient->department == "SD Production")selected @endif>SD - Production</option>
+                            <option value="R&D">R&D</option>
                         </select>
                         @error('department')
                         <p class="text-danger text-xs mt-1">{{ $message }}</p>

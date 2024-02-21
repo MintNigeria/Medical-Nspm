@@ -28,7 +28,7 @@ class RecordController extends Controller
 
         return view('records.index', [
             'record' => Record::latest()->get(),
-            'patients' => Patient::latest()->get(),
+            'patients' => Patient::latest()->where("activate", 1)->get(),
         ]);
     }
 
@@ -344,9 +344,7 @@ class RecordController extends Controller
 
         return view('records.receipt', [
             'patients' => Patient::latest()->get(),
-            'records' => Record::where('clinic_location', '!=', 'Internal Lagos')
-                    ->where('clinic_location', '!=', 'Internal Abuja')
-                    ->latest()
+            'records' => Record::where('status', 'open')->latest()
                     ->get(),
         ]);
     }

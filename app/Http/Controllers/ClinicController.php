@@ -9,15 +9,25 @@ class ClinicController extends Controller
 {
     public function index()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('retainers.index', [
             'archives' =>Clinic::onlyTrashed(),
             'clinics' => Clinic::latest()
                 ->filter(request(['search']))
                 ->paginate(100),
         ]);
+    }
+
+    public function activate(Clinic $clinic)
+    {
+        $clinic->activate = !$clinic->activate;
+        $clinic->save();
+        if($clinic->activate){
+         return back()->with('message','Clinic Activated');
+        }
+        return back()->with('message','Clinic Deactivated');
     }
 
     public function archive()
@@ -48,13 +58,14 @@ class ClinicController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'type' => 'required',
+            'lab_retainer' => 'required',
         ]);
 
         Clinic::create($formFields);
 
         return redirect('/retainers')->with(
             'message',
-            'New Clinic created successfully!'
+            'created successfully!'
         );
     }
     public function update (Request $request, Clinic $clinic)
@@ -62,13 +73,14 @@ class ClinicController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'type' => 'required',
+            'lab_retainer' => 'required',
         ]);
 
         $clinic->update($formFields);
 
         return redirect('/retainers')->with(
             'message',
-            ' Retainer Updated successfully!'
+            'Updated successfully!'
         );
     }
     public function destroy(Clinic $clinic)

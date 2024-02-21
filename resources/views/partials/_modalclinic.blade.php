@@ -57,6 +57,19 @@
                     @enderror
                   </div>
 
+                    <div class="form-group">
+                    <label class="mt-3">Lab/Retainer</label>
+                    <select name="lab_retainer" class="text-uppercase form-control" searchable="Search here.." required>
+                        <option value="">Choose ...</option>
+                        <option value="laboratory" @if($clinic->lab_retainer === "laboratory") selected @endif >Laboratory</option>
+                        <option value="retainer">Retainer Hospital</option>
+                    </select>
+
+                    @error('lab_retainer')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+                  </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>

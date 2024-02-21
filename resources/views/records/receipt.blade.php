@@ -58,21 +58,6 @@
             @enderror
             </div>
 
-
-            <div class="form-group">
-            <label class="mt-3">Presciption</label>
-            <textarea
-            type="text"
-            class="form-control text-uppercase"
-            name="prescription"
-            value="{{old('prescription')}}"
-            id=""
-            ></textarea>
-            @error('prescription')
-            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-            @enderror
-            </div>
-
             <div class="form-group">
             <label class="mt-4">Cost</label>
             <input

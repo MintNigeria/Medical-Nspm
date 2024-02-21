@@ -29,7 +29,7 @@
                     @enderror
                   </div>
                   <div class="form-group">
-                    <label class="mt-3">tYPE</label>
+                    <label class="mt-3">TYPE</label>
                     <select name="type" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." required>
                         <option value="">Choose ...</option>
                         <option value="Internal Lagos">Internal Lagos</option>
@@ -63,6 +63,19 @@
                     </select>
 
                     @error('type')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    @enderror
+                  </div>
+
+                   <div class="form-group">
+                    <label class="mt-3">Lab/Retainer</label>
+                    <select name="lab_retainer" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." required>
+                        <option value="">Choose ...</option>
+                        <option value="laboratory">Laboratory</option>
+                        <option value="retainer">Retainer Hospital</option>
+                    </select>
+
+                    @error('lab_retainer')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                   </div>

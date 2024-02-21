@@ -24,7 +24,7 @@
     @include('partials._message')
 
     <div class=" p-2 mt-4">
-    <a class="archive" href="/patient/archive">View Archived Posts</a> ({{ $archives->count() }})
+    {{-- <a class="archive" href="/patient/archive">View Archived Posts</a> ({{ $archives->count() }}) --}}
 
         <table class="table table-striped table-bordered mt-4" id="myTable">
         <thead class="table-color">
@@ -57,13 +57,27 @@
                         </a>
                         @include('partials._modalpatient')
 
+                         @if($patient->activate)
 
+                            <form method="POST" action="/patient/{{$patient->id}}/activate">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to deactivate this Account?')">
+                                    <i class="fas fa-flag text-danger"></i>
+                                </button>
+                            </form>
 
-                        <form method="POST" action="/patient/{{$patient->id}}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Patient Data?')"><i class="fa-solid fa-trash"></i></button>
-                        </form>
+                            @else
+
+                            <form method="POST" action="/patient/{{$patient->id}}/activate">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-outline-success mx-1" onclick="return confirm('Are you sure you want to activate this Account?')">
+                                    <i class="fas fa-flag text-success"></i>
+                                </button>
+                            </form>
+
+                            @endif
 
 
 

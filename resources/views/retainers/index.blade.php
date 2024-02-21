@@ -31,6 +31,7 @@
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Type </th>
+                    <th scope="col">Lab/Retainer</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -40,16 +41,35 @@
                         <tr>
                             <td>{{ $clinic->name }}</td>
                             <td>{{ $clinic->type }}</td>
+                            <td>{{ $clinic->lab_retainer }}</td>
                             <td style="display:flex; align-items:center; justify-content:space-evenly">
                                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#clinicModal{{ $clinic->id }}">
                                     <i class="fa-solid fa-edit text-success"></i>
                                 </a>
                                 @include('partials._modalclinic')
-                                <form method="POST" action="/clinics/{{$clinic->id}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Clinic?')"><i class="text-danger fa-solid fa-trash"></i> </button>
-                                  </form>
+                               
+
+                                @if($clinic->activate)
+
+                            <form method="POST" action="/clinics/{{$clinic->id}}/activate">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to deactivate?')">
+                                    <i class="fas fa-flag text-danger"></i>
+                                </button>
+                            </form>
+
+                            @else
+
+                            <form method="POST" action="/clinics/{{$clinic->id}}/activate">
+                                @csrf
+                                @method('PUT')
+                                <button class="btn btn-outline-success mx-1" onclick="return confirm('Are you sure you want to activate?')">
+                                    <i class="fas fa-flag text-success"></i>
+                                </button>
+                            </form>
+
+                            @endif
 
                             </td>
                         </tr>

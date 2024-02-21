@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('type');
+            $table->string('lab_retainer');
+            $table->string('activate')->default(true);
             $table->timestamps();
         });
     }

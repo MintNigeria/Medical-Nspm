@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('allergy')->nullable();
             $table->string('dependencies')->nullable();
             $table->string('birth_date');
+            $table->boolean('activate')->default(true);
             $table->timestamps();
         });
     }

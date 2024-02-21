@@ -77,6 +77,11 @@ Route::put('/patient/{patient}', [
     'update',
 ])->middleware('auth');
 
+Route::put('/patient/{patient}/activate', [
+    PatientController::class,
+    'activate',
+])->middleware('auth');
+
 Route::put('/patient/{patient}/dob', [
     PatientController::class,
     'update_dob',
@@ -357,6 +362,9 @@ Route::get('/retainers/create', [ClinicController::class, 'create'])->middleware
     'auth'
 );
 Route::post('/clinics', [ClinicController::class, 'store'])->middleware('auth');
+Route::put('/clinics/{clinic}/activate', [ClinicController::class, 'activate'])->middleware(
+    'auth'
+);
 Route::put('/clinics/{clinic}', [ClinicController::class, 'update'])->middleware(
     'auth'
 );

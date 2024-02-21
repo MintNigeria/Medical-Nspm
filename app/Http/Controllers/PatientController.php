@@ -25,6 +25,15 @@ class PatientController extends Controller
         ]);
     }
 
+    public function activate(Patient $patient)
+    {
+        $patient->activate = !$patient->activate;
+        $patient->save();
+        if($patient->activate){
+         return back()->with('message','Patient Activated');
+        }
+        return back()->with('message','Patient Deactivated');
+    }
     public function archive()
     {
         // if (auth()->user()->role !== 'him') {
@@ -95,9 +104,9 @@ class PatientController extends Controller
     // Update Listing Data
     public function update(Request $request, Patient $patient)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $formFields = $request->validate([
             'name' =>  ['required', Rule::unique('patients')->ignore($patient)],
@@ -105,11 +114,14 @@ class PatientController extends Controller
             'address' => 'required',
             'email' => 'required',
             'department' => 'required',
+            'height' => 'required',
             'dependencies' => 'nullable',
             'contact' => 'required',
-            'birth_date' => 'required',
         ]);
+
+        $formFields['birth_date'] = $patient->birth_date;
         $patient->update($formFields);
+
 
         return redirect('/patient')->with(
             'message',
@@ -119,7 +131,7 @@ class PatientController extends Controller
 
     public function update_dob(Request $request, Patient $patient)
     {
-        // if (auth()->user()->role !== 'him') {
+        // if (auth()->user()->role !== 'medic-admin') {
         //     abort(403, 'Unauthorized Action');
         // }
 

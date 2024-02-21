@@ -39,7 +39,6 @@ class ReceiptController extends Controller
         }
 
         $formFields = $request->validate([
-            'prescription' => 'required',
             'cost' => 'required',
             'is_dependent' => 'required',
         ]);
