@@ -26,6 +26,10 @@
                 <a href="/records/all">All Records</a>
             </li>
 
+             <li>
+                    <a href="/injuries">Injury Records</a>
+            </li>
+
 
         @endif
 
@@ -43,9 +47,7 @@
                 <li>
                     <a href="/records/nurse_mgmt">Nurse Mgmt</a>
                 </li>
-                <li>
-                    <a href="/injuries">Injury Records</a>
-                </li>
+                
             @endif
             @if(auth()->user()->role == "pharmacy-admin")
             <li>
@@ -127,6 +129,11 @@
             <li>
                 <a href="/dependents/">Dependents</a>
             </li>
+
+            <li>
+                    <a href="/injuries">Injury Records</a>
+            </li>
+
             @endif
 
             @if(auth()->user()->role == "admin")

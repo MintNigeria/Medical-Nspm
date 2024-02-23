@@ -53,13 +53,35 @@
                                 </a>
                                 @include('partials._modalusers')
 
-                                <form method="POST" action="/users/{{$user->id}}">
+                                 @if($user->activate)
+
+                                    <form method="POST" action="/users/{{$user->id}}/activate">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-outline-danger mx-1" onclick="return confirm('Are you sure you want to deactivate this Account?')">
+                                            <i class="fas fa-flag text-danger"></i>
+                                        </button>
+                                    </form>
+
+                                    @else
+
+                                    <form method="POST" action="/users/{{$user->id}}/activate">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-outline-success mx-1" onclick="return confirm('Are you sure you want to activate this Account?')">
+                                            <i class="fas fa-flag text-success"></i>
+                                        </button>
+                                    </form>
+
+                                    @endif
+
+                                {{-- <form method="POST" action="/users/{{$user->id}}">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this User?')">
                                         <i class="fas fa-trash text-danger"></i>
                                     </button>
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                     @endforeach

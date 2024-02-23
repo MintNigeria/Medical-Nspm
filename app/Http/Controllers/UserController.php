@@ -82,6 +82,17 @@ class UserController extends Controller
         return view('users.register');
     }
 
+    public function activate(ModelsUser $user)
+    {
+        $user->activate = !$user->activate;
+        $user->save();
+        if($user->activate){
+         return back()->with('message','User Activated');
+        }
+        return back()->with('message','User Deactivated');
+    }
+
+
     public function store(Request $request)
     {
         if (auth()->user()->role !== 'medic-admin') {
@@ -178,6 +189,11 @@ class UserController extends Controller
 
         if (auth()->attempt($formFields)) {
             $user = auth()->user();
+
+            if (!$user->active) {
+                auth()->logout(); // Log the user out if not active
+                return back()->with('message', 'Your account is inactive. Please contact the medical administrator.');
+            }
 
             if ($user->is_default === 1) {
                 return redirect('/users/profile')->with(

@@ -29,38 +29,6 @@
 
                 <nav>
                 <img src="{{ asset("images/preview__report.png") }}" style="width:100%" />
-                {{-- <div class="preview__report__header">
-                    <img src="{{ asset('images/logo.png') }}" />
-
-                </div>
-
-                <div class="alert alert-success font-bold">
-                    LAB REQUEST FORM
-                </div>
-                <div class="preview__address text-lowercase">
-                    <div class="preview_address">
-                    <p><b> Branches </b> <span>
-                        <p class="text-black-50">
-                         Lagos Office:
-                        P.O. Box 3053, 26 Ahmadu Bello Way,
-                         Victoria Island 106104, Lagos
-                        </p>
-                        <p class="text-black-50">
-                            Abuja Office:
-                            160 Samuel Ladoke Boulevard, Garki 2, Abuja
-                        </p>
-
-
-                    </span></p>
-                    </div>
-                    <div>
-                    <p><b> Website </b>
-                        <p class="text-black-50">
-                            www.mintnigeria.com
-                        </p>
-                    </div>
-
-                </div> --}}
                 </nav>
 
                 {{-- Patient BioData --}}

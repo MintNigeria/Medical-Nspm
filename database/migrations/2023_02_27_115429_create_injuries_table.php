@@ -16,9 +16,19 @@ return new class extends Migration {
                 ->foreignId('patient_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->longText('injury')->nullable();
-            $table->longText('treatment')->nullable();
-            $table->longText('medications')->nullable();
+            $table->string('date_accident_death');
+            $table->string('time_accident_death');
+            $table->longText('location_accident');
+            $table->longText('description_accident');
+            $table->string('severity');
+            $table->string('treatment');
+            $table->string('death_cause')->nullable();
+            $table->longText('health_status')->nullable();
+            $table->string('disability')->nullable();
+            $table->string('attending_doctor')->nullable();
+            $table->string('insurance_doctor')->nullable();
+            $table->string('insurance_date')->nullable();
+            $table->integer('days_absent')->nullable();
             $table->string('cost_total');
             $table->timestamps();
         });

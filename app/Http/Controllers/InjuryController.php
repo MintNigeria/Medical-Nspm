@@ -10,9 +10,9 @@ class InjuryController extends Controller
 {
     public function index()
     {
-        // if (auth()->user()->role !== 'nurse') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view(
             'injury.index',
@@ -28,9 +28,9 @@ class InjuryController extends Controller
 
     public function archive()
     {
-        // if (auth()->user()->role !== 'nurse') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view(
             'injury.archive',
@@ -45,9 +45,9 @@ class InjuryController extends Controller
 
     public function create()
     {
-        // if (auth()->user()->role !== 'nurse') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view(
             'injury.create',
@@ -59,17 +59,25 @@ class InjuryController extends Controller
 
     public function store(Request $request)
     {
-        // if (auth()->user()->role !== 'nurse') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $formFields = $request->validate([
-            'injury' => 'nullable',
-            'treatment' => 'nullable',
-            'medications' => 'nullable',
-            'cost_total' => 'nullable',
+            'date_accident_death' => 'required',
+            'time_accident_death' => 'required',
+            'location_accident' => 'required',
+            'description_accident' => 'required',
+            'treatment' => 'required',
+            'severity' => 'required',
+            'death_cause' => 'nullable',
+            'health_status' => 'nullable',
+            'days_absent' => 'nullable',
+            'disability' => 'nullable',
+            'cost_total' => 'required',
             'patient_id' => 'required',
         ]);
+        $formFields['attending_doctor'] = auth()->user()->name;
 
         Injury::create($formFields);
 
@@ -81,15 +89,24 @@ class InjuryController extends Controller
 
     public function update(Request $request, Injury $injury)
     {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
-            'injury' => 'nullable',
-            'treatment' => 'nullable',
-            'medications' => 'nullable',
-            'cost_total' => 'nullable',
-            // 'patient_id' => 'required',
+            'date_accident_death' => 'required',
+            'time_accident_death' => 'required',
+            'location_accident' => 'required',
+            'description_accident' => 'required',
+            'treatment' => 'required',
+            'severity' => 'required',
+            'death_cause' => 'nullable',
+            'days_absent' => 'nullable',
+            'health_status' => 'nullable',
+            'disability' => 'nullable',
+            'cost_total' => 'required',
+            'patient_id' => 'required',
         ]);
-
-
         $formFields['patient_id'] = $injury->patient_id;
 
         $injury->update($formFields);
@@ -100,8 +117,44 @@ class InjuryController extends Controller
         );
     }
 
+
+    public function insurance(Request $request, Injury $injury)
+    {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+
+
+        return view("injury.insurance", [
+            'injury' => $injury
+        ]);
+
+    }
+
+    public function insurance_update(Request $request, Injury $injury)
+    {
+        if (auth()->user()->role !== 'doctor') {
+            abort(403, 'Unauthorized Action');
+        }
+        $formFields = $request->validate([
+            'insurance_doctor' => 'required',
+            'insurance_date' => 'required',
+        ]);
+
+        $injury->update($formFields);
+
+        return back()->with(
+            'message',
+            'New Injury Updated successfully!'
+        );
+    }
+
     public function destroy(Injury $injury)
     {
+        if (auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
         if($injury->trashed()){
              $injury->forceDelete();
         }

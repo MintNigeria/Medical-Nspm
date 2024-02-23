@@ -15,7 +15,7 @@
                 justify-content: space-between;
               "
             >
-              <h4 class="header-title">Injuries Record</h4>
+              <h4 class="header-title">Injuries</h4>
               @include('partials._searchinjury')
               <a href="/injuries/create" class="btn bg-color">Record New Injury</a>
               <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
@@ -24,15 +24,15 @@
           @include('partials._message')
 
             <div class="p-2">
-        <a class="archive" href="/injuries/archive">View Archived Posts</a> ({{ $archives->count() }})
-
               <table class="table table-striped table-bordered mt-4">
                 <thead class="table-color">
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Staff ID </th>
-                    <th scope="col">Injury</th>
-                    <th scope="col">Treatment</th>
+                    <th scope="col">Date of Incidence/Death </th>
+                    <th scope="col">Location of Incidence </th>
+                    <th scope="col">Severity</th>
+                    <th scope="col">Days Absent</th>
                     <th scope="col">Cost Total</th>
 
                     <th>Actions</th>
@@ -44,16 +44,27 @@
                         <tr>
                             <td>{{ $injury->patient->name }}</td>
                             <td>{{ $injury->patient->staff_id }}</td>
-                            <td>{{ $injury->injury }}</td>
-                            <td>{{ $injury->treatment }}</td>
+                            <td>{{ $injury->date_accident_death }}</td>
+                            <td>{{ $injury->location_accident }}</td>
+                            <td>{{ $injury->severity }}</td>
+                            <td>{{ $injury->days_absent }}</td>
                             <td class="text-uppercase">N {{ number_format($injury->cost_total, 0, '.', ',') }}</td>
                             <td style="display: flex; align-items:center;justify-content:space-evenly;">
 
                                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#injuryModal{{ $injury->id }}">
                                     <i class="fa-solid fa-edit text-success"></i>
                                 </a>
+
+                                 <a type="button" data-mdb-toggle="modal" data-mdb-target="#injuryInsuranceModal{{ $injury->id }}">
+                                    <i class="fa-solid fa-user-doctor text-danger"></i>
+                                </a>
                                 @include('partials._modalinjury')
 
+                                <a href="/injuries/{{ $injury->id }}/insurance" >
+                                    <i class="fa-solid fa-external-link text-secondary"></i>
+                                </a>
+
+                                @if(auth()->user()->user_type == "medic-admin")
                                 <form method="POST" action="/injuries/{{$injury->id}}">
                                     @csrf
                                     @method('DELETE')
@@ -61,6 +72,7 @@
                                         <i class="fas fa-trash text-danger"></i>
                                     </button>
                                 </form>
+                                @endif
                             </td>
 
                               {{-- @include('partials._injurymodal') --}}

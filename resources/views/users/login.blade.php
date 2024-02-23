@@ -15,7 +15,7 @@
         <div class="form-group text-uppercase">
             <label>Staff ID</label>
             <input
-              type="number"
+              type="text"
               class="form-control"
               placeholder="Enter Your Staff No Here"
               name="staff_id"

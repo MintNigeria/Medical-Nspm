@@ -430,6 +430,11 @@ Route::get('/users/register', [UserController::class, 'create'])->middleware(
 Route::post('/users/create', [UserController::class, 'store'])->middleware(
     'auth'
 );
+
+Route::put('/users/{user}/activate', [UserController::class, 'activate'])->middleware(
+    'auth'
+);
+
 Route::put('/users/{user}', [UserController::class, 'update'])->middleware(
     'auth'
 );
@@ -464,6 +469,14 @@ Route::get('/injuries/archive', [InjuryController::class, 'archive'])->middlewar
 
 Route::get('/injuries', [InjuryController::class, 'index'])->middleware('auth');
 Route::post('/injuries', [InjuryController::class, 'store'])->middleware(
+    'auth'
+);
+
+Route::get('/injuries/{injury}/insurance', [InjuryController::class, 'insurance'])->middleware(
+    'auth'
+);
+
+Route::put('/injuries/{injury}/insurance', [InjuryController::class, 'insurance_update'])->middleware(
     'auth'
 );
 Route::put('/injuries/{injury}', [InjuryController::class, 'update'])->middleware(
