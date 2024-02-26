@@ -35,6 +35,12 @@
         @enderror
     </div>
 
+      <div class="alert-primary p-4 mt-4 text-primary" style="border-radius:10px;font-weight:bold;">
+            <a href="/management/{{ $record->id }}/create" class="text-primary">
+                Management
+            </a>
+        </div>
+
 
     <h4 class="text-secondary text-capitalize mt-5">Management <span class="text-lowercase text-black-50">(Select Treatment)</span></h4>
 

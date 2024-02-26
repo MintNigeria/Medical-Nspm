@@ -13,6 +13,7 @@ use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ManagementController;
 use App\Models\Dependent;
 use App\Models\Pharmacy;
 use App\Models\Record;
@@ -107,6 +108,7 @@ Route::post('/patient/{patient}/restore', [
 
 Route::get('/records', [RecordController::class, 'index'])->middleware('auth');
 Route::get('/records/queue', [RecordController::class, 'queue'])->middleware('auth');
+Route::get('/records/reports', [RecordController::class, 'reports'])->middleware('auth');
 
 // // Show Create Form
 // Route::get('/record/create', [RecordController::class, 'create']);
@@ -500,3 +502,16 @@ Route::post("feedbacks/{recordId}/", [FeedbackController::class, 'store'])->midd
 Route::delete('/feedbacks/{feedback}', [FeedbackController::class, 'destroy'])->middleware(
     'auth'
 );
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'management'], function () {
+        Route::get('/{record}', [ManagementController::class, 'index']);
+        Route::get('/{record}/create', [ManagementController::class, 'create']);
+        Route::post('/{record}', [ManagementController::class, 'store']);
+        Route::put('{department}', [ManagementController::class, 'update']);
+        Route::put('{department}/activate', [ManagementController::class, 'activate']);
+    });
+});

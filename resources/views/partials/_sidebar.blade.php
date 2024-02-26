@@ -111,6 +111,9 @@
             <li>
                 <a href="/records/receipt">Receipts</a>
             </li>
+            <li>
+                <a href="/records/reports">Reports</a>
+            </li>
 
 
             @endif
@@ -128,6 +131,9 @@
 
             <li>
                 <a href="/dependents/">Dependents</a>
+            </li>
+             <li>
+                <a href="/leaves">Sick Leave</a>
             </li>
 
             <li>

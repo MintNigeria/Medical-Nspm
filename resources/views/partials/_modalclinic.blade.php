@@ -62,7 +62,7 @@
                     <select name="lab_retainer" class="text-uppercase form-control" searchable="Search here.." required>
                         <option value="">Choose ...</option>
                         <option value="laboratory" @if($clinic->lab_retainer === "laboratory") selected @endif >Laboratory</option>
-                        <option value="retainer">Retainer Hospital</option>
+                        <option value="retainer"  @if($clinic->lab_retainer === "retainer") selected @endif >Retainer Hospital</option>
                     </select>
 
                     @error('lab_retainer')

@@ -190,7 +190,7 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
             $user = auth()->user();
 
-            if (!$user->active) {
+            if (!$user->activate) {
                 auth()->logout(); // Log the user out if not active
                 return back()->with('message', 'Your account is inactive. Please contact the medical administrator.');
             }

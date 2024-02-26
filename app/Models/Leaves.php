@@ -24,6 +24,16 @@ class Leaves extends Model
         $query->whereHas('patient', function ($subQuery) {
             $subQuery->where('staff_id', 'like', '%' . request('search') . '%');
         });
+
+        $query->when($filters['start_date'] ?? false, function ($query, $startDate) {
+            $query->where('created_at', '>=', $startDate);
+        });
+
+        $query->when($filters['end_date'] ?? false, function ($query, $endDate) {
+            $query->where('created_at', '<=', $endDate);
+        });
     }
+    
+
 }
 }

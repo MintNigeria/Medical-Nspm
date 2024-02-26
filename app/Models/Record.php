@@ -41,7 +41,12 @@ class Record extends Model
 
     public function feedback()
     {
-        return $this->hasMany(Feedback::class, 'record_id');
+        return $this->hasMany(Feedbacks::class, 'record_id');
+    }
+
+    public function management()
+    {
+        return $this->hasMany(Management::class, 'record_id');
     }
 
     public function receipt()

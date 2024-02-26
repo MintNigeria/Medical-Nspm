@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Models\Leaves;
 use App\Models\Patient;
 use App\Models\Pharmacy;
 use App\Models\Clinic;
 use App\Models\Allergy;
+use App\Models\Injury;
 use App\Models\User;
 use App\Models\Record;
 use Illuminate\Http\Request;
@@ -241,6 +243,41 @@ class RecordController extends Controller
 
         return view('records.referraldoc', [
             'record' => $record
+        ]);
+    }
+
+    public function reports(Request $request)
+    {
+        if (auth()->user()->role !== 'him') {
+            abort(403, 'Unauthorized Action');
+        }
+
+
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+
+        return view("records.reports", [
+            "leaves" => Leaves::latest()
+            ->when($startDate, function ($query) use ($startDate) {
+                return $query->where('created_at', '>=', $startDate);
+            })
+            ->when($endDate, function ($query) use ($endDate) {
+                return $query->where('created_at', '<=', $endDate);
+            })->paginate(45),
+            "records" => Record::latest()
+            ->when($startDate, function ($query) use ($startDate) {
+                return $query->where('created_at', '>=', $startDate);
+            })
+            ->when($endDate, function ($query) use ($endDate) {
+                return $query->where('created_at', '<=', $endDate);
+            })->paginate(45),
+            "injuries" => Injury::latest()
+            ->when($startDate, function ($query) use ($startDate) {
+                return $query->where('created_at', '>=', $startDate);
+            })
+            ->when($endDate, function ($query) use ($endDate) {
+                return $query->where('created_at', '<=', $endDate);
+            })->paginate(45),
         ]);
     }
 
