@@ -1,5 +1,4 @@
 @extends('layout')
-
 @section('content')
 <body>
     <div class="dashboard">
@@ -14,51 +13,48 @@
               "
             >
             </div>
-            <h4 class="header-title">Records {{ $records->count() }}</h4>
+            <h4 class="header-title text-capitalize">Listings {{ $management->count() }}</h4>
             @include('partials._previewdate')
-
 
             @unless (count($records) === 0)
                 <div class="preview__grid">
-                    @foreach ($records as $record)
-                    <div class="card">
+                    @foreach ($management as $management)
+                    <div class="card mt-4">
                         <div class="card-body">
-                          <p class="card-text preview__text">
-                            <div><b>Patient Name</b> : <span>{{ $record->patient->name }} </span></div>
-                            <div><b>Patient StaffId</b> : <span>{{ $record->patient->staff_id }} </span></div>
+                          <p class="card-text preview__text ">
+                            <div><b>Patient Name</b> : <span>{{ $management->record->patient->name }} </span></div>
+                            <div><b>Patient StaffId</b> : <span>{{ $management->record->patient->staff_id }} </span></div>
                             <div><b>Blood Pressure</b> :
-                                @if($record->blood_pressure_systolic > 140 || $record->blood_pressure_diastolic > 100)
-                                <span class="blood_danger"> {{ $record->blood_pressure_systolic }}/ {{ $record->blood_pressure_diastolic }} (mmHg)</span>
+                                @if($management->record->blood_pressure_systolic > 140 || $management->record->blood_pressure_diastolic > 100)
+                                <span class="blood_danger"> {{ $management->record->blood_pressure_systolic }}/ {{ $management->record->blood_pressure_diastolic }} (mmHg)</span>
                                 @else
-                                <span>: {{ $record->blood_pressure_systolic }}/ {{ $record->blood_pressure_diastolic }} (mmHg)</span>
+                                <span>: {{ $management->record->blood_pressure_systolic }}/ {{ $management->record->blood_pressure_diastolic }} (mmHg)</span>
 
                                 @endif
 
                             </div>
-                            <div><b>Pulse Rate</b> : <span>{{ $record->pulse_rate }} (bpm) </span></div>
-                            <div><b>Assesment</b> : <span>{{ Str::limit($record->assessment, 8, '...')}} </span></div>
-                            @if ($record->bmi)
-                            <p><span>Current Weight</span>: <span> {{ $record->weight}} Kg </span><p>
-                            <p><span>Current BMI</span>: <span> {{ round($record->bmi, 6 )}} Kg/m2</p>
+                            <div><b>Pulse Rate</b> : <span>{{ $management->record->pulse_rate }} (bpm) </span></div>
+                            <div><b>Assesment</b> : <span>{{ Str::limit($management->record->assessment, 8, '...')}} </span></div>
+                            @if ($management->record->bmi)
+                            <p><b>Current Weight</b>: <span> {{ $management->record->weight}} Kg </span><p>
+                            <p><b>Current BMI</b>: <span> {{ $management->record->doctor_act}} Kg/m2</p>
                             @endif
                             <div><b>Test count </b> : <span>
                                 @php
-                                $tests = json_decode($record->tests);
+                                $tests = json_decode($management->tests);
                                 $numberOfTests = is_array($tests) ? count($tests) : 0;
                                 echo $numberOfTests;
                                  @endphp
                             </span></div>
-                            <div><b>Processed By</b> : <span>{{ $record->processing_by }} </span></div>
+                            <div><b>Processed By</b> : <span>{{ $management->record->processing_by }} </span></div>
                             <div><b>Last Updated</b>: <span>
-                                {{ $record->updated_at->format('F j, Y, g:i a') }}
+                                {{ $management->record->updated_at->format('F j, Y, g:i a') }}
                             </span></div>
 
                           </p>
-
-                          @if($record->processing_by){
-                          <a href="/records/{{ $record->id }}/preview" class="btn btn-success" data-mdb-ripple-init>Preview</a>
-                          }
-
+                          @if($management->record->processing_by)
+                          <a href="/records/{{ $management->id }}/preview" class="btn btn-success" data-mdb-ripple-init>Preview</a>
+                        
                           @else
 
                           <div class="alert alert-danger">

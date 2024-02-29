@@ -124,12 +124,12 @@ Route::get('/records/preview', [
     'preview',
 ])->middleware('auth');
 
-Route::get('/records/{record}/preview', [
+Route::get('/records/{management}/preview', [
     RecordController::class,
     'preview_report',
 ])->middleware('auth');
 
-Route::get('/records/{record}/referraldoc', [
+Route::get('/records/{management}/referraldoc', [
     RecordController::class,
     'referral_doc',
 ])->middleware('auth');

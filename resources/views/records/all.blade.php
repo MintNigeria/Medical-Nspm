@@ -48,7 +48,7 @@
 
 
                           </p>
-                          @if($record->processing_by){
+                          @if($record->processing_by)
                             <a href="/records/{{ $record->id}}/feedbacks" class="btn btn-primary">
                                 <i class="fas fa-hourglass"></i>
                             </a>
@@ -56,8 +56,12 @@
                             <a type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#recordDataModal{{ $record->id }}">
                                 <i class="fas fa-eye"></i>
                             </a>
+
+                            <a href="/management/{{$record->slug }}/" class="btn btn-primary">
+                              <i class="fas fa-info"></i>
+                          </a>
                               @include('partials._infomodal')
-                          }
+                          
 
                           @else
 

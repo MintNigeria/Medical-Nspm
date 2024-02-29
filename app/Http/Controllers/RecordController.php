@@ -212,6 +212,17 @@ class RecordController extends Controller
         $endDate = request('end_date');
 
         return view('records.preview', [
+            "management" => Management::whereNotNull("tests")->latest()
+            ->whereHas('record', function ($query) {
+                $query->where('status', 'open');
+            })
+            ->when($startDate, function ($query) use ($startDate) {
+                return $query->where('created_at', '>=', $startDate);
+            })
+            ->when($endDate, function ($query) use ($endDate) {
+                return $query->where('created_at', '<=', $endDate);
+            })->paginate(30),
+
             'records' => Record::latest()
                     ->when($startDate, function ($query) use ($startDate) {
                         return $query->where('created_at', '>=', $startDate);
@@ -224,25 +235,25 @@ class RecordController extends Controller
         ]);
     }
 
-    public function preview_report(Record $record)
+    public function preview_report(Management $management)
     {
         if (auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
         return view('records.preview_report', [
-            'record' => $record
+            'management' => $management
         ]);
     }
 
-    public function referral_doc(Record $record)
+    public function referral_doc(Management $management)
     {
         if (auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
         return view('records.referraldoc', [
-            'record' => $record
+            'management' => $management
         ]);
     }
 

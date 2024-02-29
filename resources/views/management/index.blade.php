@@ -54,7 +54,6 @@
                                 <p> Note: {{ $management->pharmacy_notes }}</p>
                                 <p>State: {{ $management->flag_prescription }}</p>
                             </div>
-
                             @endif
                         </div>
                       </div>

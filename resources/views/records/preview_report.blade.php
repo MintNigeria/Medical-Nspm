@@ -19,7 +19,7 @@
                 <button class="btn btn-success"  style="border-radius: 20px;" onclick="printReport()">
                     <i class="fas fa-print"></i>
                 </button>
-                <a class="btn btn-warning" href="/records/{{ $record->id }}/referraldoc" class="btn btn-warning" style="border-radius: 20px;">
+                <a class="btn btn-warning" href="/records/{{ $management->id }}/referraldoc" class="btn btn-warning" style="border-radius: 20px;">
                     Referral
                 </a>
             </div>
@@ -42,15 +42,15 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-uppercase"  style="font-size: 10px">Patient's Name : {{ $record->patient->name }}</td>
+                                <td class="text-uppercase"  style="font-size: 10px">Patient's Name : {{ $management->record->patient->name }}</td>
                             </tr>
 
                             <tr>
-                                <td class="text-uppercase"  style="font-size: 10px; display:flex;align-items:center; justify-content:space-between; ">Patient's Contact Number : {{ $record->patient->contact }} Patient's Email : {{ $record->patient->email }} </td>
+                                <td class="text-uppercase"  style="font-size: 10px; display:flex;align-items:center; justify-content:space-between; ">Patient's Contact Number : {{ $management->record->patient->contact }} Patient's Email : {{ $management->record->patient->email }} </td>
                             </tr>
 
                             <tr>
-                                <td class="text-uppercase" style="font-size: 10px">Date of Birth: {{ $record->patient->birth_date }}</td>
+                                <td class="text-uppercase" style="font-size: 10px">Date of Birth: {{ $management->record->patient->birth_date }}</td>
                             </tr>
                             <tr>
                                 <td class="text-uppercase" style="font-size: 10px">Location : NSPM PLC OFFICE</td>
@@ -80,9 +80,17 @@
                             <tr>
                                 <td class="text-uppercase" style="font-size: 10px">Location : NSPM PLC OFFICE</td>
                             </tr>
+                            @if($management->labtest)
                             <tr>
-                                <td class="text-uppercase" style="font-size: 10px">Clinic: {{ $record->clinic_location }}</td>
+                                <td class="text-uppercase" style="font-size: 10px">Lab: {{ $management->labtest }}</td>
                             </tr>
+                            @endif
+
+                            @if($management->labtest)
+                            <tr>
+                                <td class="text-uppercase" style="font-size: 10px">Clinic: {{ $management->clinic }}</td>
+                            </tr>
+                            @endif
                         </tbody>
 
                     </table>
@@ -99,9 +107,9 @@
                         <tbody>
                             <tr>
                                 <td class="text-uppercase">
-                                    @if ($record->tests)
+                                    @if ($management->tests)
                                         <ul style="display: grid; grid-template-columns: auto auto auto auto;">
-                                            @foreach (json_decode($record->tests) as $test)
+                                            @foreach (json_decode($management->tests) as $test)
                                                 <li style="font-size: 10px">{{ $test }}</li>
                                             @endforeach
                                         </ul>

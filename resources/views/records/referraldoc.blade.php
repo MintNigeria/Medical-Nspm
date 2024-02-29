@@ -19,8 +19,11 @@
                 <button class="btn btn-success"  style="border-radius: 20px;" onclick="printReport()">
                     <i class="fas fa-print"></i>
                 </button>
-                <a class="btn btn-success" href="/records/{{ $record->id }}/preview" class="btn btn-warning" style="border-radius: 20px;">
+                <a class="btn btn-success" href="/records/{{ $management->id }}/preview" class="btn btn-warning" style="border-radius: 20px;">
                     Request Tests
+                </a>
+                <a class="btn btn-success" href="/records/{{ $management->id }}/preview" class="btn btn-warning" style="border-radius: 20px;">
+                    <i class="fas fa-plus"></i>
                 </a>
             </div>
 
@@ -37,16 +40,16 @@
 
                         </div>
                         <div>
-                            <p>To: {{ $record->clinic_location }}</p>
+                            <p>To: {{ $management->clinic }}</p>
                             <p>Date: {{ Date::now() }}</p>
                         </div>
                     </div>
 
                     <div class="source">
                         <div>
-                            <p><b>Tally No: </b> {{ $record->patient->staff_id }}</p>
-                            <p><b>Name: </b> {{ $record->patient->name }}</p>
-                            <p><b> Department: </b> {{ $record->patient->department }}</p>
+                            <p><b>Tally No: </b> {{ $management->record->patient->staff_id }}</p>
+                            <p><b>Name: </b> {{ $management->record->patient->name }}</p>
+                            <p><b> Department: </b> {{ $management->record->patient->department }}</p>
                         </div>
                         <div>
 

@@ -13,7 +13,7 @@
                 <a href="/users/profile">Profile</a>
             </li>
             <li>
-                <a href="/records/preview">Record-Admin</a>
+                <a href="/records/preview">Tests</a>
             </li>
             <li>
                 <a href="/users">Users</a>
