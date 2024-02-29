@@ -19,13 +19,15 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->json('doctor_act')->nullable();
             $table->json('tests')->nullable();
-            $table->longText('prescription')->nullable();
-            $table->string('flag_prescription')->nullable();
             $table->string('flag_nurse')->nullable();
+            $table->longText('prescription')->nullable();
+            $table->longText('nurse_mgmt')->nullable();
+            $table->string('flag_prescription')->nullable();
             $table->string('pharmacy_notes')->nullable();
             $table->string('nurse_notes')->nullable();
             $table->string('labtest')->nullable();
             $table->string('clinic')->nullable();
+            $table->string('processing_by')->nullable();
             $table->timestamps();
         });
     }

@@ -509,6 +509,8 @@ Route::delete('/feedbacks/{feedback}', [FeedbackController::class, 'destroy'])->
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'management'], function () {
         Route::get('/{record}', [ManagementController::class, 'index']);
+        Route::put('/{management}/nurse_response', [ManagementController::class, 'nurse_response']);
+        Route::put('/{management}/pharmacy_response', [ManagementController::class, 'pharmacy_response']);
         Route::get('/{record}/create', [ManagementController::class, 'create']);
         Route::post('/{record}', [ManagementController::class, 'store']);
         Route::put('{department}', [ManagementController::class, 'update']);

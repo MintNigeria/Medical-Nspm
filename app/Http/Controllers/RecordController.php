@@ -9,6 +9,7 @@ use App\Models\Pharmacy;
 use App\Models\Clinic;
 use App\Models\Allergy;
 use App\Models\Injury;
+use App\Models\Management;
 use App\Models\User;
 use App\Models\Record;
 use Illuminate\Http\Request;
@@ -118,6 +119,7 @@ class RecordController extends Controller
             'record' => $record,
             'clinics' => Clinic::latest()->get(),
             'allergies' => Allergy::where("patient_id", $record->patient->id)->get(),
+            'management' => Management::latest()->get(),
             // 'pharmacies' => Pharmacy::paginate(20),
             'inventories' => Inventory::latest()
                     ->where('location', "=", auth()->user()->locality) // Compare as strings
@@ -188,14 +190,13 @@ class RecordController extends Controller
         if (auth()->user()->role !== 'pharmacy') {
             abort(403, 'Unauthorized Action');
         }
-
         return view('records.pharmacy', [
+            "management" => Management::whereNotNull("prescription")->whereNull("flag_prescription")->latest()->paginate(30),
             'records' =>  Record::where('locality', auth()->user()->locality)
                             ->where(function ($query) {
                                 $query->whereJsonContains('doctor_act', 'prescription');
                             })
                         ->where('status', '!=', 'closed')
-                        ->whereNull('flag_prescription')
                         ->latest()
         ->paginate(30)
         ]);
@@ -206,7 +207,6 @@ class RecordController extends Controller
          if (auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
-
 
         $startDate = request('start_date');
         $endDate = request('end_date');
@@ -285,14 +285,7 @@ class RecordController extends Controller
     public function nurse_mgmt()
     {
         return view('records.nurse_mgmt', [
-            'records' => Record::where('locality', auth()->user()->locality)
-                            ->where(function ($query) {
-                                $query->whereJsonContains('doctor_act', 'nurse');
-                            })
-                        ->where('status', '!=', 'closed')
-                        ->whereNull('flag_nurse')
-                        ->latest()
-                        ->paginate(30)
+            "management" => Management::whereNotNull("nurse_mgmt")->whereNull("flag_nurse")->latest()->paginate(30)
         ]);
     }
 

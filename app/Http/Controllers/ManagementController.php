@@ -32,11 +32,35 @@ class ManagementController extends Controller
         ]);
     }
 
+    public function nurse_response(Request $request, Management $management)
+    {
+        $formFields = $request->validate([
+            'flag_nurse'=> ['nullable'],
+            'nurse_notes'=> ['nullable'],
+        ]);
+        $management->update($formFields);
+        return back()->with('message','Feedback Sent' );
+
+    }
+
+
+    public function pharmacy_response(Request $request, Management $management)
+    {
+        $formFields = $request->validate([
+            'flag_prescription'=> ['nullable'],
+            'pharmacy_notes'=> ['nullable'],
+        ]);
+        $management->update($formFields);
+        return back()->with('message','Feedback Sent' );
+
+    }
+
     public function store(Request $request, Record $record)
     {
         $formFields = $request->validate([
             'doctor_act' => ['array', 'nullable'],
             'tests' => 'array',
+            'nurse_mgmt' => 'nullable',
             'prescription' => 'nullable',
             'labtest' => 'nullable',
             'clinic' => 'nullable',
@@ -49,9 +73,10 @@ class ManagementController extends Controller
         $formFields['tests'] = json_encode($formFields['tests']);
 
         $formFields['record_id'] = $record->id;
+        $formFields['processing_by'] = auth()->user()->name;
 
         Management::create($formFields);
 
-        return back()->with("message", "New Management Recorded");
+        return back()->with("message", "" .$record->patient->name."Mangement Initated");
     }
 }

@@ -5,50 +5,55 @@
     <div class="dashboard">
         @include('partials._sidebar')
 
-        <div class="content p-5">
+        <div class="content p-5" id="content__overflow">
 
-            <h3>Pending Request[s]</h3>
-            @unless (count($records) === 0)
-            <div class="preview__grid">
-                @foreach ($records as $record)
+            <h3 class="text-black">Pending Request[s]</h3>
+            @unless (count($management) === 0)
+            <div class="preview__grid my-3">
+                @foreach ($management as $management)
                 <div class="card">
-                    <div class="card-body">
-
-                        <p class="card-text preview__text">
-                            <div><b>Patient Name</b> : <span>{{ $record->patient->name }} </span></div>
-                            <div><b>Patient StaffId</b> : <span>{{ $record->patient->staff_id }} </span></div>
-                            <div><b>Processed By</b> : <span>{{ $record->processing_by }} </span></div>
-                            <div class="my-3">
-                                    <x-prescription-list :drugs_mgmtCsv="$record->prescription" />
-                            </div>
+                    <div class= "card-body">
+                      <p class="card-text preview__text">
+                        <div><b>Patient Name</b> : <span>{{ $management->record->patient->name }} </span></div>
+                        <div><b>Patient StaffId</b> : <span>{{ $management->record->patient->staff_id }} </span></div>
+                        <div><b>Processed By</b> : <span>{{ $management->record->processing_by }} </span></div>
+                        <div class="my-3">
+                                <x-patient-prescription :drugs_mgmtCsv="$management->prescription" />
+                        </div>
                       </p>
-
-                      <div class="d-flex justify-between">
-                        <form method="POST" action="/record/{{$record->id}}/flag_prescription">
+                      <div class="card-footer d-flex justify-between" style="border-radius: 20px;border: 1px solid #eee; padding:30px 10px">
+                       <form action="/management/{{ $management->id }}/pharmacy_response" method="POST">
                             @csrf
                             @method('PUT')
-                            <button class="btn btn-outline-secondary" onclick="return confirm('Are you sure you want to check this as done? ')">
-                                <i class="fas fa-plus text-secondary"></i>
-                            </button>
-                        </form>
-                        <form method="POST" action="/record/{{$record->id}}/flag_prescription_fail">
-                            @csrf
-                            @method('PUT')
-                            <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to check this as not done? ')">
-                                <i class="fas fa-minus text-danger"></i>
-                            </button>
-                        </form>
 
-                     </div>
+                                <div class="form-group my-3">
+                                    <label>Review Note </label>
+                                    <input class="form-control" name="pharmacy_notes" value="{{ old("pharmacy_notes") }}" width="100" />
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flag_prescription" value="completed" id="" required/>
+                                    <label class="form-check-label" for=""> Completed </label>
+                                    </div>
+
+                                    <!-- Default checked radio -->
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flag_prescription" value="refer back" id="" required/>
+                                    <label class="form-check-label" for=""> Refer Back </label>
+                                    </div>
+
+                                    <button type="submit" class="btn text-success">Submit</button>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 @endforeach
             </div>
-
         @else
-            <div class="alert-primary mt-5 p-3" style="width: 100%;border-radius: 20px;">
-                <h5 class="text-danger font-weight-bold">No Requests Pending</h5>
-            </div>
+
+        <div class="alert alert-danger mt-5 ">
+            No Requests
+        </div>
         @endunless
         </div>
     </div>

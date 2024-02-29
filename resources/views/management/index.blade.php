@@ -25,9 +25,37 @@
                     <div class="card my-2">
                         <div class="card-body">
                           <p class="card-text preview__text">
-                                 <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><b>Processed By</b> : <span>{{ $management->record->processing_by }} </span></div>
-                               
+                              <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><b>Processed By</b> : <span>{{ $management->processing_by }} </span></div>
+                              <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><b>Nurse Management</b> : <span><x-nurse-mgmt :nurse_mgmtCsv="$management->nurse_mgmt" /> </span></div>
+                              <hr />
+                              <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><b>Prescription</b> : <span><x-prescription-list :drugs_mgmtCsv="$management->prescription" /> </span></div>
+                              <hr />
+                              <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><b>Referrals</b></div>
+                              <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><span>TEST</span><span>{{ $management->labtest }}</span></div>
+                              <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><span>Retainer Hospital</span><span>{{ $management->clinic }}</span></div>
                           </p>
+                        </div>
+
+                        <div class="card-footer">
+                          @if($management->flag_nurse)
+                            <p class="text-black text-capitalize">Nurse: </p>
+                            
+                            <div class="alert alert-primary">
+                                <p> Note: {{ $management->nurse_notes }}</p>
+                                <p>State: {{ $management->flag_nurse }}</p>
+                            </div>
+
+                            @endif
+
+                            @if($management->flag_prescription)
+                            <p class="text-black text-capitalize">Prescription: </p>
+                            
+                            <div class="alert alert-primary">
+                                <p> Note: {{ $management->pharmacy_notes }}</p>
+                                <p>State: {{ $management->flag_prescription }}</p>
+                            </div>
+
+                            @endif
                         </div>
                       </div>
                     @endforeach

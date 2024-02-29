@@ -357,7 +357,7 @@ b{
 }
 
 .preview__grid > .card{
-    height: 480px;
+    min-height: 380px;
     width: 27vw;
 }
 .preview__text{

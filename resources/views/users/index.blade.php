@@ -74,14 +74,6 @@
                                     </form>
 
                                     @endif
-
-                                {{-- <form method="POST" action="/users/{{$user->id}}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this User?')">
-                                        <i class="fas fa-trash text-danger"></i>
-                                    </button>
-                                </form> --}}
                             </td>
                         </tr>
                     @endforeach

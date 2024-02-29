@@ -502,13 +502,8 @@
                     <input class="form-check-input" type="checkbox" name="tests[]" value="Pregnancy test – serum hCG"  />
                     <label class="form-check-label" for="flexCheckDefault">Pregnancy test – serum hCG</label>
                 </div>
-
             </div>
-
         </div>
-
-
-
     </div>
 
         <div class="prescriptionDiv" style="display:none;color:black;margin:20px 0px">
@@ -518,10 +513,6 @@
                     View Items In Stock
                 </button>
                 @include('partials._viewinventorymodal')
-
-
-
-
             </div>
 
             <textarea type="text" name="prescription" value="{{ old('prescription') }}"  class="form-control text-uppercase mt-2" id="">
@@ -539,9 +530,11 @@
                 <label><h5 class="text-secondary text-capitalize">Nurse Management</h5> (Seperate tasks with a comma )</label>
             </div>
 
-            <textarea placeholder="E.g Place on bed rest, check temperature, ..." type="text" name="management" value="{{ old('management') }}"  class="form-control text-uppercase mt-2" id="" >
+            <textarea placeholder="E.g Place on bed rest, check temperature, ..."
+                     type="text" name="nurse_mgmt"
+                         value="{{ old('nurse_mgmt') }}"  class="form-control text-uppercase mt-2" id="" >
             </textarea>
-            @error('management')
+            @error('nurse_mgmt')
             <p class="text-danger text-xs mt-1">{{$message}}</p>
             @enderror
         </div>
@@ -552,8 +545,8 @@
             <hr>
 
             <div class="form-group mt-2">
-                <label class="my-3">Select Test / Referral</label><br />
-                <select  class=" js-example-basic-single text-uppercase form-control" searchable="Search here.." name="clinic_location">
+                <label class="my-3">Lab Test</label><br />
+                <select  class=" js-example-basic-single text-uppercase form-control" searchable="Search here.." name="labtest">
                     <option value="">Choose ...</option>
                     @unless (count($labs) === 0)
                         @foreach ($labs as $lab)
@@ -561,15 +554,15 @@
                         @endforeach
                     @endunless
                 </select>
-                @error('clinic_location')
+                @error('labtest')
                 <p class="text-danger text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
 
             
             <div class="form-group mt-2">
-                <label>SELECT Clinic</label><br />
-                <select  class=" js-example-basic-single text-uppercase form-control" searchable="Search here.." name="clinic_location">
+                <label>Select Clinic</label><br />
+                <select  class=" js-example-basic-single text-uppercase form-control" searchable="Search here.." name="clinic">
                     <option value="">Choose ...</option>
                     @unless (count($retainers) === 0)
                         @foreach ($retainers as $retainer)
@@ -577,11 +570,10 @@
                         @endforeach
                     @endunless
                 </select>
-                @error('clinic_location')
+                @error('clinic')
                 <p class="text-danger text-xs mt-1">{{$message}}</p>
                 @enderror
-            </div>
-
+                     </div>
                   </div>
                 </div> 
              <div class="card-footer">
@@ -590,9 +582,7 @@
                     </button>
                 </div>
             </form>  
-                </div>
-            
-             
+        </div>
             </div>
         </div>
     </div>

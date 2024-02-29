@@ -8,3 +8,4 @@ $nurse_mgmt = explode(',', $nurse_mgmtCsv);
 <div class="alert alert-primary">{{ $nurse_mgmt }}</div>
 @endforeach
 
+
