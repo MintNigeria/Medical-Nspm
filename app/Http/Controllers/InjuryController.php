@@ -10,7 +10,7 @@ class InjuryController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 

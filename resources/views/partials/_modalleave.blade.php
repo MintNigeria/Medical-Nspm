@@ -56,6 +56,24 @@
                     </div>
                     </div>
 
+                    @if(auth()->user()->role == "medic-admin")
+                    <div class="form-group">
+                      <label class="mt-4">Approve</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="approved" value="1"/>
+                        <label class="form-check-label" for="flexRadioDefault1">Approved</label>
+                    </div>
+                    <div class="form-check ">
+                        <input class="form-check-input" type="radio" name="approved" value="0" />
+                        <label class="form-check-label" for="flexRadioDefault1">Not Approved </label>
+                    </div>
+                @error('approve')
+                <p class="text-danger text-xs mt-1">{{$message}}</p>
+        @enderror
+                    </div>
+                    </div>
+                    @endif
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>

@@ -16,6 +16,27 @@
         </div>
         <h4 class="header-title">Leave[Receipt] : {{ $leave->patient->staff_id }}</h4>
 
+        @php
+                function calculateWorkingDays($startDay, $endDay) {
+                  $start = \Carbon\Carbon::parse($startDay);
+                  $end = \Carbon\Carbon::parse($endDay);
+
+                  $workingDays = 0;
+
+                  while ($start <= $end) {
+                      if ($start->isWeekday()) {
+                          $workingDays++;
+                      }
+
+                      $start->addDay();
+                  }
+
+                  return $workingDays;
+              }
+
+
+              @endphp
+
         <div class="w-70 p-4 " style="margin-top: 3%;" >
             <div id="printContent" class="leave" style="background-color:rgba(127, 255, 212, 0.324); padding:10px;border-radius: 10px;">
             <div style="display:flex; align-items:center;justify-content:space-between;">
@@ -40,7 +61,7 @@
 
             <div class="pt-3">
                 <label>No of Days</label>
-            <p class="text-black">{{ \Carbon\Carbon::parse($leave->end_day)->diffInDays(\Carbon\Carbon::parse($leave->start_day)) }}</p>
+            <p class="text-black">{{calculateWorkingDays($leave->start_day, $leave->end_day)  }}</p>
             </div>
 
             <div class="pt-3">

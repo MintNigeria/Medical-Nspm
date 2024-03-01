@@ -11,17 +11,32 @@ class LeaveController extends Controller
     public function index()
     {
 
+        if(auth()->user()->role === "doctor"){
+            return view(
+                'leaves.index',
+                    with([
+                        'archives' =>Leaves::onlyTrashed(),
+                        'patients' => Patient::latest()->get(),
+                        'leaves' => Leaves::latest()->where("processed_by", auth()->user()->name)
+                            ->filter(request(['search']))
+                            ->paginate(45),
+             ])
+       );   
+    } 
+
+      
+    if(auth()->user()->role === "medic-admin"){
         return view(
-             'leaves.index',
-        with([
-            'archives' =>Leaves::onlyTrashed(),
-            'patients' => Patient::latest()->get(),
-            'leaves' => Leaves::latest()
-                // ->where('id', '!=', auth()->user()->id)
-                ->filter(request(['search']))
-                ->paginate(45),
-        ])
-    );
+            'leaves.index',
+                with([
+                    'archives' =>Leaves::onlyTrashed(),
+                    'patients' => Patient::latest()->get(),
+                    'leaves' => Leaves::latest()
+                        ->filter(request(['search']))
+                        ->paginate(45),
+         ])
+   );   
+} 
 
     }
 
@@ -63,6 +78,8 @@ class LeaveController extends Controller
             'comment' => 'required',
         ]);
 
+        $formFields["processed_by"] = auth()->user()->name; 
+
         Leaves::create($formFields);
 
         return redirect('/leaves')->with(
@@ -78,9 +95,12 @@ class LeaveController extends Controller
             'start_day' => 'required',
             'end_day' => 'required',
             'comment' => 'required',
+            'approved' => 'required',
         ]);
 
         $formFields['patient_id'] = $leave->patient_id;
+
+      
 
         $leave->update($formFields);
 

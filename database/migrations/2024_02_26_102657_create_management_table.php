@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('labtest')->nullable();
             $table->string('clinic')->nullable();
             $table->string('processing_by')->nullable();
+            $table->string("reason")->nullable();
+            $table->string("reason_note")->nullable();
             $table->timestamps();
         });
     }

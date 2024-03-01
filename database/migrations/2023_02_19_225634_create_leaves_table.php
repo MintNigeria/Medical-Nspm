@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->string('comment');
             $table->string('start_day');
             $table->string('end_day');
+            $table->string("approved")->default(false);
+            $table->string("processed_by");
             $table->timestamps();
         });
     }

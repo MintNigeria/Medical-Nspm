@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->string('status')->default('open');
             $table->string('processing')->default(false);
             $table->string('processing_by')->nullable();
+            $table->string("processed_defacto")->nullable();
             $table->string('flag')->nullable();
             $table->string('locality')->nullable();
             $table->timestamps();

@@ -30,7 +30,7 @@
         @include('partials._message')
 
         <div class="">
-        <a class="archive" href="/leaves/archive">View Archived Posts</a> ({{ $archives->count() }})
+        <!-- <a class="archive" href="/leaves/archive">View Archived Posts</a> ({{ $archives->count() }}) -->
 
           <table class="table table-striped table-bordered mt-4" id="myTable">
             <thead class="table-color">
@@ -46,15 +46,42 @@
             </thead>
             @unless (count($leaves) === 0)
             <tbody>
+              @php
+                function calculateWorkingDays($startDay, $endDay) {
+                  $start = \Carbon\Carbon::parse($startDay);
+                  $end = \Carbon\Carbon::parse($endDay);
+
+                  $workingDays = 0;
+
+                  while ($start <= $end) {
+                      if ($start->isWeekday()) {
+                          $workingDays++;
+                      }
+
+                      $start->addDay();
+                  }
+
+                  return $workingDays;
+              }
+
+
+              @endphp
 
                 @foreach ($leaves as  $leave)
 
                     <tr>
-                        <td>{{ $leave->patient->name }}</td>
+                    <td>
+                        @if($leave->approved)
+                            <i class="fas fa-snowflake text-success"></i>   
+                         @else
+                            <i class="fas fa-snowflake text-danger"></i>   
+                         @endif
+                            {{ $leave->patient->name }}
+                        </td>
                         <td>{{ $leave->patient->staff_id }}</td>
                         <td>{{ Str::limit($leave->comment, $limit = 30, $end="...") }}</td>
                         <td>
-                            {{ \Carbon\Carbon::parse($leave->end_day)->diffInDays(\Carbon\Carbon::parse($leave->start_day)) }}
+                            {{calculateWorkingDays($leave->start_day, $leave->end_day)  }}
                         </td>
 
                         <td class="text-capitalize">{{ $leave->created_at->format('F j, Y  h:i') }} </td>
@@ -64,23 +91,16 @@
                             @if (auth()->user()->role === "medic-admin")
 
                             <a href="leaves/{{ $leave->id }}/receipt">
-                                <i class="fa-solid fa-receipt text-secondary"></i>
+                                <i class="fa-solid fa-receipt text-danger"></i>
                             </a>
-
-                            {{-- <form method="POST" action="/leaves/{{$leave->id}}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this Item?')">
-                                    <i class="fas fa-trash text-danger"></i>
-                                </button>
-                            </form> --}}
-
                             @endif
 
 
-                            <a type="button" data-mdb-toggle="modal" data-mdb-target="#leaveModal{{ $leave->id }}">
-                                <i class="fa-solid fa-edit text-success"></i>
-                            </a>
+                            @if(!$leave->approved || auth()->user()->role == "medic-admin")
+                                <a type="button" data-mdb-toggle="modal" data-mdb-target="#leaveModal{{ $leave->id }}">
+                                    <i class="fa-solid fa-edit text-success"></i>
+                                </a>
+                              @endif
 
                             @include('partials._modalleave')
 

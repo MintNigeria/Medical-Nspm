@@ -1,6 +1,11 @@
 @extends('layout')
 
 @section('content')
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <body>
     <div class="dashboard">
         @include('partials._sidebar')
@@ -25,6 +30,19 @@
                 <a class="btn btn-success" href="/records/{{ $management->id }}/preview" class="btn btn-warning" style="border-radius: 20px;">
                     <i class="fas fa-plus"></i>
                 </a>
+                <hr class="text-black" />
+                <div>
+                <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="toggleText('labText')"/>
+                        <label class="form-check-label" for="flexRadioDefault1">Laboratory</label>
+                    </div>
+
+                    <!-- Default checked radio -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onclick="toggleText('clinicText')"/>
+                        <label class="form-check-label" for="flexRadioDefault2"> Clinic</label>
+                    </div>
+                    <hr />
             </div>
 
             <div class="referral__doc">
@@ -40,7 +58,8 @@
 
                         </div>
                         <div>
-                            <p>To: {{ $management->clinic }}</p>
+                            <p id="labText" class="hidden">To: {{ $management->labtest }}</p>
+                            <p id="clinicText" class="hidden">To: {{ $management->clinic }}</p>
                             <p>Date: {{ Date::now() }}</p>
                         </div>
                     </div>
@@ -70,7 +89,6 @@
                     <div class="heading mt-2">
                         <p class="pb-3 font-weight-bold">Reason
                         </p>
-                        {{-- <br /> --}}
                         <p class="heading_line">
                         </p>
                     </div>
@@ -210,6 +228,19 @@
         }
         }
     </style>
+    <script>
+    function toggleText(id) {
+        // Hide all text elements
+        var allText = document.querySelectorAll('.hidden');
+        allText.forEach(function(element) {
+            element.style.display = 'none';
+        });
+
+        // Show the selected text element
+        var selectedText = document.getElementById(id);
+        selectedText.style.display = 'block';
+    }
+</script>
 </body>
 
 @endsection

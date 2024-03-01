@@ -1,6 +1,11 @@
 @extends('layout')
 
 @section('content')
+<style>
+        .hidden {
+            display: none;
+        }
+    </style>
 <body>
     <div class="dashboard">
         @include('partials._sidebar')
@@ -22,7 +27,19 @@
                 <a class="btn btn-warning" href="/records/{{ $management->id }}/referraldoc" class="btn btn-warning" style="border-radius: 20px;">
                     Referral
                 </a>
-            </div>
+                <hr class="text-black" />
+                <div>
+                <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onclick="toggleText('labText')"/>
+                        <label class="form-check-label" for="flexRadioDefault1">Laboratory</label>
+                    </div>
+
+                    <!-- Default checked radio -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onclick="toggleText('clinicText')"/>
+                        <label class="form-check-label" for="flexRadioDefault2"> Clinic</label>
+                    </div>
+                </div>
 
             <div class="preview__report">
                 {{-- Header Information --}}
@@ -81,16 +98,20 @@
                                 <td class="text-uppercase" style="font-size: 10px">Location : NSPM PLC OFFICE</td>
                             </tr>
                             @if($management->labtest)
-                            <tr>
-                                <td class="text-uppercase" style="font-size: 10px">Lab: {{ $management->labtest }}</td>
+                            <tr id="labText" class="hidden">
+                                <td class="text-uppercase"  style="font-size: 10px">Lab: {{ $management->labtest }}</td>
                             </tr>
                             @endif
 
-                            @if($management->labtest)
-                            <tr>
-                                <td class="text-uppercase" style="font-size: 10px">Clinic: {{ $management->clinic }}</td>
+                            @if($management->clinic)
+                            <tr id="clinicText" class="hidden">
+                                <td class="text-uppercase "  style="font-size: 10px">Clinic: {{ $management->clinic }}</td>
                             </tr>
                             @endif
+                            <!-- <tr id="allText" class="hidden" style="display: flex;flex-direction:column;">
+                                <td class="text-uppercase "  style="font-size: 10px">Laboratory: {{ $management->labtest }}</td>
+                                <td class="text-uppercase "  style="font-size: 10px">Clinic: {{ $management->clinic }}</td>
+                            </tr> -->
                         </tbody>
 
                     </table>
@@ -224,6 +245,24 @@
             } */
         }
     </style>
+
+<script>
+    function toggleText(id) {
+        // Hide all text elements
+        var allText = document.querySelectorAll('.hidden');
+        allText.forEach(function(element) {
+            element.style.display = 'none';
+        });
+
+        // Show the selected text element
+        var selectedText = document.getElementById(id);
+        selectedText.style.display = 'block';
+        if (id === 'allText') {
+            document.getElementById('labText').style.display = 'block';
+            document.getElementById('clinicText').style.display = 'block';
+        }
+    }
+</script>
 </body>
 
 @endsection

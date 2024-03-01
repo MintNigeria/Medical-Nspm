@@ -25,7 +25,7 @@
           </div>
           @include('partials._message')
           <div>
-        <a class="archive" href="/users/archive">View Archived Posts</a> ({{ $archives->count() }})
+        
 
             <table  class="table table-striped table-bordered tabel my-5 pb-16" id="myTable">
                 <thead class="table-color">
