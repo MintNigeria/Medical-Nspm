@@ -17,7 +17,7 @@
             >
               <h4 class="header-title">Injuries</h4>
               @include('partials._searchinjury')
-              <a href="/injuries/create" class="btn bg-color">Record New Injury</a>
+              <a href="/injuries/create" class="btn bg-color">Record New Injury </a>
               <a class="btn btn-outline-success" onclick="exportToCsv()">Export</a>
 
             </div>

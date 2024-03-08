@@ -5,7 +5,7 @@
     @include('partials._sidebar')
     <div class="content p-3" id="content__overflow">
         <div style="display: flex; align-items:center;justify-content:space-between">
-            <h4>Nurse Care</h4>
+            <h4 class="text-black">Nurse Care</h4>
                 
              <!-- @include('partials._searchoprecord') -->
         </div>

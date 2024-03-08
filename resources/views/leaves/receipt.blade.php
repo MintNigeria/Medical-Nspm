@@ -71,13 +71,16 @@
 
             <div class="pt-3">
                 <label>Prepared By</label>
-                <p class="text-black"> {{ auth()->user()->name }}</p>
+                <p class="text-black"> {{ $leave->processed_by }}</p>
             </div>
 
             <div class="pt-3">
                 <label>Signed By:</label>
+                <p class="text-black"> {{ auth()->user()->name }}</p>
 
-                <hr class="text-black" />
+                <hr class="text-black">
+
+
             </div>
 
             </div>

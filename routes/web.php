@@ -177,11 +177,17 @@ Route::put('/record/{record}/flag_prescription_fail', [
     'flag_prescription_fail',
 ])->middleware('auth');
 
+
 //
 
 Route::put('/record/{record}/flag_nt_stock', [
     RecordController::class,
     'flag_nt_stock',
+])->middleware('auth');
+
+Route::put('/record/{record}/add_defacto', [
+    RecordController::class,
+    'add_defacto',
 ])->middleware('auth');
 
 //Get All Records for A Patient
@@ -509,8 +515,10 @@ Route::delete('/feedbacks/{feedback}', [FeedbackController::class, 'destroy'])->
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'management'], function () {
         Route::get('/{record}', [ManagementController::class, 'index']);
+        Route::get('/{management}/edit', [ManagementController::class, 'edit']);
         Route::put('/{management}/nurse_response', [ManagementController::class, 'nurse_response']);
         Route::put('/{management}/pharmacy_response', [ManagementController::class, 'pharmacy_response']);
+        Route::put('/{management}/reason', [ManagementController::class, 'reason']);
         Route::get('/{record}/create', [ManagementController::class, 'create']);
         Route::post('/{record}', [ManagementController::class, 'store']);
         Route::put('{department}', [ManagementController::class, 'update']);

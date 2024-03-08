@@ -10,7 +10,7 @@
         @include('partials._searchoprecord')
         </div>
 
-        <div style="display:grid; grid-template-columns: auto auto auto auto" >
+        <div style="display:grid; grid-template-columns: auto auto auto auto; color:red;" >
             @unless (count($record) === 0)
             @foreach ($record as $record)
                   <div class="card p-4 mt-5 mx-3 font-weight-bold" style="color: teal;padding:10px;
@@ -23,6 +23,7 @@
                   </a>
                   @include('partials._infomodal')
 
+                  <p> STAFF ID : {{$record->patient->staff_id  }} {{ $record->id }}</p>
                   <p> STAFF ID : {{$record->patient->staff_id  }}</p>
 
                     @if ($record->blood_pressure_systolic > 141 || $record->blood_pressure_diastolic > 100)
@@ -41,15 +42,16 @@
                   <p> NURSE NOTE: {{Str::limit($record->nurse_note, 10, '...')  }}</p>
 
 
-                  @if ($record->processing && $record->processing_by !== auth()->user()->name)
+              @if ($record->processing && $record->processing_by !== auth()->user()->name && $record->processed_defacto !== auth()->user()->name)
                     <button class="btn header " disabled>
                         Currently Being Processed
                     </button>
 
-                @elseif ($record->processing && $record->processing_by === auth()->user()->name)
+                @elseif ($record->processing && $record->processing_by === auth()->user()->name || $record->processed_defacto == auth()->user()->name)
                     <a href="/records/{{ $record->slug }}/edit" class="btn btn-success">
                         Revisit Record
                     </a>
+              
                 @else
                 <form action="{{ route('records.updateStatusAndRedirect', ['slug' => $record->slug]) }}" method="POST">
                     @csrf

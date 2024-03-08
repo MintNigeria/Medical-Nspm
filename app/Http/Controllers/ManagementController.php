@@ -15,6 +15,12 @@ class ManagementController extends Controller
     {
         return view("management.index", [
             'management' => Management::latest()->paginate(9),
+            'retainers' => Clinic::latest()->where("lab_retainer", "retainer")->get(),
+            'labs' => Clinic::latest()->where('lab_retainer', 'laboratory')->get(),
+             'inventories' => Inventory::latest()
+                    ->where('location', "=", auth()->user()->locality) // Compare as strings
+                    ->filter(request(['search']))
+                    ->paginate(35),
         ]);
     }
 
@@ -29,6 +35,20 @@ class ManagementController extends Controller
                     ->where('location', "=", auth()->user()->locality) // Compare as strings
                     ->filter(request(['search']))
                     ->paginate(35),
+        ]);
+    }
+
+    public function edit(Management $management)
+    {
+        return view('management.edit', [
+            'management' => $management,
+            'retainers' => Clinic::latest()->where("lab_retainer", "retainer")->get(),
+            'labs' => Clinic::latest()->where('lab_retainer', 'laboratory')->get(),
+             'inventories' => Inventory::latest()
+                    ->where('location', "=", auth()->user()->locality) // Compare as strings
+                    ->filter(request(['search']))
+                    ->paginate(35),
+            // 'record' => $record,
         ]);
     }
 
@@ -78,5 +98,20 @@ class ManagementController extends Controller
         Management::create($formFields);
 
         return back()->with("message", "" .$record->patient->name."Mangement Initated");
+    }
+
+    public function reason(Management $management, Request $request)
+    {
+        $formFields = $request->validate([
+            'reason'=> ['required'],
+            'reason_note' => ['required']
+        ]);
+
+       
+        $management->update($formFields);
+        return back()->with(
+            'message',
+            'Reason added for this record'
+        );
     }
 }

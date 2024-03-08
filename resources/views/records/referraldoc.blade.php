@@ -27,9 +27,12 @@
                 <a class="btn btn-success" href="/records/{{ $management->id }}/preview" class="btn btn-warning" style="border-radius: 20px;">
                     Request Tests
                 </a>
-                <a class="btn btn-success" href="/records/{{ $management->id }}/preview" class="btn btn-warning" style="border-radius: 20px;">
+                <a type="button" data-mdb-toggle="modal" data-mdb-target="#addReason{{ $management->id }}" class="btn btn-success" class="btn btn-warning" style="border-radius: 20px;">
                     <i class="fas fa-plus"></i>
                 </a>
+                @include('partials._reason')
+
+
                 <hr class="text-black" />
                 <div>
                 <div class="form-check">
@@ -71,8 +74,6 @@
                             <p><b> Department: </b> {{ $management->record->patient->department }}</p>
                         </div>
                         <div>
-
-
                         </div>
                     </div>
                 </div>
@@ -87,7 +88,7 @@
                     </div>
 
                     <div class="heading mt-2">
-                        <p class="pb-3 font-weight-bold">Reason
+                        <p class="pb-3 font-weight-bold">Reason : {{ $management->reason }}
                         </p>
                         <p class="heading_line">
                         </p>
@@ -96,6 +97,7 @@
                 </div>
 
                 <div class="referral_reason">
+                    {{ $management->reason_note }}
                 </div>
 
 

@@ -361,13 +361,14 @@ class RecordController extends Controller
     /** Open Records */
     public function open(Record $record)
     {
+        // $hideUser = 1;
         return view('records.manage', [
             'record' => Record::where('status', 'open')
                 ->latest()
                 ->where("locality", auth()->user()->locality)
                 ->filter(request(['search']))
                 ->get(),
-
+            // 'users' => User::all(),
             'patients' => Patient::latest()->get(),
         ]);
     }
@@ -402,6 +403,7 @@ class RecordController extends Controller
 
         return view('records.all', [
             'patients' => Patient::latest()->get(),
+            'users' => User::latest()->where("role", "doctor")->get(),
             'records' => Record::latest()
                                 ->when($startDate, function ($query) use ($startDate) {
                                     return $query->where('created_at', '>=', $startDate);
@@ -412,4 +414,22 @@ class RecordController extends Controller
                             ->paginate(30),
         ]);
     }
+
+    public function add_defacto(Request $request, Record $record)
+    {
+        $formFields = $request->validate([
+            'processed_defacto' => ['required']
+        ]);
+
+        $record->update($formFields);
+
+        return redirect('/records/all')->with(
+            'message',
+            'Defacto:'. $record->add_defacto.'added for this record'
+        );
+
+
+    }
+
+    
 }

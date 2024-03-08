@@ -17,13 +17,13 @@
             <h4 class="header-title">Records {{ $records->count() }}</h4>
             @include('partials._datereports')
             </div>
-
+            @include('partials._message')
 
 
             @unless (count($records) === 0)
                 <div class="preview__grid">
                     @foreach ($records as $record)
-                    <div class="card">
+                    <div class="card" style="position: relative">
                         <div class="card-body">
                           <p class="card-text preview__text">
                             <div><b>Patient Name</b> : <span>{{ $record->patient->name }} </span></div>
@@ -49,18 +49,29 @@
 
                           </p>
                           @if($record->processing_by)
-                            <a href="/records/{{ $record->id}}/feedbacks" class="btn btn-primary">
-                                <i class="fas fa-hourglass"></i>
-                            </a>
+                            <div style="display: flex; flex-direction:column;position: absolute; top:6px; right:5px; align-items:center;">
+                         
 
-                            <a type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#recordDataModal{{ $record->id }}">
+                            <a type="button" class="text-black" data-mdb-toggle="modal" data-mdb-target="#recordModal{{ $record->id }}">
                                 <i class="fas fa-eye"></i>
                             </a>
 
-                            <a href="/management/{{$record->slug }}/" class="btn btn-primary">
-                              <i class="fas fa-info"></i>
+                            <a href="/records/{{ $record->id}}/feedbacks" class="text-black">
+                              <i class="fas fa-flask"></i>
                           </a>
-                              @include('partials._infomodal')
+
+                            <a href="/management/{{$record->slug }}/" class="text-black">
+                              <i class="fas fa-info-circle"></i>
+                          </a>
+                              
+
+                              <a  type="button" class="text-black" data-mdb-toggle="modal" data-mdb-target="#changeDoctorModal{{ $record->id }}">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                          
+                            @include('partials._infomodal')
+                            @include('partials._defactomodal')
+                            </div>
                           
 
                           @else

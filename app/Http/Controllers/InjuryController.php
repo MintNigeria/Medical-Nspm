@@ -14,6 +14,9 @@ class InjuryController extends Controller
             abort(403, 'Unauthorized Action');
         }
 
+        $user = auth()->user()->name;
+        // dd($user);
+        if(auth()->user()->role !== 'medic-admin') {
         return view(
             'injury.index',
             with([
@@ -24,6 +27,21 @@ class InjuryController extends Controller
                     ->paginate(45),
             ])
         );
+    }
+    if(auth()->user()->role !== 'doctor') {
+        if(auth()->user()->role !== 'medic-admin') {
+        return view(
+            'injury.index',
+            with([
+                'archives' => Injury::onlyTrashed(),
+                'patients' => Patient::latest()->get(),
+                'injuries' => Injury::latest()->where("attending_doctor",  $user)
+                    ->filter(request(['search']))
+                    ->paginate(45),
+            ])
+        );
+        }
+    }
     }
 
     public function archive()
