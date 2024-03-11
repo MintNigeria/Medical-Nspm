@@ -68,7 +68,9 @@ class FeedbackController extends Controller
 
     public function feedbacks($recordId)
     {
-        if (auth()->user()->role !== 'medic-admin') {
+        if (auth()->user()->role == 'nurse' || auth()->user()->role == 'him' || auth()->user()->role == "pharmacy"
+            || auth()->user()->role == "pharmacy-admin"
+        ) {
             abort(403, 'Unauthorized Action');
         }
 

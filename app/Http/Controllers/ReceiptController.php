@@ -13,10 +13,19 @@ class ReceiptController extends Controller
         if (auth()->user()->role !== 'him') {
             abort(403, 'Unauthorized Action');
         }
+
+        $startDate = request('start_date');
+        $endDate = request('end_date');
+
+
         return view('receipts.index', [
-            'receipts' => Receipt::latest()
-                // ->filter()
-                ->get(),
+            'receipts' => Receipt::latest() ->when($startDate, function ($query) use ($startDate) {
+                return $query->where('created_at', '>=', $startDate);
+            })
+            ->when($endDate, function ($query) use ($endDate) {
+                return $query->where('created_at', '<=', $endDate);
+            })->paginate(45),
+            'records' => Record::latest()->get(),
         ]);
     }
     public function create($id)
@@ -25,6 +34,7 @@ class ReceiptController extends Controller
             abort(403, 'Unauthorized Action');
         }
 
+        // dd($id);
         $record = Record::find($id);
 
         return view('receipts.create', [
@@ -39,11 +49,10 @@ class ReceiptController extends Controller
         }
 
         $formFields = $request->validate([
+            'record_id' => 'required',
             'cost' => 'required',
             'is_dependent' => 'required',
         ]);
-
-        $formFields['record_id'] = $record->id;
 
         Receipt::create($formFields);
 
@@ -53,4 +62,11 @@ class ReceiptController extends Controller
             'Receipt Saved',
         ]);
     }
+
+    public function destroy(Receipt $receipt)
+    {
+        $receipt->delete();
+        return back()->with('success', " Receipt Deleted");
+    }
+
 }

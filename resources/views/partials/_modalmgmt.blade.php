@@ -239,7 +239,7 @@
           <label class="form-check-label" for="flexCheckDefault">HBsAg</label>
       </div>
       <div class="form-check">
-          <input class="form-check-input" type="checkbox"  name="tests[]" value="HBsAg" />
+          <input class="form-check-input" type="checkbox"  name="tests[]" value="HBeAg" />
           <label class="form-check-label" for="flexCheckDefault">HBeAg</label>
       </div>
       <div class="form-check">
@@ -495,7 +495,7 @@
       </div>
 
       <textarea type="text" name="prescription" value="{{ old('prescription') }}"  class="form-control text-uppercase mt-2" id="">
-
+        
       </textarea>
       @error('prescription')
       <p class="text-danger text-xs mt-1">{{$message}}</p>
@@ -509,9 +509,7 @@
           <label><h5 class="text-secondary text-capitalize">Nurse Management</h5> (Seperate tasks with a comma )</label>
       </div>
 
-      <textarea placeholder="E.g Place on bed rest, check temperature, ..."
-               type="text" name="nurse_mgmt"
-                   value="{{ old('nurse_mgmt') }}"  class="form-control text-uppercase mt-2" id="" >
+      <textarea placeholder="E.g Place on bed rest, check temperature, ..." type="text" name="nurse_mgmt" value="{{ old('nurse_mgmt') }}"  class="form-control text-uppercase mt-2" id="" >
       </textarea>
       @error('nurse_mgmt')
       <p class="text-danger text-xs mt-1">{{$message}}</p>

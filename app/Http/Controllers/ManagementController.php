@@ -40,6 +40,7 @@ class ManagementController extends Controller
 
     public function edit(Management $management)
     {
+        // dd($management->id);
         return view('management.edit', [
             'management' => $management,
             'retainers' => Clinic::latest()->where("lab_retainer", "retainer")->get(),
@@ -50,6 +51,30 @@ class ManagementController extends Controller
                     ->paginate(35),
             // 'record' => $record,
         ]);
+    }
+
+    public function update(Request $request, Management $management)
+    {
+        // dd($management);
+
+        $formFields = $request->validate([
+            'doctor_act' => ['array', 'nullable'],
+            'tests' => 'array',
+            'nurse_mgmt' => 'nullable',
+            'prescription' => 'nullable',
+            'labtest' => 'nullable',
+            'clinic' => 'nullable',
+        ]);
+
+        $formFields['processing_by'] = auth()->user()->name;
+
+        //Update
+        $management->update($formFields);
+
+        return back()->with(
+            'message',
+            'Updated successfully!'
+        );
     }
 
     public function nurse_response(Request $request, Management $management)

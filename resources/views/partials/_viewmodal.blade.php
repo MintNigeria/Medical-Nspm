@@ -7,15 +7,33 @@
           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <div class="alert-primary p-4 mt-1">
+            {{ $receipt->record->patient->name }}
+            </div>
             <div class="alert-primary p-4 mt-1">
-                {{ $receipt->record->clinic_location }}
-            </div>
+              {{ $receipt->record->patient->staff_id }}
+          </div>
+          <div class="alert-primary p-4 mt-1">
+            {{ $receipt->record->patient->email }}
+        </div>
+            <div class="alert-primary p-4 mt-1">
+              @if ($receipt->record && $receipt->record->management)
+                  @foreach ($receipt->record->management as $management)
+                    @if($management->clinic)
+                      <p>Clinic</p>
+                    <p> {{ $management->clinic }} </p>
+                    @endif
+                    @if($management->labtest)
+                      <p>Labtest</p>
+                      <p>{{ $management->labtest }} </p>
+                      @endif
+                  @endforeach
+              @else
+                  No management records found
+              @endif
+          </div>
             <div class="alert-primary  p-4 mt-1">
-                    {{ $receipt->prescription }}
-            </div>
-
-            <div class="alert-primary  p-4 mt-1">
-                {{ $receipt->cost }}
+              N{{ number_format($receipt->cost) }}
         </div>
         </div>
         <div class="modal-footer">

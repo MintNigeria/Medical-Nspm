@@ -22,17 +22,17 @@
             CREATE NEW RECORD
             </div>
             <div class="card-body">
-            <form method="POST" action="/receipts/{record}/">
-            @csrf
+            <form method="POST" action="/receipts/record/">
+                @csrf
             <div>
             <div class="form-group">
             <label>Staff ID</label>
-            <select class="js-example-basic-single text-uppercase form-control" searchable="Search Here .." data-filter="true" name="patient_id">
+            <select class="js-example-basic-single text-uppercase form-control" searchable="Search Here .." data-filter="true" name="record_id">
             <option value="">Choose ...</option>
             @unless (count($records) === 0)
-            @foreach ($records as $record)
-            <option value="{{ $record->patient->id }}">{{ $record->patient->staff_id }}</option>
-            @endforeach
+                @foreach ($records as $record)
+                <option value="{{ $record->patient->id }}">{{ $record->patient->staff_id }}</option>
+                @endforeach
             @endunless
             </select>
             @error('patient_id')
@@ -72,18 +72,14 @@
             </div>
 
 
-            <button  class="mt-5 btn btn-success">
-            RECORD Receipt
+            <button type="submit" class="mt-5 btn btn-success">
+                 RECORD Receipt
             </button>
 
             </div>
             </div>
             </div>
             </form>
-
-            <div class="card-footer"></div>
-
-            </div>
             </div>
 
             </div>

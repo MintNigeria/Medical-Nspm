@@ -64,11 +64,10 @@
         </div>
         <div class="aboutUs_text">
             <h2 id="header_font_500">About <span class="header_notes_pink">Us</span></h2>
-            <p>Torem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-             libero et velit interdum, ac aliquet odio mattis. Class aptent taciti
-              sociosqu ad litora torquent per conubia nostra, per inceptos
-              himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut
-              commodo efficitur neque.</p>
+            <p>
+                The Application is designed to handle the processing of staffers records from inception to closing ensuring that
+                we preerve staff records while priotrising security for each record.
+            </p>
         </div>
 
     </div>

@@ -22,9 +22,11 @@
                     @foreach ($management as $management)
                     <div class="card my-2">
                         <div class="card-body">
+                          @if(auth()->user()->role === $management->processing_by)
                           <a href="/management/{{ $management->id }}/edit" style="position:absolute;top:2px;right:3px;color:#000;">
                             <i class="fas fa-edit"></i>
                           </a>
+                          @endif
                           @include('partials._modalmgmt')
                           <p class="card-text preview__text">
                               <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 10px;"><b>Processed By</b> : <span>{{ $management->processing_by }} </span></div>

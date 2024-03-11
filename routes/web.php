@@ -410,9 +410,13 @@ Route::get('/receipts/{record}/create', [
     ReceiptController::class,
     'create',
 ])->middleware('auth');
-Route::post('/receipts/{record}/', [
+Route::post('/receipts/record/', [
     ReceiptController::class,
     'store',
+])->middleware('auth');
+Route::delete('/receipts/{receipt}/', [
+    ReceiptController::class,
+    'destroy',
 ])->middleware('auth');
 
 /** Groups */
@@ -519,6 +523,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/{management}/nurse_response', [ManagementController::class, 'nurse_response']);
         Route::put('/{management}/pharmacy_response', [ManagementController::class, 'pharmacy_response']);
         Route::put('/{management}/reason', [ManagementController::class, 'reason']);
+        Route::put('/{management}', [ManagementController::class, 'update']);
         Route::get('/{record}/create', [ManagementController::class, 'create']);
         Route::post('/{record}', [ManagementController::class, 'store']);
         Route::put('{department}', [ManagementController::class, 'update']);

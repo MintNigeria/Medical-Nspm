@@ -80,6 +80,8 @@
             <th>Staff ID</th>
             <th>Name</th>
             <th>Department</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th>No of Days</th>
         </thead>
          @unless (count($leaves) === 0)
@@ -89,6 +91,8 @@
                     <td>{{ $leave->patient->staff_id }}</td>
                     <td>{{ $leave->patient->name }}</td>
                     <td>{{ $leave->patient->department }}</td>
+                    <td>{{ $leave->start_day }}</td>
+                    <td>{{ $leave->end_day }}</td>
                     <td>
                          {{ \Carbon\Carbon::parse($leave->end_day)->diffInDays(\Carbon\Carbon::parse($leave->start_day)) }}
                     </td>
@@ -117,9 +121,9 @@
             <th>Name</th>
             <th>Department</th>
             <th>Status</th>
-            <th>Nurse Care</th>
-            <th>Pharmacy</th>
-            <th>Referral</th> 
+            {{-- <th>Nurse Care</th> --}}
+            {{-- <th>Pharmacy</th> --}}
+            {{-- <th>Referral</th>  --}}
         </thead>
          @unless (count($records) === 0)
         <tbody>
@@ -129,11 +133,11 @@
                     <td>{{ $record->patient->name }}</td>
                     <td>{{ $record->patient->department }}</td>
                     <td>{{ $record->status }}</td>
+                    {{-- <td>{{ $record->patient->management }}</td/> --}}
                     {{-- <td>{{ $record->patient->department }}</td> --}}
-                    {{-- <td>{{ $record->patient->department }}</td> --}}
-                    <td>
+                    {{-- <td>
                          {{ \Carbon\Carbon::parse($leave->end_day)->diffInDays(\Carbon\Carbon::parse($leave->start_day)) }}
-                    </td>
+                    </td> --}}
                 </tr>
         </tbody>
         @endforeach

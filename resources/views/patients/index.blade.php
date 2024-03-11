@@ -52,9 +52,11 @@
                         <a type="button" data-mdb-toggle="modal" data-mdb-target="#patientModal{{ $patient->id }}">
                             <i class="fa-solid fa-edit text-success"></i>
                         </a>
+                        @if(auth()->user()->user_type == "medic-admin")
                          <a type="button" data-mdb-toggle="modal" data-mdb-target="#patientDOBModal{{ $patient->id }}">
                             <i class="fa-solid fa-calendar text-success"></i>
                         </a>
+                        @endif
                         @include('partials._modalpatient')
 
                          @if($patient->activate)

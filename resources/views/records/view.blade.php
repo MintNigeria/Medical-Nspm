@@ -23,7 +23,7 @@
         @unless (count($records) === 0)
                 <div class="preview__grid">
                     @foreach ($records as $record)
-                    <div class="card">
+                    <div class="card" style="position: relative">
                         <div class="card-body">
                           <p class="card-text preview__text">
 
@@ -61,10 +61,45 @@
                             </span></div>
                           </p>
                         </div>
-                      </div>
-                    @endforeach
-                </div>
 
+
+                        @if($record->processing_by)
+                        <div style="display: flex; flex-direction:column;position: absolute; top:6px; right:5px; align-items:center;">
+                     
+    
+                        <a type="button" class="text-black" data-mdb-toggle="modal" data-mdb-target="#recordModal{{ $record->id }}">
+                            <i class="fas fa-eye"></i>
+                        </a>
+    
+                        <a href="/records/{{ $record->id}}/feedbacks" class="text-black">
+                          <i class="fas fa-flask"></i>
+                      </a>
+    
+                        <a href="/management/{{$record->slug }}/" class="text-black">
+                          <i class="fas fa-info-circle"></i>
+                      </a>
+                          
+    
+                      
+                      
+                        @include('partials._infomodal')
+                        </div>
+                      
+    
+                      @else
+    
+                      <div class="alert alert-danger">
+                        Not Yet Initiated
+                      </div>
+    
+                      @endif
+                    </div>
+
+                      </div>
+                    
+  
+                    @endforeach
+                  
 
 
             @endunless
