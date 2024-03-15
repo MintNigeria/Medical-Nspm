@@ -24,7 +24,7 @@
     @include('partials._message')
 
     <div class=" p-2 mt-4">
-    <a class="archive" href="/patient/archive">View Archived Posts</a> ({{ $archives->count() }})
+    {{-- <a class="archive" href="/patient/archive">View Archived Posts</a> ({{ $archives->count() }}) --}}
 
         <table class="table table-striped table-bordered mt-4" id="myTable">
         <thead class="table-color">

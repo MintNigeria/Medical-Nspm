@@ -53,7 +53,6 @@
                     </div>
                   </div>
                 </form>
-
                       <div class="card-footer"></div>
 
                   </div>

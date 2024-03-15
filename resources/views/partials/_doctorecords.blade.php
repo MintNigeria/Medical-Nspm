@@ -6,7 +6,7 @@
 
     <div class="form-group mt-4">
         <label><h4 class="text-secondary text-capitalize">Presenting Complaint</h4></label>
-        <textarea type="text" name="complaint" value="{{ old('complaint') }}"  class="form-control text-uppercase mt-2" id="">
+        <textarea type="text" name="complaint" value="{{ old('complaint') }}"  class="form-control text-uppercase mt-2" id="" @if(auth()->user()->name !== $record->processing_by) disabled @endif>
             {{$record->complaint}}
         </textarea>
         @error('complaint')
@@ -16,7 +16,7 @@
 
     <div class="form-group mt-4">
         <label><h4 class="text-secondary text-capitalize">Physical Examination</h4></label>
-        <textarea type="text" name="physicalexam" value="{{ old('physicalexam') }}"  class="form-control text-uppercase mt-2" id="">
+        <textarea type="text" name="physicalexam" value="{{ old('physicalexam') }}"  class="form-control text-uppercase mt-2" id="" @if(auth()->user()->name !== $record->processing_by) disabled @endif>
             {{$record->physicalexam}}
 
         </textarea>
@@ -27,7 +27,7 @@
 
     <div class="form-group mt-4">
         <label><h4 class="text-secondary text-capitalize">Assessment </h4></label>
-        <textarea type="text" name="assessment" class="form-control text-uppercase mt-2" id="">
+        <textarea type="text" name="assessment" class="form-control text-uppercase mt-2" id="" @if(auth()->user()->name !== $record->processing_by) disabled @endif>
             {{$record->assessment}}
         </textarea>
         @error('assessment')
