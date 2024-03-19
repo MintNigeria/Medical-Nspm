@@ -53,6 +53,14 @@
                                 </a>
                                 @include('partials._modalusers')
 
+                                <form method="POST" action="/users/{{$user->id}}/resetPassword">
+                                    @csrf
+                                    @method('PUT')
+                                    <button class="btn btn-outline-secondary mx-1" onclick="return confirm('Are you sure you want to reset the password to this Account?')">
+                                        <i class="fas fa-question text-secondary"></i>
+                                    </button>
+                                </form>
+
                                  @if($user->activate)
 
                                     <form method="POST" action="/users/{{$user->id}}/activate">

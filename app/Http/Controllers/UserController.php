@@ -142,6 +142,24 @@ class UserController extends Controller
             'User Updated successfully!'
         );
     }
+
+    public function resetPassword(Request $request, ModelsUser $user)
+    {
+        if(auth()->user()->role !== 'medic-admin'){
+            abort(403, 'Unauthorized Action');
+         }
+
+         $formFields['password'] = bcrypt('password');
+         $formFields['is_default'] = 1;
+
+         $user->update($formFields);
+         return redirect('/users')->with(
+            'message',
+            'User Password Reset successfully!'
+        );
+
+    }
+
     public function profile()
     {
         return view('users.profile');
