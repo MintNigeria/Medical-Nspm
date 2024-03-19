@@ -15,7 +15,6 @@ class InjuryController extends Controller
         }
 
         $user = auth()->user()->name;
-        // dd($user);
         if(auth()->user()->role !== 'medic-admin') {
         return view(
             'injury.index',
@@ -29,7 +28,7 @@ class InjuryController extends Controller
         );
     }
     if(auth()->user()->role !== 'doctor') {
-        if(auth()->user()->role !== 'medic-admin') {
+
         return view(
             'injury.index',
             with([
@@ -41,7 +40,6 @@ class InjuryController extends Controller
             ])
         );
         }
-    }
     }
 
     public function archive()
@@ -63,7 +61,7 @@ class InjuryController extends Controller
 
     public function create()
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -77,7 +75,7 @@ class InjuryController extends Controller
 
     public function store(Request $request)
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -107,7 +105,7 @@ class InjuryController extends Controller
 
     public function update(Request $request, Injury $injury)
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -138,7 +136,7 @@ class InjuryController extends Controller
 
     public function insurance(Request $request, Injury $injury)
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -151,9 +149,10 @@ class InjuryController extends Controller
 
     public function insurance_update(Request $request, Injury $injury)
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
+
         $formFields = $request->validate([
             'insurance_doctor' => 'required',
             'insurance_date' => 'required',
@@ -169,7 +168,7 @@ class InjuryController extends Controller
 
     public function destroy(Injury $injury)
     {
-        if (auth()->user()->role !== 'medic-admin') {
+       if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -182,6 +181,10 @@ class InjuryController extends Controller
 
     public function restore(Injury $injury)
     {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+        
         $injury->restore();
         return back()->with('message', 'Injury Restored');
     }

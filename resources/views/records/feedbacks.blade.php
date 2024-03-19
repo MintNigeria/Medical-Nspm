@@ -16,7 +16,7 @@
               justify-content: space-between;
             "
           >
-            <h4 class="header-title">Feedback(s) {{ $feedbacks->count() }}</h4>
+            <h4 class="header-title">Follow Up(s) {{ $feedbacks->count() }}</h4>
 
 
           </div>

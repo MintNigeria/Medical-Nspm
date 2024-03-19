@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+
 
 class Kernel extends HttpKernel
 {
@@ -72,4 +74,10 @@ class Kernel extends HttpKernel
         // ...
         'role' => \App\Http\Middleware\RedirectBasedOnRole::class,
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('backup:clean')->daily()->at('01:00'); // Clean up old backups
+        $schedule->command('backup:run')->everyTwoMinutes()->between('02:00', '02:02'); // Run the backup every 2 minutes between 2:00 AM and 2:02 AM
+    }
 }

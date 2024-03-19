@@ -451,6 +451,10 @@ Route::put('/users/{user}', [UserController::class, 'update'])->middleware(
     'auth'
 );
 
+Route::put('/users/{user}/resetPassword', [UserController::class, 'resetPassword'])->middleware(
+    'auth'
+);
+
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware(
     'auth'
 )->withTrashed();

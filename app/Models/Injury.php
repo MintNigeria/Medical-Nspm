@@ -15,9 +15,11 @@ class Injury extends Model
     public function scopeFilter($query, array $filters)
     {
         if ($filters['search'] ?? false) {
-            $query->where('name', 'like', '%' . request('search') . '%');
+            $query
+                ->where('name', 'like', '%' . request('search') . '%')
+                ->orWhere('staff_id', 'like', '%' . request('search') . '%');
         }
-
+        
         $query->when($filters['start_date'] ?? false, function ($query, $startDate) {
             $query->where('created_at', '>=', $startDate);
         });

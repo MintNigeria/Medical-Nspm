@@ -28,7 +28,9 @@
 
         <div class="header_center"  style="color: #fff; font-weight: 700;position: absolute; font-size: 30px; display: flex; flex-direction: column; align-items: center; text-align: center;">
             Building a Stronger & Healthier NSPM Together
-            <a class="btn" href="/users/login">Get Started</a>
+            <a class="btn mb-5" href="/users/login">Get Started</a>
+            {{-- <h6 class="mt-5 text-danger text-capitalize" style="text-decoration: underline;">test</h6> --}}
+
         </div>
 
 
