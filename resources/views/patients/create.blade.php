@@ -121,7 +121,7 @@
 
                   <div class="form-group">
                     <label class="mt-4"> Height</label>
-                    <input type="number" placeholder="Recorded in m2" class="form-control" name="height" value="{{ old('height') }}" id="">
+                    <input type="number" placeholder="Recorded in cm" class="form-control" name="height" value="{{ old('height') }}" id="">
                     @error('height')
                     <p class="text-danger  mt-1">{{$message}}</p>
                     @enderror

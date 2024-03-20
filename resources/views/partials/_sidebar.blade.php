@@ -13,20 +13,33 @@
                 <a href="/users/profile">Profile</a>
             </li>
             <li>
+                <a href="/records/queue">Queue</a>
+            </li>
+            <li>
+                <a href="/records">New Record</a>
+            </li>
+            <li>
+                <a href="/records/manage">View Records</a>
+            </li>
+            <li>
                 <a href="/records/preview">Tests</a>
             </li>
             <li>
                 <a href="/users">Users</a>
             </li>
-
-            
             <li>
                 <a href="/patient">Patients</a>
             </li>
-
             <li>
                 <a href="/leaves">Sick Leave</a>
             </li>
+            <li>
+                <a href="/inventory">Inventories</a>
+            </li>
+            <li>
+                <a href="/retainers">Retainers</a>
+            </li>
+
             <li>
                 <a href="/records/all">All Records</a>
             </li>
@@ -61,9 +74,9 @@
             <li>
                 <a href="/inventory">Inventories</a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="/pharmacy">Pharmacy</a>
-            </li>
+            </li> --}}
             <li>
                 <a href="/grouping">Pha-Grouping</a>
             </li>

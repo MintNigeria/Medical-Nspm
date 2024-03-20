@@ -25,7 +25,7 @@ class RecordController extends Controller
     //Index
     public function index()
     {
-        if (auth()->user()->role !== 'nurse') {
+        if ( auth()->user()->role !== 'nurse' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -37,7 +37,7 @@ class RecordController extends Controller
 
     public function queue()
     {
-        if (auth()->user()->role !== 'nurse') {
+        if (auth()->user()->role !== 'nurse' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -94,7 +94,9 @@ class RecordController extends Controller
         if ($formFields['weight']) {
             $patient = Patient::find($formFields['patient_id']);
 
-            $formFields['bmi'] = $formFields['weight'] / $patient['height'];
+            $height_meters = $patient['height'] / 100;
+            // Calculate BMI
+            $formFields['bmi'] = $formFields['weight'] / ($height_meters * $height_meters);
         }
 
 
@@ -109,10 +111,9 @@ class RecordController extends Controller
     // Show Edit Form
     public function edit($slug)
     {
-        if (auth()->user()->role !== 'doctor') {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
-
         $slug = $record = Record::where('slug', $slug)->first();
 
         return view('records.edit', [
@@ -132,6 +133,10 @@ class RecordController extends Controller
     // Update Listing Data
     public function update(Request $request, Record $record)
     {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
             'complaint' => 'nullable',
             'physicalexam' => 'nullable',
@@ -175,6 +180,9 @@ class RecordController extends Controller
 
     public function view_patient($patientId)
     {
+        if (auth()->user()->role !== 'doctor' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         $records = Record::where('patient_id', $patientId)->get();
         // dd($records);
 
@@ -187,7 +195,7 @@ class RecordController extends Controller
     //View Pharmacy Records
     public function pharmacy()
     {
-        if (auth()->user()->role !== 'pharmacy') {
+        if (auth()->user()->role !== 'pharmacy' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
         return view('records.pharmacy', [
