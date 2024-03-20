@@ -24,7 +24,7 @@
               @include('partials._searchinventory')
            
               <div>
-                 @if(auth()->user()->user_type === "pharmacy-admin")
+                 @if(auth()->user()->role === "pharmacy-admin" || auth()->user()->role === "medic-admin")
                  <a href="/inventory/create" class="btn btn-color">Create Inventory</a>
                 @endif
               <button onclick="exportToCsv()" class="btn btn-outline-success">Export XLS</button>
@@ -32,7 +32,7 @@
             </div>
             @include('partials._message')
             <div>
-        <a class="archive" href="/inventory/archive">View Archived Posts</a> ({{ $archives->count() }}) ()
+        {{-- <a class="archive" href="/inventory/archive">View Archived Posts</a> ({{ $archives->count() }}) () --}}
 
               <table class="table table-striped table-bordered mt-4" id="myTable">
                 <thead class="table-color">

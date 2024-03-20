@@ -9,7 +9,7 @@ class ClinicController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role !== 'him') {
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
         return view('retainers.index', [
@@ -32,9 +32,9 @@ class ClinicController extends Controller
 
     public function archive()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('retainers.archive', [
             'clinics' => Clinic::onlyTrashed()
                 ->filter(request(['search']))
@@ -44,17 +44,17 @@ class ClinicController extends Controller
 
     public function create()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('retainers.create');
     }
 
     public function store(Request $request)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+         if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         $formFields = $request->validate([
             'name' => 'required',
             'type' => 'required',
@@ -70,6 +70,9 @@ class ClinicController extends Controller
     }
     public function update (Request $request, Clinic $clinic)
     {
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         $formFields = $request->validate([
             'name' => 'required',
             'type' => 'required',
@@ -85,9 +88,10 @@ class ClinicController extends Controller
     }
     public function destroy(Clinic $clinic)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+        
         if($clinic->trashed()){
             $clinic->forceDelete();
             return redirect('/retainers')->with(
@@ -104,10 +108,9 @@ class ClinicController extends Controller
 
     public function restore(Clinic $clinic)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
-
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         $clinic->restore();
         return redirect('/retainers')->with(
             'message',
