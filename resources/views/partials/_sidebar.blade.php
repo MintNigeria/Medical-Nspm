@@ -19,6 +19,11 @@
                 <a href="/users">Users</a>
             </li>
 
+            
+            <li>
+                <a href="/patient">Patients</a>
+            </li>
+
             <li>
                 <a href="/leaves">Sick Leave</a>
             </li>
@@ -99,7 +104,6 @@
             </li>
 
             <li>
-
                 <a href="/patient">Patients</a>
             </li>
 
