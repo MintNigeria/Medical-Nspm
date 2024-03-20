@@ -13,9 +13,9 @@ class PatientController extends Controller
     //Index
     public function index()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('patients.index', [
             'archives' => Patient::onlyTrashed(),
@@ -50,6 +50,9 @@ class PatientController extends Controller
     //Show A Patient
     public function show(Patient $patient)
     {
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('patient.show', [
             'patient' => $patient,
         ]);
@@ -58,18 +61,18 @@ class PatientController extends Controller
     // Show Create Form
     public function create()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         return view('patients.create');
     }
 
     // Store Listing Data
     public function store(Request $request)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $formFields = $request->validate([
             'name' => 'required',
@@ -94,9 +97,9 @@ class PatientController extends Controller
     // Show Edit Form
     public function edit(Patient $patient)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         return view('patients.edit', ['patient' => $patient]);
     }
@@ -104,7 +107,7 @@ class PatientController extends Controller
     // Update Listing Data
     public function update(Request $request, Patient $patient)
     {
-        if (auth()->user()->role !== 'him') {
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
             abort(403, 'Unauthorized Action');
         }
 
@@ -131,9 +134,9 @@ class PatientController extends Controller
 
     public function update_dob(Request $request, Patient $patient)
     {
-        // if (auth()->user()->role !== 'medic-admin') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
 
         $formFields = $request->validate([
             'birth_date' => 'required',
@@ -148,9 +151,9 @@ class PatientController extends Controller
     // Delete Listing
     public function destroy(Patient $patient)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         if($patient->trashed()){
             $patient->forceDelete();
             return redirect('/patient')->with(
@@ -167,9 +170,10 @@ class PatientController extends Controller
 
     public function restore(Patient $patient)
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+        if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
+
         $patient->restore();
         return redirect('/patient')->with(
             'message',
@@ -180,9 +184,9 @@ class PatientController extends Controller
 
     public function export()
     {
-        // if (auth()->user()->role !== 'him') {
-        //     abort(403, 'Unauthorized Action');
-        // }
+         if (auth()->user()->role !== 'him' && auth()->user()->role !== 'medic-admin') {
+            abort(403, 'Unauthorized Action');
+        }
         return Excel::download(new PatientExport(), 'patients.xlsx');
     }
 }
