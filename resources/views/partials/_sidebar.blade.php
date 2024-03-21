@@ -37,6 +37,10 @@
                 <a href="/inventory">Inventories</a>
             </li>
             <li>
+                <a href="/inventory/stock_low">Out Stocks</a>
+            </li>
+
+            <li>
                 <a href="/retainers">Retainers</a>
             </li>
 

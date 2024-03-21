@@ -428,6 +428,7 @@ Route::delete('/grouping/{grouping}',[GroupController::class, 'destroy'])->middl
 
 /** Users */
 Route::get('/users', [UserController::class, 'index'])->middleware('auth');
+Route::get('/activity/logs', [UserController::class, 'activity'])->middleware('auth');
 Route::get("/users/profile", [UserController::class, 'profile'])->middleware("auth");
 Route::post('/profile', [UserController::class, 'updatePassword'])->middleware(
     'auth'

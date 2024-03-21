@@ -31,9 +31,9 @@
             <tr>
             <th scope="col">Name</th>
             <th scope="col">Staff ID </th>
-            <th scope="col">Contact</th>
-            <th scope="col">Height</th>
-            <th scope="col">Birth Date</th>
+            <th scope="col">Department</th>
+            {{-- <th scope="col">Height</th>
+            <th scope="col">Birth Date</th> --}}
             <th>Actions</th>
             </tr>
         </thead>
@@ -43,9 +43,10 @@
                 <tr>
                     <td>{{ $patient->name }}</td>
                     <td>{{ $patient->staff_id }}</td>
-                    <td>{{ $patient->contact }}</td>
+                    <td>{{ $patient->department }}</td>
+                    {{-- <td>{{ $patient->contact }}</td>
                     <td>{{ $patient->height }}</td>
-                    <td>{{ $patient->birth_date }}</td>
+                    <td>{{ $patient->birth_date }}</td> --}}
 
                     <td style="display:flex; align-items:center; justify-content:space-evenly">
                         {{-- @if (auth()->user()->roles === 'him') --}}
