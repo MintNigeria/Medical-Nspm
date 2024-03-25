@@ -35,7 +35,7 @@
                       class="form-control text-uppercase"
                       name="staff_id"
                       placeholder="Example: 1010" value="{{old('staff_id')}}"
-                      {{-- oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)" --}}
+                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 5)"
                       id=""
                     />
                     @error('staff_id')
@@ -75,6 +75,29 @@
                     <label>Department</label><br />
                     <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
                         <option value="">Choose ...</option>
+                        <option value="Intaglio Print">Intaglio Print</option>
+                        <option value="New Line">New Line</option>
+                        <option value="Quality Control">Quality Control</option>
+                        <option value="BankNote Finishing">BankNote Finishing</option>
+                        <option value="Pre-Press">Pre Press</option>
+                        <option value="BankNote Design">BankNote Design</option>
+                        <option value="Litho">Litho</option>
+                        <option value="Numbering">Numbering</option>
+                        <option value="Engineering Services">Engineering Services</option>
+                        <option value="Health Safety & Enviroment">Health Safety & Enviroment</option>
+                        <option value="Spy Police">Spy Police</option>
+                        <option value="Comissioners">Comissioners</option>
+                        <option value="SDD Core Press">SDD Core Press</option>
+                        <option value="SDD Finishing">SDD Finishing</option>
+                        <option value="Cheque Finishing">Cheque Finishing</option>
+                        <option value="Exam Type Setting">Exam Type Setting</option>
+                        <option value="Adhoc">Adhoc</option>
+                        <option value="NYSC">NYSC</option>
+                        <option value="Contracts">Contracts</option>
+                        <option value="Locum">Locum</option>
+                        <option value="Security">Security</option>
+                        <option value="Admin Services">Admin Services</option>
+                        <option value="Procurement">Procurement</option>
                         <option value="Internal Audit & Compliance">Internal Audit & Compliance</option>
                         <option value="Strategy">Strategy</option>
                         <option value="Planning">Planning</option>
@@ -84,20 +107,13 @@
                         <option value="ICT">ICT</option>
                         <option value="Risk Management">Risk Management</option>
                         <option value="Inspectorate">Inspectorate</option>
-                        <option value="Security">Security</option>
                         <option value="Finance">Finance</option>
-                        <option value="Security">Security</option>
                         <option value="Protocol & Transport">Protocol & Transport</option>
                         <option value="Coporate Communications">Coporate Communications</option>
                         <option value="Human Resources">Human Resources</option>
                         <option value="Medical Services">Medical Services</option>
                         <option value="EPMO">EPMO</option>
-                        <option value="Production">Production</option>
-                        <option value="Engineering">Engineering</option>
                         <option value="Sales & Marketing">Sales & Marketing</option>
-                        <option value="SD - Engineering">SD - Engineering</option>
-                        <option value="SD - Production">SD - Production</option>
-                        <option value="R&D">R&D</option>
                     </select>
                     @error('department')
                     <p class="text-danger text-xs mt-1">{{$message}}</p>
@@ -154,6 +170,18 @@
                     />
                     @error('birth_date')
                     <p class="text-danger  mt-1">{{$message}}</p>
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label class="mt-4">Define location</label>
+                    <select name="location" class="form-control text-uppercase">
+                        <option value="">Choose ...</option>
+                        <option value="lag">Lagos</option>
+                        <option value="abj">Abuja</option>
+                    </select>
+                    @error('location')
+                    <p class="text-danger  text-xs mt-1">{{$message}}</p>
                     @enderror
                   </div>
 

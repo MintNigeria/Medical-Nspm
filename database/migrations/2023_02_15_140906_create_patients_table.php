@@ -17,11 +17,13 @@ return new class extends Migration {
             $table->longText('address');
             $table->longText('email');
             $table->longText('department');
+            $table->string('prefix');
             $table->string('contact');
             $table->string('height');
             $table->string('allergy')->nullable();
             $table->string('dependencies')->nullable();
             $table->string('birth_date');
+            $table->string('location');
             $table->boolean('activate')->default(true);
             $table->timestamps();
         });

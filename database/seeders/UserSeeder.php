@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             "email" => "medicadmin@gmail.com",
             "password" => Hash::make("password"),
             "staff_id" => "9000",
-            "role" => "medicadmin",
+            "role" => "medic-admin",
             "locality" => "lagos",
         ]);
         User::create([
