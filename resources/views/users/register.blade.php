@@ -86,10 +86,8 @@
                         <p class="text-danger  text-xs mt-1">{{$message}}</p>
                         @enderror
                       </div>
-
-
                         <button type="submit"  class="mt-5 btn btn-success">
-                          RECORD NEW USers
+                          RECORD New Users
                         </button>
 
                       </div>

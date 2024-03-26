@@ -6,8 +6,7 @@
         {{ auth()->user()->locality }}
     </div>
     <div class="sidebar_central">
-        <ul class="">
-
+        <ul >
             @if (auth()->user()->role === "medic-admin")
             <li>
                 <a href="/users/profile">Profile</a>
@@ -15,45 +14,30 @@
             <li>
                 <a href="/records/queue">Queue</a>
             </li>
+           
             <li>
-                <a href="/records">New Record</a>
-            </li>
-            <li>
-                <a href="/records/manage">View Records</a>
-            </li>
-            <li>
-                <a href="/records/preview">Tests</a>
-            </li>
-            <li>
-                <a href="/users">Users</a>
-            </li>
-            <li>
-                <a href="/patient">Patients</a>
+                <a href="#" class="menu-item">Records</a>
+                <ul class="submenu">
+                    <li><a href="/records">New Record</a></li>
+                    <li><a href="/records/manage">View Records</a></li>
+                    <li><a href="/records/preview">Tests</a></li>
+                    <li><a href="/records/all">All Records</a></li>
+                    
+                </ul>
             </li>
             <li>
-                <a href="/leaves">Sick Leave</a>
+                <a href="#" class="menu-item">Injury</a>
+                <ul class="submenu">
+                    <li><a href="/patient">Patients</a></li>
+                    <li><a href="/injuries">Injury</a></li>
+                    <li><a href="/inventory">Inventories</a></li>
+                    <li><a href="/inventory/stock_low">Out Stocks</a></li>
+                    <li><a href="/leaves">Sick Leave</a></li>
+                    <li><a href="/retainers">Retainers</a></li>
+                    <li><a href="/users">Users</a></li>
+                </ul>
             </li>
-            <li>
-                <a href="/inventory">Inventories</a>
-            </li>
-            <li>
-                <a href="/inventory/stock_low">Out Stocks</a>
-            </li>
-
-            <li>
-                <a href="/retainers">Retainers</a>
-            </li>
-
-            <li>
-                <a href="/records/all">All Records</a>
-            </li>
-
-             <li>
-                    <a href="/injuries">Injury Records</a>
-            </li>
-
-
-        @endif
+            @endif
 
             @if (auth()->user()->role === "nurse")
                 <li>
@@ -194,6 +178,21 @@
     </div>
 
 
+
+    <script>
+        const menuItems = document.querySelectorAll('.menu-item');
+    
+        menuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const submenu = this.nextElementSibling;
+                if (submenu.style.display === 'none') {
+                    submenu.style.display = 'block';
+                } else {
+                    submenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
 
 

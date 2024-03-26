@@ -129,6 +129,11 @@ r {
   font-weight: 800;
 }
 
+.submenu {
+  display: none;
+}
+
+/* .submenu > li{} */
 /* ------------------------------------------------------- */
 
 /* Login Container */
@@ -247,7 +252,7 @@ b{
   flex: 1;
   background-color: #1a237e;
   border-right: 1px solid #4a148c;
-  height:100vh;
+  min-height:100vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -256,13 +261,13 @@ b{
 
 .top {
   position: fixed;
-  top: 20px;
+  top: 10px;
   font-size: 30px;
 }
 
 .bottom {
   position: fixed;
-  bottom: 1px;
+  bottom: 0px;
 }
 
 .sidebar_header {

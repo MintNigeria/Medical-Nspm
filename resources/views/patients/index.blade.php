@@ -42,11 +42,8 @@
             @foreach ($patients as  $patient)
                 <tr>
                     <td>{{ $patient->name }}</td>
-                    <td>{{ $patient->staff_id }}</td>
+                    <td>{{ $patient->prefix }}/{{ $patient->staff_id }}</td>
                     <td>{{ $patient->department }}</td>
-                    {{-- <td>{{ $patient->contact }}</td>
-                    <td>{{ $patient->height }}</td>
-                    <td>{{ $patient->birth_date }}</td> --}}
 
                     <td style="display:flex; align-items:center; justify-content:space-evenly">
                         {{-- @if (auth()->user()->roles === 'him') --}}

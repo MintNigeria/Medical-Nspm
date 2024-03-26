@@ -66,4 +66,14 @@ rel="stylesheet"
 });
 </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".dropdown-toggle").click(function(){
+            $(this).next('.submenu').slideToggle();
+        });
+    });
+</script>
+
+
 </html>
