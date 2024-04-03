@@ -113,7 +113,7 @@
 
                   <div class="form-group mt-4">
                     <label>Department</label><br />
-                    <select id="mySelect" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
+                    <select id="mySelect2" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
                         <option value="">Choose ...</option>
                         <option value="Engineering Services">Engineering Services</option>
                         <option value="Health Safety & Enviroment">Health Safety & Enviroment</option>

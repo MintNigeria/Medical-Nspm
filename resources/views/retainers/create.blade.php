@@ -30,7 +30,7 @@
                   </div>
                   <div class="form-group">
                     <label class="mt-3">TYPE</label>
-                    <select name="type" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." required>
+                    <select name="type" id="mySelect" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." required>
                         <option value="">Choose ...</option>
                         <option value="Internal Lagos">Internal Lagos</option>
                         <option value="Internal Abuja">Internal Abuja</option>

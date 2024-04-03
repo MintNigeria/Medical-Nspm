@@ -64,7 +64,12 @@ rel="stylesheet"
        
     });
 </script>
-
+<script>
+    $('#mySelect2').select2({
+        placeholder: 'Select an option', // Placeholder text
+       
+    });
+</script>
 
 
 </html>

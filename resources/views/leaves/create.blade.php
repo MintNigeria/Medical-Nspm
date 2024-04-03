@@ -19,7 +19,7 @@
                       <div class="form-group">
                         <label>Staff ID</label>
                         <br>
-                        <select name="patient_id" id="" class="js-example-basic-single form-control">
+                        <select name="patient_id" id="mySelect" class="js-example-basic-single form-control">
                             <option  value="">Choose ...</option>
                             @unless (count($patients) === 0)
                                 @foreach ($patients as $patient)
