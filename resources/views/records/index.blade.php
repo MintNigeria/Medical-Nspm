@@ -23,7 +23,7 @@
                         <option value="">Choose ...</option>
                         @unless (count($patients) === 0)
                             @foreach ($patients as $patient)
-                                <option value="{{ $patient->id }}" class="text-success">{{ $patient->staff_id }}</option>
+                                <option value="{{ $patient->id }}" class="text-success">{{ $patient->prefix }}/{{ $patient->staff_id }}</option>
                             @endforeach
                         @endunless
                     </select>

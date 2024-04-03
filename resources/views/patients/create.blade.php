@@ -47,10 +47,7 @@
                     <label class="mt-4">Select Prefix</label>
                     <select id="mySelect" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="prefix">
                         <option value="">Choose ...</option>
-                        <option value="ABV">Adhoc - ABV</option>
-                        <option value="ABV">NYSC - ABV</option>
-                        <option value="ABV">Contracts -ABV</option>
-                        <option value="ABV">Locum - ABV</option>
+                        <option value="ABV">ADHOC, NYSC, COMMS, LOCUM - ABV</option>
                         <option value="INT">Intaglio Print - INT</option>
                         <option value="NWL">NewLine - NWL</option>
                         <option value="QC">Quality Control - QC</option>
@@ -136,6 +133,9 @@
                         <option value="Medical Services">Medical Services</option>
                         <option value="EPMO">EPMO</option>
                         <option value="Sales & Marketing">Sales & Marketing</option>
+                        <option value="Security Documents">Security Documents</option>
+                        <option value="R&D" >R&D</option>
+
                     </select>
                     @error('department')
                     <p class="text-danger text-xs mt-1">{{$message}}</p>

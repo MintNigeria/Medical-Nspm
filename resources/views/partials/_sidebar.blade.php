@@ -26,7 +26,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#" class="menu-item">Injury</a>
+                <a href="#" class="menu-item">Medical Data</a>
                 <ul class="submenu">
                     <li><a href="/patient">Patients</a></li>
                     <li><a href="/injuries">Injury</a></li>
