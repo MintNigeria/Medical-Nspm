@@ -27,24 +27,37 @@ class DbBackUp extends Command
      */
     public function handle(): void
     {
-        $timestamp = Carbon::now()->format('Y-m-d_H-i-s');
-        $filename = "backup_" . $timestamp . ".sql";
-
-        $backupPath = storage_path('app/backups/' . $filename);
-
-        // Build mysqldump command
-        $command = sprintf(
-            'mysqldump --user=%s --password=%s --host=%s %s > %s',
-            env('DB_USERNAME'),
-            env('DB_PASSWORD'),
-            env('DB_HOST'),
-            env('DB_DATABASE'),
-            $backupPath
-        );
-
-        // Execute mysqldump command
-        exec($command);
-
-        $this->info('Database backup created successfully.');
+         // Generate timestamp for filename
+         $timestamp = Carbon::now()->format('Y-m-d_H-i-s');
+        
+         // Generate filename
+         $filename = "backup_" . $timestamp . ".sql";
+ 
+         // Set the backup directory path
+         $backupPath = storage_path('app/backups/' . $filename);
+ 
+         // Full path to mysqldump executable
+         $mysqldumpPath = "\"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump\"";
+ 
+         // Build mysqldump command
+         $command = sprintf(
+             '%s --user=%s --password=%s --host=%s %s > %s',
+             $mysqldumpPath,
+             env('DB_USERNAME'),
+             env('DB_PASSWORD'),
+             env('DB_HOST'),
+             env('DB_DATABASE'),
+             $backupPath
+         );
+ 
+         // Execute mysqldump command
+         exec($command, $output, $return_var);
+ 
+         // Check if the command executed successfully
+         if ($return_var === 0) {
+             $this->info('Database backup created successfully.');
+         } else {
+             $this->error('Database backup failed.');
+         }
     }
 }

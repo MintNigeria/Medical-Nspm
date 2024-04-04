@@ -15,46 +15,31 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            "name"=> "John Doe",
-            "email" => "medicadmin@gmail.com",
+            "name"=> "Solomon Onwude",
+            "email" => "solomon.onwude@mintnigeria.com",
             "password" => Hash::make("password"),
-            "staff_id" => "9000",
+            "staff_id" => "6206",
             "role" => "medic-admin",
-            "locality" => "lagos",
+            "locality" => "abj",
         ]);
-        User::create([
-            "name"=> "Doctor Lag",
-            "email" => "lagosdoctor@gmail.com",
-            "password" => Hash::make("password"),
-            "staff_id" => "2000",
-            "role" => "doctor",
-            "locality" => "lagos",
 
-        ]);
         User::create([
-            "name"=> "Nurse Lag",
-            "email" => "nurselag@gmail.com",
+            "name" => "Magdalene Eyo",
+            "email" => "magdalene.asuquo@mintnigeria.com",
             "password" => Hash::make("password"),
-            "staff_id" => "3000",
-            "role" => "nurse",
-            "locality" => "lagos",
+            "staff_id" => "OB/5600",
+            "role" => "him",
+            "locality" => "abj",
         ]);
-        User::create([
-            "name"=> "Pharmacy Lag",
-            "email" => "pharmacylag@gmail.com",
-            "password" => Hash::make("password"),
-            "staff_id" => "4000",
-            "role" => "pharmacy",
-            "locality" => "lagos",
 
-        ]);
         User::create([
-            "name"=> "Pharmacy Admin Lag",
-            "email" => "pharmacyadminlag@gmail.com",
+            "name" => "Abutu E. Edwin",
+            "email" => "edwin.abutu@mintnigeria.com",
             "password" => Hash::make("password"),
-            "staff_id" => "5000",
-            "role" => "pharmacy-admin",
-            "locality" => "lagos",
+            "staff_id" => "OB/5479",
+            "role" => "him",
+            "locality" => "abj"
         ]);
+    
     }
 }
