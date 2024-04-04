@@ -185,75 +185,11 @@ class PatientController extends Controller
             'height' => 'required',
             'dependencies' => 'nullable',
             'contact' => 'required',
-            "location" => 'required'
+            "location" => 'required',
+            'prefix' => 'required'
         ]);
 
         $formFields['birth_date'] = $patient->birth_date;
-
-        switch ($formFields['department']) {
-            case "Intaglio Print":
-                $formFields['prefix'] = 'INT';
-                break;
-            case 'New Line':
-                $formFields['prefix'] = 'NWL';
-                break;
-            case 'Quality Control':
-                if ($formFields['location'] == 'abj') {
-                    $formFields['prefix'] = 'QC';
-                } elseif ($formFields['location'] == 'lag') {
-                    $formFields['prefix'] = 'SHE';
-                }
-                break;
-            case 'Bank Note Finishing':
-                if($formFields['location'] === "abj"){
-                    $formFields['prefix'] = 'BF';
-                }elseif($formFields['location'] === 'lag'){
-                    $formFields['prefix'] = 'SFD';
-                }
-                break;
-            case "Numbering":
-                $formFields['prefix'] = 'NOG';
-            break;
-            case "BankNote Design":
-                $formFields['prefix'] = 'BDE';
-            break;
-            case "Engineering Services":
-                $formFields['prefix'] = 'ENG';
-            break;
-            case "Health Safety & Enviroment":
-                $formFields['prefix'] = "HSE";
-            break;
-            case "Security":
-                $formFields['prefix'] = "SC";
-            break;
-            case "Litho":
-                $formFields['prefix'] = "LT";
-            break;
-            case "Spy Police":
-                $formFields["prefix"] = "SPY";
-            break;
-            case "Commisioners":
-                $formFields['prefix'] = "COMM";
-            break;
-            case "SDD Core Press":
-                $formFields['prefix'] = "SPD";
-            break;
-            case "SDD Finishing":
-                $formFields['prefix'] = "SPF";
-            break;
-            case "SDD Design":
-                $formFields['prefix'] = 'SDE';
-            break;
-            case "Cheque Finishing":
-                $formFields['prefix'] = "CHQ";
-            break;
-            case "Exam Type Setting": 
-                $formFields['prefix'] = "ETS";
-            break;
-            default:
-                $formFields['prefix'] = "OB";
-            break;
-        }
 
         $patient->update($formFields);
         return redirect('/patient')->with(
@@ -309,6 +245,13 @@ class PatientController extends Controller
             'message',
             'Patient Restored successfully'
         );
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file("excel_file");
+        Excel::import(new PatientExport, $file);
+        return redirect()->back()->with("message", "Import Data Successful!");
     }
 
 

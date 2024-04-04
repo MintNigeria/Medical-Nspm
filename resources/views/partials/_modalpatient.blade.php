@@ -27,6 +27,37 @@
                         @enderror
                       </div>
                       <div class="form-group">
+                          <label class="mt-3">Prefix</label>
+                          <select class="text-uppercase form-control" searchable="Search here.." name="prefix">
+                            <option value="">Choose ...</option>
+                            <option value="ABV" @if($patient->prefix == "ABV") selected @endif>ADHOC, NYSC, COMMS, LOCUM - ABV</option>
+
+                            <option value="INT" @if($patient->prefix == "INT") selected @endif>Intaglio Print - INT</option>
+                            <option value="NWL" @if($patient->prefix == "NWL") selected @endif>NewLine - NWL</option>
+                            <option value="QC" @if($patient->prefix == "QC") selected @endif>Quality Control - QC</option>
+                            <option value="BF" @if($patient->prefix == "BF") selected @endif>Bank Note Design - BF</option>
+                            <option value="INT" @if($patient->prefix == "INT") selected @endif>Pre Press - PP</option>
+                            <option value="BDE" @if($patient->prefix == "BDE") selected @endif>BankNote Design - BDE</option>
+                            <option value="NOG" @if($patient->prefix == "NOG") selected @endif>Numbering - NOG</option>
+                            <option value="ENG" @if($patient->prefix == "ENG") selected @endif>Engineering Services - ENG</option>
+                            <option value="HSE" @if($patient->prefix == "HSE") selected @endif>Health Safety & Enviroment - HSE</option>
+                            <option value="SC" @if($patient->prefix == "SC") selected @endif>SECURITY AND ACCESS CONTROL - SC</option>
+                            <option value="OB" @if($patient->prefix == "OB") selected @endif>Office Block - OB</option>
+                            <option value="M" @if($patient->prefix == "M") selected @endif>Manager & Above - M</option>
+                            <option value="FA" @if($patient->prefix == "FA") selected @endif>Factory Audit - FA</option>
+                            <option value="SPY" @if($patient->prefix == "SPY") selected @endif>SPY POLICE - SPY</option>
+                            <option value="SPY" @if($patient->prefix == "SPY") selected @endif>COMMISIONERS - COMM</option>
+                            <option value="SFD" @if($patient->prefix == "SFD") selected @endif>BANK NOTE FINISHING (LAGOS) - SFD</option>
+                            <option value="SHE" @if($patient->prefix == "SHE") selected @endif>QUALITY CONTROL - SHE</option>
+                            <option value="SPD" @if($patient->prefix == "SPD") selected @endif>SDD CORE PRESS - SPD</option>
+                            <option value="SPF" @if($patient->prefix == "SPF") selected @endif>SDD FINISHING - SDF</option>
+                            <option value="SDE" @if($patient->prefix == "SDE") selected @endif>SDD DESIGN - SDD</option>
+                            <option value="CHQ" @if($patient->prefix == "CHQ") selected @endif>CHEQUE FINISHING - CHQ</option>
+                            <option value="ETS" @if($patient->prefix == "ETS") selected @endif>EXAM TYPE SETTING - ETS</option>
+                        </select>
+                        
+                      </div> 
+                      <div class="form-group">
                         <label class="mt-3">STAFF ID </label>
                         <input
                           type="text"
@@ -72,22 +103,10 @@
                         <label>Department</label><br />
                         <select class="text-uppercase form-control" searchable="Search here.." name="department">
                           <option value="" @if(empty($patient->department)) selected @endif>Choose ...</option>
-                          <option value="Intaglio Print" @if($patient->department == "Intaglio Print") selected @endif>Intaglio Print</option>
-                          <option value="New Line" @if($patient->department == "New Line") selected @endif>New Line</option>
-                          <option value="Quality Control" @if($patient->department == "Quality Control") selected @endif>Quality Control</option>
-                          <option value="BankNote Finishing" @if($patient->department == "BankNote Finishing") selected @endif>BankNote Finishing</option>
-                          <option value="Pre-Press" @if($patient->department == "Pre-Press") selected @endif>Pre-Press</option>
-                          <option value="BankNote Design" @if($patient->department == "BankNote Design") selected @endif>BankNote Design</option>
-                          <option value="Litho" @if($patient->department == "Litho") selected @endif>Litho</option>
-                          <option value="Numbering" @if($patient->department == "Numbering") selected @endif>Numbering</option>
                           <option value="Engineering Services" @if($patient->department == "Engineering Services") selected @endif>Engineering Services</option>
                           <option value="Health Safety & Enviroment" @if($patient->department == "Health Safety & Enviroment") selected @endif>Health Safety & Enviroment</option>
                           <option value="Spy Police" @if($patient->department == "Spy Police") selected @endif>Spy Police</option>
                           <option value="Comissioners" @if($patient->department == "Comissioners") selected @endif>Comissioners</option>
-                          <option value="SDD Core Press" @if($patient->department == "SDD Core Press") selected @endif>SDD Core Press</option>
-                          <option value="SDD Finishing" @if($patient->department == "SDD Finishing") selected @endif>SDD Finishing</option>
-                          <option value="Cheque Finishing" @if($patient->department == "Cheque Finishing") selected @endif>Cheque Finishing</option>
-                          <option value="Exam Type Setting" @if($patient->department == "Exam Type Setting") selected @endif>Exam Type Setting</option>
                           <option value="Adhoc" @if($patient->department == "Adhoc") selected @endif>Adhoc</option>
                           <option value="NYSC" @if($patient->department == "NYSC") selected @endif>NYSC</option>
                           <option value="Contracts" @if($patient->department == "Contracts") selected @endif>Contracts</option>
@@ -96,13 +115,11 @@
                           <option value="Admin Services" @if($patient->department == "Admin Services") selected @endif>Admin Services</option>
                           <option value="Procurement" @if($patient->department == "Procurement") selected @endif>Procurement</option>
                           <option value="Internal Audit & Compliance" @if($patient->department == "Internal Audit & Compliance") selected @endif>Internal Audit & Compliance</option>
-                          <option value="Strategy" @if($patient->department == "Strategy") selected @endif>Strategy</option>
+                          <option value="Risk & Strategy" @if($patient->department == "Risk & Strategy") selected @endif>Risk & Strategy</option>
                           <option value="Planning" @if($patient->department == "Planning") selected @endif>Planning</option>
                           <option value="CS/LA" @if($patient->department == "CS/LA") selected @endif>CS/LA</option>
-                          <option value="Treasury" @if($patient->department == "Treasury") selected @endif>Treasury</option>
                           <option value="Cost & Management" @if($patient->department == "Cost & Management") selected @endif>Cost & Management</option>
                           <option value="ICT" @if($patient->department == "ICT") selected @endif>ICT</option>
-                          <option value="Risk Management" @if($patient->department == "Risk Management") selected @endif>Risk Management</option>
                           <option value="Inspectorate" @if($patient->department == "Inspectorate") selected @endif>Inspectorate</option>
                           <option value="Finance" @if($patient->department == "Finance") selected @endif>Finance</option>
                           <option value="Protocol & Transport" @if($patient->department == "Protocol & Transport") selected @endif>Protocol & Transport</option>

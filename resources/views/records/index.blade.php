@@ -19,11 +19,11 @@
             <div>
                   <div class="form-group">
                     <label>Staff ID</label><br />
-                    <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="patient_id">
+                    <select id="mySelect" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="patient_id">
                         <option value="">Choose ...</option>
                         @unless (count($patients) === 0)
                             @foreach ($patients as $patient)
-                                <option value="{{ $patient->id }}" class="text-success">{{ $patient->staff_id }}</option>
+                                <option value="{{ $patient->id }}" class="text-success">{{ $patient->prefix }}/{{ $patient->staff_id }}</option>
                             @endforeach
                         @endunless
                     </select>

@@ -18,10 +18,25 @@
     >
         <h4 class="header-title">Patient(s)</h4>
         @include('partials._search')
-        <a href="/patient/create" class="btn bg-color">Create Patient </a>
-        <a onclick="exportToCsv()" class="btn btn-outline-success">Export XLS</a>
+        <div>
+            <a href="/patient/create" class="btn bg-color">Create Patient </a>
+            <a onclick="exportToCsv()" class="btn btn-outline-success">Export XLS</a>
+            
+        </div>
+    
+       
     </div>
     @include('partials._message')
+    @if(auth()->user()->role == "super-admin" || auth()->user()->role == "medic-admin" )
+    <div class="my-4" style="width: 50%;">
+        <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <label class="form-label" for="customFile">Large Import Order: Name, Prefix and  Staff ID </label>
+            <input type="file" class="form-control" id="customFile" />
+            <button type="submit" class="btn btn-primary mt-3" style="">Import</button>
+        </form>
+    </div>
+    @endif
 
     <div class=" p-2 mt-4">
     {{-- <a class="archive" href="/patient/archive">View Archived Posts</a> ({{ $archives->count() }}) --}}

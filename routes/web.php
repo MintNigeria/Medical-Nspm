@@ -47,6 +47,8 @@ Route::middleware(['auth', 'role:admin,editor'])->group(function () {
 // All Listings
 Route::get('patient/', [PatientController::class, 'index'])->middleware('auth');
 Route::get('patient/archive', [PatientController::class, 'archive'])->middleware('auth');
+Route::post('patient/import-excel', [PatientController::class, 'import'])->name("import.excel")->middleware('auth');
+
 
 
 
@@ -443,6 +445,7 @@ Route::get('/users/register', [UserController::class, 'create'])->middleware(
 Route::post('/users/create', [UserController::class, 'store'])->middleware(
     'auth'
 );
+
 
 Route::put('/users/{user}/activate', [UserController::class, 'activate'])->middleware(
     'auth'

@@ -44,6 +44,43 @@
                   </div>
 
                   <div class="form-group">
+                    <label class="mt-4">Select Prefix</label>
+                    <select id="mySelect" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="prefix">
+                        <option value="">Choose ...</option>
+                        <option value="ABV">ADHOC, NYSC, COMMS, LOCUM - ABV</option>
+                        <option value="INT">Intaglio Print - INT</option>
+                        <option value="NWL">NewLine - NWL</option>
+                        <option value="QC">Quality Control - QC</option>
+                        <option value="BF">Bank Note Design - BF</option>
+                        <option value="INT">Pre Press - PP</option>
+                        <option value="BDE">BankNote Design - BDE</option>
+                        <option value="NOG">Numbering  - NOG</option>
+                        <option value="ENG">Engineering Services  - ENG</option>
+                        <option value="HSE">Health Safety & Enviroment  - HSE</option>
+                        <option value="SC">SECURITY AND ACCESS CONTROL   - SC</option>
+                        <option value="OB">Office Block  - OB</option>
+                        <option value="M">Manager & Above  - M</option>
+                        <option value="FA">Factory Audit  - FA</option>
+                        <option value="M">Manager & Above  - M</option>
+                        <option value="SPY">SPY POLICE - SPY</option>
+                        <option value="SPY">COMMISIONERS - COMM</option>
+                        <option value="SFD">BANK NOTE FINISHING (LAGOS) - SFD</option>
+                        <option value="SHE">QUALITY CONTROL  - SHE</option>
+                        <option value="SPD">SDD CORE PRESS   - SPD</option>
+                        <option value="SPF">SDD FINISHING   - SDF</option>
+                        <option value="SDE">SDD DESIGN   - SDD</option>
+                        <option value="CHQ">CHEQUE FINISHING   - CHQ </option>
+                        <option value="ETS">EXAM TYPE SETTING   - ETS </option>
+
+                    </select>
+                    @error('prefix')
+                    <p class="text-danger  text-xs mt-1">{{$message}}</p>
+                    @enderror
+                  </div>         
+
+
+
+                  <div class="form-group">
                     <label class="mt-3">Contact [Phone No]</label>
                     <input
                       type="number"
@@ -73,39 +110,21 @@
 
                   <div class="form-group mt-4">
                     <label>Department</label><br />
-                    <select  class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
+                    <select id="mySelect2" class="js-example-basic-single text-uppercase form-control" searchable="Search here.." name="department">
                         <option value="">Choose ...</option>
-                        <option value="Intaglio Print">Intaglio Print</option>
-                        <option value="New Line">New Line</option>
-                        <option value="Quality Control">Quality Control</option>
-                        <option value="BankNote Finishing">BankNote Finishing</option>
-                        <option value="Pre-Press">Pre Press</option>
-                        <option value="BankNote Design">BankNote Design</option>
-                        <option value="Litho">Litho</option>
-                        <option value="Numbering">Numbering</option>
                         <option value="Engineering Services">Engineering Services</option>
                         <option value="Health Safety & Enviroment">Health Safety & Enviroment</option>
-                        <option value="Spy Police">Spy Police</option>
-                        <option value="Comissioners">Comissioners</option>
-                        <option value="SDD Core Press">SDD Core Press</option>
-                        <option value="SDD Finishing">SDD Finishing</option>
-                        <option value="Cheque Finishing">Cheque Finishing</option>
-                        <option value="Exam Type Setting">Exam Type Setting</option>
-                        <option value="Adhoc">Adhoc</option>
-                        <option value="NYSC">NYSC</option>
-                        <option value="Contracts">Contracts</option>
-                        <option value="Locum">Locum</option>
+                    
                         <option value="Security">Security</option>
                         <option value="Admin Services">Admin Services</option>
                         <option value="Procurement">Procurement</option>
                         <option value="Internal Audit & Compliance">Internal Audit & Compliance</option>
-                        <option value="Strategy">Strategy</option>
+                        <option value="Risk & Strategy">Risk & Strategy</option>
                         <option value="Planning">Planning</option>
                         <option value="CS/LA">CS/LA</option>
                         <option value="Treasury">Treasury</option>
                         <option value="Cost & Management">Cost & Management</option>
                         <option value="ICT">ICT</option>
-                        <option value="Risk Management">Risk Management</option>
                         <option value="Inspectorate">Inspectorate</option>
                         <option value="Finance">Finance</option>
                         <option value="Protocol & Transport">Protocol & Transport</option>
@@ -114,6 +133,9 @@
                         <option value="Medical Services">Medical Services</option>
                         <option value="EPMO">EPMO</option>
                         <option value="Sales & Marketing">Sales & Marketing</option>
+                        <option value="Security Documents">Security Documents</option>
+                        <option value="R&D" >R&D</option>
+
                     </select>
                     @error('department')
                     <p class="text-danger text-xs mt-1">{{$message}}</p>

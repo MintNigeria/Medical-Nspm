@@ -23,7 +23,7 @@
                     <div class="form-group">
                       <label>Staff ID</label>
                       <br>
-                      <select class="js-example-basic-single form-control" searchable="Search Here .." data-filter="true" name="patient_id">
+                      <select class="js-example-basic-single form-control" id="mySelect" searchable="Search Here .." data-filter="true" name="patient_id">
                           <option value="">Choose ...</option>
                           @unless (count($patients) === 0)
                               @foreach ($patients as $patient)
@@ -94,7 +94,7 @@
                     <hr  class="text-black"/>
                        <div class="form-group">
                           <label class="mt-3">Severity of Accident: </label>
-                          <select class="form-control" name="severity">
+                          <select class="form-control" id="mySelect" name="severity">
                             <option value=""> Choose ...</option>
                             <option value="mild"> Mild</option>
                             <option value="severe"> Severe</option>

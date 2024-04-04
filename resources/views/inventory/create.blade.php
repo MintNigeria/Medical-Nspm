@@ -32,7 +32,7 @@
                       </div>
                       <div class="form-group">
                         <label class="mt-3">Product Type</label>
-                        <select name="type" id="" class="js-example-basic-single form-control text-uppercase">
+                        <select name="type" id="mySelect" class="js-example-basic-single form-control text-uppercase">
                             <option value=""> Choose ...</option>
                             <option value="Tablets">Tablets</option>
                             <option value="Capsules">Capsules</option>
