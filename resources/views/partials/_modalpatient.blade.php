@@ -89,7 +89,7 @@
                         <label class="mt-3">Email Address</label>
                         <input
                           type="email"
-                          class="form-control text-uppercase"
+                          class="form-control"
                           name="email"
                           placeholder="" value="{{$patient->email}}"
                           id=""
@@ -171,7 +171,7 @@
 
                       <div class="form-group">
                         <label class="mt-4"> Height</label>
-                        <input type="number" placeholder="Recorded in m2" class="form-control" name="height" value="{{$patient->height}}" id="">
+                        <input type="number" placeholder="Recorded in cm" class="form-control" name="height" value="{{$patient->height}}" id="">
                         @error('height')
                         <p class="text-danger  mt-1">{{$message}}</p>
                         @enderror
