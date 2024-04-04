@@ -27,14 +27,18 @@
        
     </div>
     @include('partials._message')
-    @if(auth()->user()->role == "super-admin" || auth()->user()->role == "medic-admin" )
+
+    @if(auth()->user()->role == "super-admin")
     <div class="my-4" style="width: 50%;">
-        <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <label class="form-label" for="customFile">Large Import Order: Name, Prefix and  Staff ID </label>
-            <input type="file" class="form-control" id="customFile" />
-            <button type="submit" class="btn btn-primary mt-3" style="">Import</button>
-        </form>
+    <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <label class="form-label" for="customFile">Large Import Order: Name, Prefix and Staff ID</label>
+                <input type="file" class="form-control" id="customFile" name="excel_file"> <!-- Add name="excel_file" -->
+                <button type="submit" class="btn btn-primary mt-3">Import</button>
+                @error('excel_file') <!-- Update error field to match the file upload field -->
+                <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </form>
     </div>
     @endif
 

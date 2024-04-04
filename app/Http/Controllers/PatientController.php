@@ -85,11 +85,9 @@ class PatientController extends Controller
             'contact' => 'required',
             'dependencies' => 'nullable',
             'birth_date' => 'required',
+            'prefix' => 'required',
             'location' => 'required',
-            'prefix' => 'required'
         ]);
-
-       
 
         Patient::create($formFields);
 
@@ -189,6 +187,10 @@ class PatientController extends Controller
 
     public function import(Request $request)
     {
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx', // Ensure the file has .xlsx extension
+        ]);
+        
         $file = $request->file("excel_file");
         
         try {
@@ -201,7 +203,6 @@ class PatientController extends Controller
             return redirect()->back()->with("error", "An error occurred during import.");
         }
     }
-
 
     public function export()
     {
