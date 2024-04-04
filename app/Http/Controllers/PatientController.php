@@ -247,6 +247,13 @@ class PatientController extends Controller
         );
     }
 
+    public function import(Request $request)
+    {
+        $file = $request->file("excel_file");
+        Excel::import(new PatientExport, $file);
+        return redirect()->back()->with("message", "Import Data Successful!");
+    }
+
 
     public function export()
     {
