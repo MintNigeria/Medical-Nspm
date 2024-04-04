@@ -7,6 +7,7 @@ use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Exceptions\ConcernConflictException;
 
 class PatientController extends Controller
 {
@@ -85,71 +86,10 @@ class PatientController extends Controller
             'dependencies' => 'nullable',
             'birth_date' => 'required',
             'location' => 'required',
+            'prefix' => 'required'
         ]);
 
-        switch ($formFields['department']) {
-            case "Intaglio Print":
-                $formFields['prefix'] = 'INT';
-                break;
-            case 'New Line':
-                $formFields['prefix'] = 'NWL';
-                break;
-            case 'Quality Control':
-                if ($formFields['location'] == 'abj') {
-                    $formFields['prefix'] = 'QC';
-                } elseif ($formFields['location'] == 'lag') {
-                    $formFields['prefix'] = 'SHE';
-                }
-                break;
-            case 'Bank Note Finishing':
-                if($formFields['location'] === "abj"){
-                    $formFields['prefix'] = 'BF';
-                }elseif($formFields['location'] === 'lag'){
-                    $formFields['prefix'] = 'SFD';
-                }
-                break;
-            case "Numbering":
-                $formFields['prefix'] = 'NOG';
-            break;
-            case "BankNote Design":
-                $formFields['prefix'] = 'BDE';
-            break;
-            case "Engineering Services":
-                $formFields['prefix'] = 'ENG';
-            break;
-            case "Health Safety & Enviroment":
-                $formFields['prefix'] = "HSE";
-            break;
-            case "Security":
-                $formFields['prefix'] = "SC";
-            break;
-            case "Litho":
-                $formFields['prefix'] = "LT";
-            break;
-            case "Spy Police":
-                $formFields["prefix"] = "SPY";
-            break;
-            case "Commisioners":
-                $formFields['prefix'] = "COMM";
-            break;
-            case "SDD Core Press":
-                $formFields['prefix'] = "SPD";
-            break;
-            case "SDD Finishing":
-                $formFields['prefix'] = "SPF";
-            break;
-            case "SDD Design":
-                $formFields['prefix'] = 'SDE';
-            case "Cheque Finishing":
-                $formFields['prefix'] = "CHQ";
-            break;
-            case "Exam Type Setting": 
-                $formFields['prefix'] = "ETS";
-            break;
-            default:
-                $formFields['prefix'] = "OB";
-            break;
-        }
+       
 
         Patient::create($formFields);
 
@@ -186,10 +126,10 @@ class PatientController extends Controller
             'dependencies' => 'nullable',
             'contact' => 'required',
             "location" => 'required',
-            'prefix' => 'required'
+            'prefix' => 'required',
+            'birth_date' => 'required'
         ]);
 
-        $formFields['birth_date'] = $patient->birth_date;
 
         $patient->update($formFields);
         return redirect('/patient')->with(
@@ -250,8 +190,16 @@ class PatientController extends Controller
     public function import(Request $request)
     {
         $file = $request->file("excel_file");
-        Excel::import(new PatientExport, $file);
+        
+        try {
+          Excel::import(new PatientExport, $file);
         return redirect()->back()->with("message", "Import Data Successful!");
+        } catch (ConcernConflictException $e) {
+            // Log the exception
+            logger()->error($e);
+            // Handle the exception (e.g., show an error message)
+            return redirect()->back()->with("error", "An error occurred during import.");
+        }
     }
 
 

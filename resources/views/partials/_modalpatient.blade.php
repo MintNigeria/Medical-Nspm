@@ -192,7 +192,7 @@
                         @enderror
                       </div>
 
-                      {{-- <div class="form-group">
+                      <div class="form-group">
                          <label class="mt-3">Birth Date </label>
                         <input
                           type="date"
@@ -204,7 +204,7 @@
                         @error('birth_date')
                         <p class="text-danger  mt-1">{{$message}}</p>
                         @enderror
-                      </div> --}}
+                      </div>
                       </div>
                     </div>
                     <div class="modal-footer">
