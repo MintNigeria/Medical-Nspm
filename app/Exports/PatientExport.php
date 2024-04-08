@@ -21,7 +21,7 @@ class PatientExport implements ToModel
             'contact' => "090 000 00 000",
             'height' => "400",
             'birth_date' => "1912-01-01",
-            'location' => 'abj'
+            'location' => 'lag'
         ]);
     }
 }
