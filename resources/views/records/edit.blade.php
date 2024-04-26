@@ -146,7 +146,7 @@ $age = $today->diff($birthDate)->y;
                 PRESCRIPTION NEGATIVE
             </div>
             @endif
-
+            
             @if($record->flag_nurse === "positive")
             <div class="alert alert-primary">
                 NURSE MANAGEMENT POSITIVE

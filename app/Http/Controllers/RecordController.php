@@ -73,8 +73,8 @@ class RecordController extends Controller
             'blood_pressure_systolic' => 'required',
             'blood_pressure_diastolic' => 'required',
             'temp' => 'required',
-            'history_complaint' => 'required',
-            'compliant' => '',
+            // 'history_complaint' => 'required',
+            // 'compliant' => '',
             'pulse_rate' => 'required',
             'assessment' => 'nullable',
             'prescription' => 'nullable',
@@ -139,7 +139,9 @@ class RecordController extends Controller
 
         $formFields = $request->validate([
             'complaint' => 'nullable',
+            'history_complaint' => 'required',
             'physicalexam' => 'nullable',
+            'systemic_exam' => 'nullable',
             'assessment' => 'nullable',
             'prescription' => 'nullable',
             'status' => 'required',
