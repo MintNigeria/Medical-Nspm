@@ -7,6 +7,7 @@
         @include('partials._sidebar')
         <div class="content p-4">
             <div id="content__overflow">
+            @if($record)
             <div class="font-weight-bold my-3"><span>RECORD 4 {{ $record->patient->name }} </span></div>
             <div
             class="font-weight-bold"
@@ -76,7 +77,10 @@
             {{ $feedbacks->links() }}
           </div>
         </div>
+        @else
+            <h2 class="text-center text-black-50"> No Records Exists </h2>
         </div>
+        @endif
     </div>
 </body>
 

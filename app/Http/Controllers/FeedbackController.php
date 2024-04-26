@@ -19,7 +19,6 @@ class FeedbackController extends Controller
         [
         'record' => $record,
         'clinics' => Clinic::latest()->get(),
-        'patient' => $record->patient,
          'feedbacks' => Feedbacks::where("record_id", $recordId)->paginate(15)
         ]);
     }
