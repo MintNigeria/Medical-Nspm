@@ -74,7 +74,7 @@
                       class="form-control text-uppercase"
                       name="temp"
                       placeholder="Measured in (Celcius)" value="{{old('temp')}}"
-                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').substring(0, 6)"
                       id=""
                     />
                     @error('temp')
@@ -90,7 +90,7 @@
                       class="form-control text-uppercase"
                       name="pulse_rate"
                       placeholder="Measured in (BPM)" value="{{old('pulse_rate')}}"
-                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').substring(0, 6)"
                       id=""
                     />
                     @error('pulse_rate')
@@ -105,7 +105,7 @@
                       class="form-control text-uppercase"
                       name="weight"
                       placeholder="Measured in (Kg)" value="{{old('weight')}}"
-                      oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 3)"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').substring(0, 6)"
                       id=""
                     />
                     @error('weight')

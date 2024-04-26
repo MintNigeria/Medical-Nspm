@@ -98,7 +98,7 @@
                     <label class="mt-3">Email Address</label>
                     <input
                       type="email"
-                      class="form-control text-uppercase"
+                      class="form-control"
                       name="email"
                       placeholder="" value="{{old('email')}}"
                       id=""
