@@ -73,6 +73,8 @@ class RecordController extends Controller
             'blood_pressure_systolic' => 'required',
             'blood_pressure_diastolic' => 'required',
             'temp' => 'required',
+            'history_complaint' => 'required',
+            'compliant' => '',
             'pulse_rate' => 'required',
             'assessment' => 'nullable',
             'prescription' => 'nullable',
@@ -86,8 +88,6 @@ class RecordController extends Controller
         $encryptedSlug = Crypt::encrypt($uniqueIdentifier);
         $limitedEncryptedSlug = substr($encryptedSlug, 0, 21);
         $formFields['slug'] = $limitedEncryptedSlug;
-
-        // $formFields["slug"] =
 
         $formFields['locality'] = auth()->user()->locality;
 

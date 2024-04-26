@@ -41,7 +41,7 @@ $age = $today->diff($birthDate)->y;
 <div class="card" style="overflow-y: auto">
     <div class="card-header text-success bg-color">
         <div style="display:flex;align-items:center;justify-content:space-between">
-            <p>RECORD [ {{ $record->patient->name }} / {{ $record->patient->staff_id }} ]</p>
+            <p>RECORD [ {{ $record->patient->name }}, {{ $record->patient->prefix }}/{{ $record->patient->staff_id }} ]</p>
 
             <p>
                 Process Initiated BY : {{$record->processing_by }}
@@ -57,7 +57,7 @@ $age = $today->diff($birthDate)->y;
                 <h4 class="text-secondary text-capitalize">BioData</h4>
 
                 <p><b> <span>Staff Name </span> : {{ $record->patient->name }}</b></p>
-                <p><b> <span>Staff ID </span> : {{ $record->patient->staff_id }}</b></p>
+                <p><b> <span>Staff ID </span> : {{ $record->patient->prefix }}/{{ $record->patient->staff_id }}</b></p>
                 <p><b> <span>Height </span> : {{ $record->patient->height }} (m <span>^2</span>)</b></p>
                 <p><b> <span>AGE </span> : {{ $age }} years old</b></p>
                 @if ($record->bmi)
