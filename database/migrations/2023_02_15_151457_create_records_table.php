@@ -24,7 +24,9 @@ return new class extends Migration {
             $table->json('doctor_act')->nullable();
             $table->json('tests')->nullable();
             $table->longText('complaint')->nullable();
+            $table->longText('history_complaint')->nullable();
             $table->longText('physicalexam')->nullable();
+            $table->longText('systemic_exam')->nullable();
             $table->longText('assessment')->nullable();
             $table->string('weight')->nullable();
             $table->string('temp');
