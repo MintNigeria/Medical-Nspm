@@ -15,6 +15,17 @@
     </div>
 
     <div class="form-group mt-4">
+        <label><h4 class="text-secondary text-capitalize">History of Presenting Complaint</h4></label>
+        <textarea type="text" name="history_complaint" value="{{ old('history_complaint') }}"  class="form-control text-uppercase mt-2" id="" @if(auth()->user()->name !== $record->processing_by) disabled @endif>
+            {{$record->history_complaint}}
+
+        </textarea>
+        @error('history_complaint')
+        <p class="text-danger text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
+    <div class="form-group mt-4">
         <label><h4 class="text-secondary text-capitalize">Physical Examination</h4></label>
         <textarea type="text" name="physicalexam" value="{{ old('physicalexam') }}"  class="form-control text-uppercase mt-2" id="" @if(auth()->user()->name !== $record->processing_by) disabled @endif>
             {{$record->physicalexam}}
@@ -24,6 +35,18 @@
         <p class="text-danger text-xs mt-1">{{$message}}</p>
         @enderror
     </div>
+
+    <div class="form-group mt-4">
+        <label><h4 class="text-secondary text-capitalize">Systemic Examination</h4></label>
+        <textarea type="text" name="systemic_exam" value="{{ old('systemic_exam') }}"  class="form-control text-uppercase mt-2" id="" @if(auth()->user()->name !== $record->processing_by) disabled @endif>
+            {{$record->systemic_exam}}
+
+        </textarea>
+        @error('systemic_exam')
+        <p class="text-danger text-xs mt-1">{{$message}}</p>
+        @enderror
+    </div>
+
 
     <div class="form-group mt-4">
         <label><h4 class="text-secondary text-capitalize">Assessment </h4></label>
