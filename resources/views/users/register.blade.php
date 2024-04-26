@@ -36,7 +36,7 @@
                           class="form-control text-uppercase"
                           name="staff_id"
                           placeholder="Example: 6068" value="{{old('staff_id')}}"
-                          oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4)"
+                          oninput="this.value = this.value.replace(/[^0-9a-zA-z/]/g, '').substring(0, 10)"
                           id=""
                         />
                         @error('staff_id')
